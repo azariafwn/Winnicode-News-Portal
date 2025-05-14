@@ -1,3 +1,9 @@
-﻿<h2>Dashboard Reader</h2>
+﻿@{
+    Layout = "~/Views/Shared/_ReaderLayout.cshtml";
+    ViewBag.Title = "Beranda - NewsPortal";
+}
+
+<h1>Welcome to NewsPortal!</h1>
+<h2>Dashboard Reader</h2>
 <p>Halo, @ViewBag.Username! Anda login sebagai Reader.</p>
 <a href="/Account/Logout">Logout</a>
