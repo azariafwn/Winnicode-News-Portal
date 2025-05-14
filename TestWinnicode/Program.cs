@@ -47,8 +47,21 @@ namespace TestWinnicode
             app.UseAuthorization();
 
             app.MapControllerRoute(
+                name: "reader",
+                pattern: "Reader/{controller=Reader}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
+                name: "penulis",
+                pattern: "Penulis/{controller=Penulis}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
+                name: "editor",
+                pattern: "Editor/{controller=Editor}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Account}/{action=Login}/{id?}");
+
 
 
             app.Run();

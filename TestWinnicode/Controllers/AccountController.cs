@@ -45,7 +45,18 @@ namespace TestWinnicode.Controllers
 
             await HttpContext.SignInAsync("CookieAuth", principal);
 
-            return RedirectToAction("Index", "Home");
+            // Redirect ke homepage berdasarkan role
+            switch (user.Role)
+            {
+                case UserRole.Reader:
+                    return RedirectToAction("Index", "Reader");
+                case UserRole.Penulis:
+                    return RedirectToAction("Index", "Penulis");
+                case UserRole.Editor:
+                    return RedirectToAction("Index", "Editor");
+                default:
+                    return RedirectToAction("Login");
+            }
         }
 
         public async Task<IActionResult> Logout()
