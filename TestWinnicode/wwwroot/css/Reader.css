@@ -1,0 +1,35 @@
+/* Atur posisi logo dan ikon sosmed */
+.footer-logo {
+    margin-bottom: 15px;
+}
+
+/* Atur grid untuk ikon sosial media */
+.social-icons-wrap {
+    display: grid;
+    grid-template-columns: repeat(4, auto); /* 4 ikon per baris */
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Background Gradasi */
+.footer-bg {
+    background: linear-gradient(180deg, #1C275A, #3D5AE0);
+    color: #ffffff;
+}
+
+.footer-links .list-inline-item {
+    margin: 0 25px; /* kiri dan kanan 15px */
+}
+
+.footer-links ul.list-inline {
+    padding-left: 0; /* hapus padding default */
+    margin-bottom: 0.6rem; /* beri jarak bawah */
+}
+
+footer hr {
+    margin-top: 1rem;
+    margin-bottom: 0.2rem; /* bikin garis lebih dekat ke "About Us" */
+    border-color: #ccc;
+    border-width: 1px;
+}
+
