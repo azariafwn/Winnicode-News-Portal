@@ -1,3 +1,5 @@
+/* === Footer Styles === */
+
 /* Atur posisi logo dan ikon sosmed */
 .footer-logo {
     margin-bottom: 15px;
@@ -11,25 +13,113 @@
     justify-content: center;
 }
 
-/* Background Gradasi */
+/* Background Gradasi untuk Footer */
 .footer-bg {
     background: linear-gradient(180deg, #1C275A, #3D5AE0);
     color: #ffffff;
 }
 
+/* Atur jarak antar link di footer */
 .footer-links .list-inline-item {
-    margin: 0 25px; /* kiri dan kanan 15px */
+    margin: 0 25px;
 }
 
 .footer-links ul.list-inline {
-    padding-left: 0; /* hapus padding default */
-    margin-bottom: 0.6rem; /* beri jarak bawah */
+    padding-left: 0;
+    margin-bottom: 0.6rem;
 }
 
+/* Warna dan gaya teks footer */
+.footer-links .footer-link {
+    color: #ffffff !important; /* Warna putih */
+    text-decoration: none;
+}
+
+/* Efek hover pada link footer */
+.footer-links .footer-link:hover {
+    color: #f8f9fa !important;
+    text-decoration: underline;
+}
+
+
+/* Garis di atas "About Us" */
 footer hr {
     margin-top: 1rem;
-    margin-bottom: 0.2rem; /* bikin garis lebih dekat ke "About Us" */
+    margin-bottom: 0.2rem;
     border-color: #ccc;
     border-width: 1px;
 }
 
+/* === Navbar Styles === */
+
+/* Ganti background navbar */
+.navbar {
+    background-color: #5271FF !important; /* Warna biru */
+    padding: 0rem 1rem;
+}
+
+/* Warna dan gaya teks navbar */
+.navbar .nav-link {
+    color: #ffffff !important; /* Warna putih */
+    font-weight: bold;
+    padding: 0.15rem 1rem;
+}
+
+/* Efek hover pada link navbar */
+.navbar .nav-link:hover {
+    color: #f8f9fa !important;
+    text-decoration: underline;
+}
+
+/* Biar dropdown lebih rapi */
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+    min-width: 100px;
+    background-color: #5271FF !important;
+    border-radius: 0;
+    border: none;
+}
+
+/* Warna teks dropdown */
+.dropdown-item {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.dropdown-item:hover {
+    background-color: #0056b3 !important;
+}
+
+/* Biar tiap item navbar lebih merata */
+.navbar-nav .nav-item.flex-fill {
+    flex: 1 1 auto;
+}
+
+/* Hapus padding default pada navbar */
+.navbar-nav {
+    margin: 0 20px;
+}
+
+/* Atur jarak antara kategori */
+.navbar-nav .nav-link {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* Biar tombol dropdown lebih rapi */
+.navbar-nav .dropdown-toggle::after {
+    display: none;
+}
+
+/* Memberikan jarak ke kiri dan kanan pada navbar */
+.navbar-collapse {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Menghilangkan border pada dropdown */
+.dropdown-menu {
+    border: none !important;
+    box-shadow: none !important;
+}
