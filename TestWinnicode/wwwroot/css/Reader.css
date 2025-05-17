@@ -54,7 +54,7 @@ footer hr {
 
 /* Ganti background navbar */
 .navbar {
-    background-color: #5271FF !important; /* Warna biru */
+    background-color: #5271FF !important;
     padding: 0rem 1rem;
 }
 
@@ -122,4 +122,72 @@ footer hr {
 .dropdown-menu {
     border: none !important;
     box-shadow: none !important;
+}
+
+/* === Headline Styles === */
+.headline-tag {
+    background-color: #5271FF; /* Warna custom */
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 68px;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 15px;
+    white-space: nowrap;
+    max-width: fit-content;
+}
+
+
+.headline-image {
+    position: relative;
+    width: 98%; /* persentase panjang img terhadap 100% container */
+    max-width: 100%;
+    margin-bottom: 1rem;
+}
+
+.headline-image img {
+    width: 100%; /* Pastikan gambar memenuhi container */
+    height: auto;
+    border-radius: 15px;
+    display: block;
+}
+
+.headline-image::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.headline-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 15px;
+    max-width: 100%;
+    white-space: normal;
+    word-wrap: break-word;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* === Trending Styles === */
+.list-group-item {
+    border: none;
+    padding: 0.75rem 1rem;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.list-group-item:hover {
+    background-color: #e2e6ea;
+    font-weight: bold;
+}
+
+/* === Event Styles === */
+.event-banner {
+    border-radius: 15px;
 }

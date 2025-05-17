@@ -11,5 +11,9 @@ namespace TestWinnicode.Controllers.Reader
             ViewBag.Username = User.Identity.Name;
             return View();
         }
+        public IActionResult Kategori()
+        {
+            return View();
+        }
     }
 }
