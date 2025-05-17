@@ -50,12 +50,35 @@ footer hr {
     border-width: 1px;
 }
 
-/* === Navbar Styles === */
 
-/* Ganti background navbar */
+/* === Header Styles === */
+.reader-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    background-color: #f8f9fa !important;
+    border-bottom: 1px solid #ddd;
+}
+
+/* === Navbar Styles === */
+.navbar-wrapper {
+    position: sticky;
+    top: 50px; /* Sesuai dengan tinggi navbar */
+    z-index: 1020;
+    background-color: #5271FF !important;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Navbar dalam wrapper */
 .navbar {
     background-color: #5271FF !important;
-    padding: 0rem 1rem;
+    padding: 0.3rem 0rem;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Hapus padding default pada navbar */
+.navbar-nav {
+    margin: 0 10px;
 }
 
 /* Warna dan gaya teks navbar */
@@ -63,6 +86,8 @@ footer hr {
     color: #ffffff !important; /* Warna putih */
     font-weight: bold;
     padding: 0.15rem 1rem;
+    margin-left: 10px; /* Atur jarak antara kategori */
+    margin-right: 10px;
 }
 
 /* Efek hover pada link navbar */
@@ -96,17 +121,6 @@ footer hr {
     flex: 1 1 auto;
 }
 
-/* Hapus padding default pada navbar */
-.navbar-nav {
-    margin: 0 20px;
-}
-
-/* Atur jarak antara kategori */
-.navbar-nav .nav-link {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
 /* Biar tombol dropdown lebih rapi */
 .navbar-nav .dropdown-toggle::after {
     display: none;
@@ -124,20 +138,8 @@ footer hr {
     box-shadow: none !important;
 }
 
+
 /* === Headline Styles === */
-.headline-tag {
-    background-color: #5271FF; /* Warna custom */
-    color: #ffffff;
-    padding: 0.5rem 1.5rem;
-    border-radius: 68px;
-    display: inline-block;
-    font-weight: bold;
-    margin-bottom: 15px;
-    white-space: nowrap;
-    max-width: fit-content;
-}
-
-
 .headline-image {
     position: relative;
     width: 98%; /* persentase panjang img terhadap 100% container */
@@ -177,7 +179,7 @@ footer hr {
 /* === Trending Styles === */
 .list-group-item {
     border: none;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 0.75rem;
     background-color: #f8f9fa;
     cursor: pointer;
 }
@@ -190,4 +192,32 @@ footer hr {
 /* === Event Styles === */
 .event-banner {
     border-radius: 15px;
+}
+
+/* === Universal Tag Styles === */
+.universal-tag {
+    background-color: #5271FF;
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 68px;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 15px;
+    white-space: nowrap;
+    max-width: fit-content;
+    font-size: 0.9rem; /* Atur ukuran font */
+    text-align: center;
+}
+
+/* Efek hover untuk tag */
+.universal-tag:hover {
+    background-color: #3d5ae0;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Jika ingin animasi */
+.universal-tag {
+    transition: background-color 0.3s, color 0.3s;
 }
