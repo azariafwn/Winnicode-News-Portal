@@ -1,5 +1,11 @@
-/* === Footer Styles === */
+/* === Container Styles === */
+.container {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
 
+
+/* === Footer Styles === */
 /* Atur posisi logo dan ikon sosmed */
 .footer-logo {
     margin-bottom: 15px;
@@ -146,7 +152,7 @@ footer hr {
 }
 
 .headline-image img {
-    width: 100%; /* Pastikan gambar memenuhi container */
+    width: 100%; 
     height: auto;
     border-radius: 15px;
     display: block;
@@ -189,11 +195,15 @@ footer hr {
 
 /* === Event Styles === */
 .event-banner {
+    width: 100%;
+    height: 600px; /* Atur tinggi sesuai kebutuhan */
+    object-fit: cover; /* Agar gambarnya tetap proporsional */
     border-radius: 15px;
+    margin-bottom: 30px;
 }
 
 /* === Universal Tag Styles === */
-.universal-tag {
+.blue-tag {
     background-color: #5271FF;
     color: #ffffff;
     padding: 0.5rem 1.5rem;
@@ -203,23 +213,39 @@ footer hr {
     margin-bottom: 15px;
     white-space: nowrap;
     max-width: fit-content;
-    font-size: 0.9rem; /* Atur ukuran font */
+    font-size: 0.9rem;
     text-align: center;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-/* Efek hover untuk tag */
-.universal-tag:hover {
+.pink-tag {
+    background-color: #FF66C4;
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 68px;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 15px;
+    white-space: nowrap;
+    max-width: fit-content;
+    font-size: 0.9rem;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.blue-tag:hover {
     background-color: #3d5ae0;
     color: #ffffff;
     cursor: pointer;
     text-decoration: underline;
 }
 
-/* Jika ingin animasi */
-.universal-tag {
-    transition: background-color 0.3s, color 0.3s;
+.pink-tag:hover {
+    background-color: #e03d8e;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: underline;
 }
-
 
 /* === Register Form Styles === */
 .auth-container {
@@ -293,7 +319,12 @@ footer hr {
     align-items: flex-start;
     border: none;
     padding: 10px 0;
-    border-bottom: 1px solid #e2e6ea;
+    background: transparent !important;
+}
+
+.trending-item:hover {
+    background-color: #ffe6f3 !important;
+    border-radius: 8px;
 }
 
 .trending-item:last-child {
@@ -303,7 +334,7 @@ footer hr {
 .ranking {
     width: 45px;
     height: 45px;
-    background-color: #FF4F8B;
+    background-color: #FF66C4;
     color: #ffffff;
     font-weight: bold;
     font-size: 1.2rem;
@@ -312,7 +343,7 @@ footer hr {
     align-items: center;
     justify-content: center;
     margin-right: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0; /* Biar tetap bulat */
 }
 
 .trending-details {
@@ -320,13 +351,20 @@ footer hr {
 }
 
 .trending-title {
-    font-weight: bold;
+    font-weight: bolder;
     color: #333;
     margin-bottom: 0.2rem;
 }
 
 .trending-meta {
-    color: #888;
+    color: #5271FF;
     font-size: 0.9rem;
 }
 
+
+/* Sembunyikan banner event di HP */
+@media (max-width: 767.98px) {
+    .event-banner-section {
+        display: none !important;
+    }
+}
