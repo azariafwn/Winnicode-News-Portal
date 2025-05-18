@@ -110,15 +110,18 @@ footer hr {
     border: none;
 }
 
-/* Warna teks dropdown */
 .dropdown-item {
     color: #ffffff !important;
     font-weight: bold;
 }
 
+/* Efek hover untuk item dropdown */
 .dropdown-item:hover {
     background-color: #0056b3 !important;
+    color: #ffffff !important;
 }
+
+
 
 /* Biar tiap item navbar lebih merata */
 .navbar-nav .nav-item.flex-fill {
@@ -170,28 +173,28 @@ footer hr {
     left: 0;
     right: 0;
     color: #ffffff;
-    padding: 0.5rem 1rem;
-    background-color: rgba(0,0,0,0.5);
+    padding: 1rem 2rem;
     border-radius: 15px;
     max-width: 100%;
     white-space: normal;
     word-wrap: break-word;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
-/* === Trending Styles === */
-.list-group-item {
-    border: none;
-    padding: 0.5rem 0.75rem;
-    background-color: #f8f9fa;
-    cursor: pointer;
+/* Styling untuk judul sub headline */
+.sub-headline a {
+    text-decoration: none !important;
 }
 
-.list-group-item:hover {
-    background-color: #e2e6ea;
-    font-weight: bold;
+.sub-headline a h6 {
+    color: #000000 !important;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    text-decoration: none !important; /* Hilangkan underline */
 }
+
 
 /* === Event Styles === */
 .event-banner {
@@ -303,10 +306,22 @@ footer hr {
     text-decoration: underline;
 }
 
+/* === Trending Styles === */
+.list-group-item {
+    border: none;
+    padding: 0.5rem 0.75rem;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.list-group-item:hover {
+    background-color: #e2e6ea;
+    font-weight: bold;
+}
 
 /* Trending Section Styles */
 .trending-section {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .trending-list {
@@ -318,7 +333,7 @@ footer hr {
     display: flex;
     align-items: flex-start;
     border: none;
-    padding: 10px 0;
+    padding: 5px 0;
     background: transparent !important;
 }
 
@@ -332,8 +347,8 @@ footer hr {
 }
 
 .ranking {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     background-color: #FF66C4;
     color: #ffffff;
     font-weight: bold;
@@ -353,7 +368,7 @@ footer hr {
 .trending-title {
     font-weight: bolder;
     color: #333;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
 }
 
 .trending-meta {
@@ -361,6 +376,20 @@ footer hr {
     font-size: 0.9rem;
 }
 
+/* Gaya untuk Trending Lainnya */
+.trending-link {
+    display: block;
+    margin-top: -20px;
+    color: #5271FF;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+.trending-link:hover {
+    text-decoration: underline;
+}
 
 /* Sembunyikan banner event di HP */
 @media (max-width: 767.98px) {
@@ -368,3 +397,4 @@ footer hr {
         display: none !important;
     }
 }
+
