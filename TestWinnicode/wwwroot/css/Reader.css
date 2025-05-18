@@ -41,7 +41,6 @@
     text-decoration: underline;
 }
 
-
 /* Garis di atas "About Us" */
 footer hr {
     margin-top: 1rem;
@@ -49,7 +48,6 @@ footer hr {
     border-color: #ccc;
     border-width: 1px;
 }
-
 
 /* === Header Styles === */
 .reader-header {
@@ -224,7 +222,7 @@ footer hr {
 
 
 /* === Register Form Styles === */
-.container {
+.auth-container {
     padding-top: 50px; /* Geser form lebih ke atas */
     padding-bottom: 50px;
 }
@@ -277,5 +275,58 @@ footer hr {
 .card a.text-primary:hover {
     color: #4157c7 !important;
     text-decoration: underline;
+}
+
+
+/* Trending Section Styles */
+.trending-section {
+    margin-bottom: 2rem;
+}
+
+.trending-list {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.trending-item {
+    display: flex;
+    align-items: flex-start;
+    border: none;
+    padding: 10px 0;
+    border-bottom: 1px solid #e2e6ea;
+}
+
+.trending-item:last-child {
+    border-bottom: none;
+}
+
+.ranking {
+    width: 45px;
+    height: 45px;
+    background-color: #FF4F8B;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.trending-details {
+    flex-grow: 1;
+}
+
+.trending-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.2rem;
+}
+
+.trending-meta {
+    color: #888;
+    font-size: 0.9rem;
 }
 
