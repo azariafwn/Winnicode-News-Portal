@@ -221,3 +221,61 @@ footer hr {
 .universal-tag {
     transition: background-color 0.3s, color 0.3s;
 }
+
+
+/* === Register Form Styles === */
+.container {
+    padding-top: 50px; /* Geser form lebih ke atas */
+    padding-bottom: 50px;
+}
+
+.card {
+    border-radius: 15px;
+    border: none;
+}
+
+.card h2 {
+    color: #5271FF;
+    font-weight: bold;
+}
+
+.card .form-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.card .form-control,
+.card .form-select {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 0.75rem 1rem;
+}
+
+.card .form-control:focus,
+.card .form-select:focus {
+    border-color: #5271FF;
+    box-shadow: 0 0 5px rgba(82, 113, 255, 0.5);
+}
+
+.card .btn-primary {
+    background-color: #5271FF;
+    border-color: #5271FF;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.card .btn-primary:hover {
+    background-color: #4157c7;
+    border-color: #4157c7;
+}
+
+.card a.text-primary {
+    color: #5271FF !important;
+    font-weight: bold;
+}
+
+.card a.text-primary:hover {
+    color: #4157c7 !important;
+    text-decoration: underline;
+}
+
