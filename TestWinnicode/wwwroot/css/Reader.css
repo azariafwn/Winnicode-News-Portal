@@ -1,4 +1,5 @@
 /* === Container Styles === */
+/* Menghilangkan padding kiri dan kanan default container */
 .container {
     padding-left: 0px !important;
     padding-right: 0px !important;
@@ -6,48 +7,54 @@
 
 
 /* === Footer Styles === */
-/* Atur posisi logo dan ikon sosmed */
+
+/* Margin bawah untuk logo footer agar tidak terlalu rapat */
 .footer-logo {
     margin-bottom: 15px;
 }
 
-/* Atur grid untuk ikon sosial media */
+/* Mengatur layout ikon sosial media di footer menggunakan grid, dengan 4 ikon per baris dan jarak antar ikon 20px */
 .social-icons-wrap {
     display: grid;
-    grid-template-columns: repeat(4, auto); /* 4 ikon per baris */
+    grid-template-columns: repeat(4, auto);
     gap: 20px;
     justify-content: center;
 }
 
-/* Background Gradasi untuk Footer */
+/* Background footer dengan gradasi biru ke ungu gelap, serta teks berwarna putih */
 .footer-bg {
     background: linear-gradient(180deg, #1C275A, #3D5AE0);
     color: #ffffff;
 }
 
-/* Atur jarak antar link di footer */
+/* Jarak antar item link di footer */
 .footer-links .list-inline-item {
     margin: 0 25px;
 }
 
+/* Menghapus padding dan margin default pada list link footer */
 .footer-links ul.list-inline {
     padding-left: 0;
     margin-bottom: 0.6rem;
 }
 
-/* Warna dan gaya teks footer */
+/* Styling link footer:
+   - Warna putih
+   - Menghilangkan garis bawah default */
 .footer-links .footer-link {
-    color: #ffffff !important; /* Warna putih */
+    color: #ffffff !important;
     text-decoration: none;
 }
 
-/* Efek hover pada link footer */
+/* Efek hover pada link footer:
+    - Warna sedikit lebih terang
+    - Menggunakan garis bawah */
 .footer-links .footer-link:hover {
     color: #f8f9fa !important;
     text-decoration: underline;
 }
 
-/* Garis di atas "About Us" */
+/* Styling garis horizontal di atas bagian "About Us" di footer */
 footer hr {
     margin-top: 1rem;
     margin-bottom: 0.2rem;
@@ -55,7 +62,13 @@ footer hr {
     border-width: 1px;
 }
 
+
 /* === Header Styles === */
+
+/* Header pembaca:
+   - Posisi sticky agar tetap di atas saat scroll
+   - Background putih terang
+   - Border bawah tipis sebagai pemisah */
 .reader-header {
     position: sticky;
     top: 0;
@@ -64,53 +77,70 @@ footer hr {
     border-bottom: 1px solid #ddd;
 }
 
+
 /* === Navbar Styles === */
+
+/* Wrapper navbar agar sticky dan berada tepat di bawah header,
+   dengan background biru dan border bawah */
 .navbar-wrapper {
     position: sticky;
-    top: 50px; /* Sesuai dengan tinggi navbar */
+    top: 50px; /* Sesuaikan dengan tinggi navbar */
     z-index: 1020;
     background-color: #5271FF !important;
     border-bottom: 1px solid #ddd;
 }
 
-/* Navbar dalam wrapper */
+/* Navbar utama di dalam wrapper:
+   - Background biru yang sama
+   - Padding vertikal kecil
+   - Border bawah */
 .navbar {
     background-color: #5271FF !important;
     padding: 0.3rem 0rem;
     border-bottom: 1px solid #ddd;
 }
 
-/* Hapus padding default pada navbar */
+/* Menghilangkan margin/padding default navbar-nav,
+   dan memastikan teks tidak wrap */
 .navbar-nav {
-    margin: 0 0;
+    margin: 0;
     white-space: nowrap;
 }
 
-/* Warna dan gaya teks navbar */
+/* Styling link navbar:
+   - Warna putih tebal
+   - Padding kecil agar lebih enak diklik
+   - Margin kanan dan kiri agar jarak antar link */
 .navbar .nav-link {
-    color: #ffffff !important; /* Warna putih */
+    color: #ffffff !important;
     font-weight: bold;
     padding: 0.15rem 0.6rem;
-    margin-left: 10px; /* Atur jarak antara kategori */
+    margin-left: 10px;
     margin-right: 10px;
 }
 
-/* Efek hover pada link navbar */
+/* Efek hover pada link navbar:
+    - Warna sedikit lebih terang
+    - Garis bawah */
 .navbar .nav-link:hover {
     color: #f8f9fa !important;
     text-decoration: underline;
 }
 
-/* Biar dropdown lebih rapi */
+/* Styling dropdown "more" agar jaraknya pas dari tepi */
 #moreDropdown {
-    margin-left: 5px; /* Atur jarak dari tepi */
+    margin-left: 5px;
 }
 
-/* Biar dropdown width-nya cukup sepanjang text saja */
+/* Styling dropdown-menu:
+   - Lebar otomatis dengan batas minimal dan maksimal
+   - Background biru agar serasi dengan navbar
+   - Border-radius 0 agar kotak tajam
+   - Posisi horizontal di tengah toggle dropdown */
 .dropdown-menu {
     width: auto !important;
-    min-width: 80; /* Batas minimal lebar dropdown */
-    max-width: 200px; /* Batas maksimal lebar dropdown */
+    min-width: 80px; /* Tambahkan satuan px agar valid */
+    max-width: 200px;
     background-color: #5271FF !important;
     border-radius: 0;
     border: none;
@@ -118,14 +148,17 @@ footer hr {
     transform: translateX(-80%) !important;
 }
 
-/* Posisi dropdown tetap di bawah toggler */
+/* Dropdown menu yang berada di kanan (dropdown-menu-end) diposisikan absolute di kanan */
 .navbar-nav .dropdown-menu-end {
     position: absolute;
     right: 0;
     left: auto;
 }
 
-/* Hover effect untuk item dropdown */
+/* Hover effect pada item dropdown:
+   - Padding agar clickable area besar
+   - Warna putih tebal
+   - Background saat hover biru gelap */
 .dropdown-item {
     padding: 0.5rem 1rem !important;
     color: #ffffff !important;
@@ -137,7 +170,8 @@ footer hr {
     color: #ffffff !important;
 }
 
-/* Untuk memastikan dropdown tetap di tempat yang benar */
+/* Responsif untuk layar kecil:
+   - Mengatur posisi dropdown agar tetap sesuai */
 @media (max-width: 991.98px) {
     .navbar-nav .dropdown-menu-end {
         position: absolute !important;
@@ -146,17 +180,18 @@ footer hr {
     }
 }
 
-/* Biar tiap item navbar lebih merata */
+/* Membuat item navbar dengan kelas flex-fill supaya lebarnya merata di navbar */
 .navbar-nav .nav-item.flex-fill {
     flex: 1 1 auto;
 }
 
-/* Biar tombol dropdown lebih rapi */
+/* Menghilangkan tanda panah dropdown default */
 .navbar-nav .dropdown-toggle::after {
     display: none;
 }
 
-/* Memberikan jarak ke kiri dan kanan pada navbar */
+/* Memberikan padding kiri dan kanan pada
+   konten navbar-collapse */
 .navbar-collapse {
     padding-left: 20px;
     padding-right: 20px;
@@ -214,6 +249,8 @@ footer hr {
 
 
 /* === Event Styles === */
+/* Banner untuk event dengan ukuran penuh, proporsional, 
+   dan sudut membulat untuk kesan modern */
 .event-banner {
     width: 100%;
     height: 600px; /* Atur tinggi sesuai kebutuhan */
@@ -222,7 +259,10 @@ footer hr {
     margin-bottom: 30px;
 }
 
+
 /* === Universal Tag Styles === */
+/* Tag dengan background biru dan teks putih, 
+   untuk kategori atau label yang menonjol */
 .blue-tag {
     background-color: #5271FF;
     color: #ffffff;
@@ -238,6 +278,7 @@ footer hr {
     transition: background-color 0.3s, color 0.3s;
 }
 
+/* Tag dengan background pink dan teks putih */
 .pink-tag {
     background-color: #FF66C4;
     color: #ffffff;
@@ -253,41 +294,52 @@ footer hr {
     transition: background-color 0.3s, color 0.3s;
 }
 
+/* Efek hover untuk tag biru */
 .blue-tag:hover {
-    background-color: #3d5ae0;
+    background-color: #4053c7;
     color: #ffffff;
     cursor: pointer;
     text-decoration: underline;
 }
 
+/* Efek hover untuk tag pink*/
 .pink-tag:hover {
-    background-color: #e03d8e;
+    background-color: #cc308f;
     color: #ffffff;
     cursor: pointer;
     text-decoration: underline;
 }
+
+
 
 /* === Register Form Styles === */
+/* Container form autentikasi dengan padding atas dan bawah */
 .auth-container {
-    padding-top: 50px; /* Geser form lebih ke atas */
+    padding-top: 50px;
     padding-bottom: 50px;
 }
 
+/* Styling untuk card form:
+   - Sudut membulat
+   - Tanpa border */
 .card {
     border-radius: 15px;
     border: none;
 }
 
+/* Judul form dengan warna utama */
 .card h2 {
     color: #5271FF;
     font-weight: bold;
 }
 
+/* Label input form */
 .card .form-label {
     font-weight: bold;
     color: #333;
 }
 
+/* Input dan select dengan border lembut dan padding nyaman */
 .card .form-control,
 .card .form-select {
     border-radius: 10px;
@@ -295,12 +347,14 @@ footer hr {
     padding: 0.75rem 1rem;
 }
 
+/* Efek fokus pada input dan select */
 .card .form-control:focus,
 .card .form-select:focus {
     border-color: #5271FF;
     box-shadow: 0 0 5px rgba(82, 113, 255, 0.5);
 }
 
+/* Tombol submit dengan warna utama */
 .card .btn-primary {
     background-color: #5271FF;
     border-color: #5271FF;
@@ -308,22 +362,30 @@ footer hr {
     font-weight: bold;
 }
 
+/* Efek hover pada tombol submit */
 .card .btn-primary:hover {
     background-color: #4157c7;
     border-color: #4157c7;
 }
 
+/* Link teks dengan warna utama */
 .card a.text-primary {
     color: #5271FF !important;
     font-weight: bold;
 }
 
+/* Efek hover pada link teks */
 .card a.text-primary:hover {
     color: #4157c7 !important;
     text-decoration: underline;
 }
 
+
 /* === Trending Styles === */
+/* Item dalam list trending:
+   - Tanpa border
+   - Background abu terang
+   - Pointer saat hover */
 .list-group-item {
     border: none;
     padding: 0.5rem 0.75rem;
@@ -331,21 +393,24 @@ footer hr {
     cursor: pointer;
 }
 
+/* Efek hover untuk list trending */
 .list-group-item:hover {
     background-color: #e2e6ea;
     font-weight: bold;
 }
 
-/* Trending Section Styles */
+/* Container untuk section trending */
 .trending-section {
     margin-bottom: 1rem;
 }
 
+/* Reset padding dan margin list */
 .trending-list {
     padding-left: 0;
     margin-bottom: 0;
 }
 
+/* Item trending dengan display fleksibel */
 .trending-item {
     display: flex;
     align-items: flex-start;
@@ -354,15 +419,18 @@ footer hr {
     background: transparent !important;
 }
 
+/* Efek hover untuk item trending */
 .trending-item:hover {
-    background-color: #ffe6f3 !important;
+    background-color: #FFEAF5 !important;
     border-radius: 8px;
 }
 
+/* Hapus border bawah pada item terakhir */
 .trending-item:last-child {
     border-bottom: none;
 }
 
+/* Ranking bulat untuk item trending */
 .ranking {
     width: 40px;
     height: 40px;
@@ -375,25 +443,28 @@ footer hr {
     align-items: center;
     justify-content: center;
     margin-right: 15px;
-    flex-shrink: 0; /* Biar tetap bulat */
+    flex-shrink: 0;
 }
 
+/* Detail teks dalam item trending */
 .trending-details {
     flex-grow: 1;
 }
 
+/* Judul trending item */
 .trending-title {
     font-weight: bolder;
     color: #333;
     margin-bottom: 0.1rem;
 }
 
+/* Metadata untuk trending item */
 .trending-meta {
     color: #5271FF;
     font-size: 0.9rem;
 }
 
-/* Gaya untuk Trending Lainnya */
+/* Link untuk lihat lebih banyak trending */
 .trending-link {
     display: block;
     margin-top: -20px;
@@ -404,14 +475,75 @@ footer hr {
     text-align: right;
 }
 
+/* Efek hover untuk link trending */
 .trending-link:hover {
     text-decoration: underline;
 }
 
-/* Sembunyikan banner event di HP */
+/* Sembunyikan banner event di layar HP */
 @media (max-width: 767.98px) {
     .event-banner-section {
         display: none !important;
     }
 }
 
+
+/* === Terbaru Section Styles === */
+/* Section untuk berita terbaru */
+.terbaru-section {
+    font-weight: bold;
+}
+
+/* Item berita terbaru */
+.terbaru-item {
+    background-color: none;
+    border-radius: 10px;
+    padding: 0;
+}
+
+/* Efek hover untuk item terbaru */
+.terbaru-item:hover {
+    background-color: #EAF2FF;
+    box-shadow: 0 4px 15px rgba(82, 113, 255, 0.15);
+}
+
+/* Efek hover pada judul, kategori, dan tanggal */
+.terbaru-item:hover .terbaru-title {
+    font-weight: bold;
+}
+
+.terbaru-item:hover .terbaru-category,
+.terbaru-item:hover .terbaru-date {
+    font-weight: bold;
+}
+
+/* Gambar untuk item terbaru */
+.terbaru-image {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+/* Judul berita terbaru */
+.terbaru-title {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #333;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* Kategori berita terbaru */
+.terbaru-category {
+    color: #5271FF;
+    font-weight: normal;
+}
+
+/* Tanggal berita terbaru */
+.terbaru-date {
+    color: #FF66C4;
+    font-weight: normal;
+    font-size: 0.9rem;
+}
