@@ -15,5 +15,9 @@ namespace TestWinnicode.Controllers.Reader
         {
             return View();
         }
+        public IActionResult Berita()
+        {
+            return View();
+        }
     }
 }

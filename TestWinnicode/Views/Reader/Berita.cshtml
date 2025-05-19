@@ -1,5 +1,126 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    Layout = "~/Views/Shared/_ReaderLayout.cshtml";
+    ViewBag.Title = "Beranda - NewsPortal";
 }
+
+<div class="container">
+    <div class="row">
+        <!-- === Kolom Konten Berita === -->
+        <div class="col-lg-8">
+            <!-- Judul Berita -->
+            <h1 class="news-title">Judul Berita Judul Berita Judul Berita Judul Berita</h1>
+
+            <!-- Informasi Penulis -->
+            <div class="author-info d-flex align-items-center mb-3">
+                <img src="~/images/profile-icon.png" alt="Foto Profil" class="author-profile-img me-3">
+                <div>
+                    <span class="author-name">Nama Penulis</span><br>
+                    <small class="text-muted">pada 12/05/2025, 10:30 WIB</small>
+                </div>
+            </div>
+
+            <!-- Gambar Berita -->
+            <img src="~/images/dummy-news-image.png" alt="Gambar Berita" class="news-image mb-4">
+
+            <!-- Isi Berita -->
+            <div class="news-content">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec urna eros, scelerisque ut neque sit amet, dapibus mollis nulla. Etiam enim enim, porta id nulla quis, convallis congue augue. In vel neque tortor. Nulla at porta arcu. Morbi elit nibh, tincidunt in maximus a, consectetur a nisl. Integer ligula nisi, posuere vitae dictum a, volutpat vel sem. Morbi auctor aliquet pulvinar. Proin dui lorem, vehicula et ultrices vel, elementum ac nulla.
+                </p>
+                <p>
+                    Sed lacinia sit amet ex feugiat semper. Suspendisse lectus purus, commodo at ante sed, mollis feugiat mi. Nullam tempus purus non metus volutpat sodales. Pellentesque porttitor dui eget erat sollicitudin vulputate. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin ac ligula magna. Aenean sit amet neque vitae felis tempor placerat. Integer hendrerit nisi in ex elementum, tincidunt posuere felis venenatis. Vivamus nibh sem, consequat et sagittis at, iaculis at augue. Etiam viverra ipsum a leo posuere pulvinar interdum vel purus. Donec finibus tincidunt lorem euismod pellentesque. Morbi hendrerit dui erat, ac tincidunt quam sodales sit amet. Donec laoreet felis vel augue porttitor, porta lobortis erat aliquet. Curabitur pellentesque lorem lacus, ac eleifend dolor imperdiet id. Nullam quis justo a ex fringilla luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                </p>
+                <p>
+                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Pellentesque mattis quis metus sit amet luctus. Vestibulum eget luctus quam. Phasellus bibendum pulvinar sapien eu ultrices. Quisque lectus libero, sodales nec accumsan vitae, feugiat quis sapien. Suspendisse potenti. Mauris risus lorem, rutrum vitae varius at, mattis dignissim libero. Phasellus aliquet lorem diam, non bibendum est lacinia et. Praesent finibus velit magna, ut pharetra turpis malesuada at. Quisque non nunc vulputate erat vestibulum dignissim quis sed sem. Fusce et ex quis enim egestas fermentum vitae at ante.
+                </p>
+                <p>
+                    Suspendisse ut metus auctor, porta nulla nec, ultrices lectus. Nulla scelerisque fermentum mi, tristique sollicitudin lacus eleifend ut. Sed a purus eu lorem tincidunt laoreet. Suspendisse dictum interdum semper. Donec vitae suscipit leo. Suspendisse a aliquam arcu. Aenean pellentesque sollicitudin nisi, eget dignissim velit efficitur sit amet. Nulla nec tellus lorem. Aliquam eu nulla a purus volutpat suscipit eu et metus.
+                </p>
+                <p>
+                    Nam tincidunt auctor est in ultricies. Duis vitae nibh in massa pretium laoreet. Nulla facilisi. Praesent nulla mi, placerat sit amet commodo ac, consectetur at lectus. Sed blandit mauris et felis dictum, et luctus ex faucibus. Donec leo tellus, hendrerit eu volutpat in, fermentum volutpat felis. Nam id tristique purus. In ac eros sit amet justo bibendum condimentum cursus ut nunc. Phasellus et commodo purus. Suspendisse ut odio tristique nisi tempus dapibus. Sed tincidunt gravida accumsan. Nullam dapibus ullamcorper leo nec varius. Proin egestas, urna id placerat sollicitudin, velit metus fringilla tellus, vel euismod augue turpis bibendum sem.
+                </p>
+            </div>
+        </div>
+
+        <!-- === Kolom Sidebar (Trending dan Terbaru) === -->
+        <div class="col-lg-4">
+            <!-- Trending Section -->
+            <div class="trending-section mt-4">
+                <h5 class="pink-tag">TRENDING</h5>
+                <ul class="list-group trending-list">
+                    <li class="list-group-item trending-item">
+                        <div class="ranking">01</div>
+                        <div class="trending-details">
+                            <h6 class="trending-title">Judul Berita Trending Judul Berita Trending Judul Berita Trending</h6>
+                            <span class="trending-meta">Kategori: Politik | Dibaca 500 kali</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item trending-item">
+                        <div class="ranking">02</div>
+                        <div class="trending-details">
+                            <h6 class="trending-title">Judul Berita Trending Judul Berita Trending Judul Berita Trending</h6>
+                            <span class="trending-meta">Kategori: Teknologi | Dibaca 480 kali</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item trending-item">
+                        <div class="ranking">03</div>
+                        <div class="trending-details">
+                            <h6 class="trending-title">Judul Berita Trending Judul Berita Trending Judul Berita Trending</h6>
+                            <span class="trending-meta">Kategori: Olahraga | Dibaca 450 kali</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item trending-item">
+                        <div class="ranking">04</div>
+                        <div class="trending-details">
+                            <h6 class="trending-title">Judul Berita Trending Judul Berita Trending Judul Berita Trending</h6>
+                            <span class="trending-meta">Kategori: Hiburan | Dibaca 420 kali</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item trending-item">
+                        <div class="ranking">05</div>
+                        <div class="trending-details">
+                            <h6 class="trending-title">Judul Berita Trending Judul Berita Trending Judul Berita Trending</h6>
+                            <span class="trending-meta">Kategori: Kesehatan | Dibaca 400 kali</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <a href="/Reader/Trending" class="trending-link">Trending Lainnya >></a>
+            </div>
+
+            <!-- Terbaru Section -->
+            <div class="terbaru-section mt-4">
+                <h5 class="blue-tag">TERBARU</h5>
+                <div class="terbaru-list">
+                    <div class="terbaru-item d-flex mb-3">
+                        <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
+                        <div>
+                            <h6 class="terbaru-title">Judul Berita Terbaru Judul Berita Terbaru Judul Berita Terbaru</h6>
+                            <span class="terbaru-category">Kategori: Teknologi</span><br>
+                            <span class="terbaru-date">Diperbarui 1 jam lalu</span>
+                        </div>
+                    </div>
+
+                    <div class="terbaru-item d-flex mb-3">
+                        <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
+                        <div>
+                            <h6 class="terbaru-title">Judul Berita Terbaru Judul Berita Terbaru Judul Berita Terbaru</h6>
+                            <span class="terbaru-category">Kategori: Olahraga</span><br>
+                            <span class="terbaru-date">Diperbarui 2 jam lalu</span>
+                        </div>
+                    </div>
+
+                    <div class="terbaru-item d-flex mb-3">
+                        <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
+                        <div>
+                            <h6 class="terbaru-title">Judul Berita Terbaru Judul Berita Terbaru Judul Berita Terbaru</h6>
+                            <span class="terbaru-category">Kategori: Politik</span><br>
+                            <span class="terbaru-date">Diperbarui 3 jam lalu</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
