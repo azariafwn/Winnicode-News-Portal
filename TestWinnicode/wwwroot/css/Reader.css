@@ -82,14 +82,15 @@ footer hr {
 
 /* Hapus padding default pada navbar */
 .navbar-nav {
-    margin: 0 10px;
+    margin: 0 0;
+    white-space: nowrap;
 }
 
 /* Warna dan gaya teks navbar */
 .navbar .nav-link {
     color: #ffffff !important; /* Warna putih */
     font-weight: bold;
-    padding: 0.15rem 1rem;
+    padding: 0.15rem 0.6rem;
     margin-left: 10px; /* Atur jarak antara kategori */
     margin-right: 10px;
 }
@@ -101,27 +102,49 @@ footer hr {
 }
 
 /* Biar dropdown lebih rapi */
+#moreDropdown {
+    margin-left: 5px; /* Atur jarak dari tepi */
+}
+
+/* Biar dropdown width-nya cukup sepanjang text saja */
 .dropdown-menu {
-    max-height: 300px;
-    overflow-y: auto;
-    min-width: 100px;
+    width: auto !important;
+    min-width: 80; /* Batas minimal lebar dropdown */
+    max-width: 200px; /* Batas maksimal lebar dropdown */
     background-color: #5271FF !important;
     border-radius: 0;
     border: none;
+    left: 50% !important;
+    transform: translateX(-80%) !important;
 }
 
+/* Posisi dropdown tetap di bawah toggler */
+.navbar-nav .dropdown-menu-end {
+    position: absolute;
+    right: 0;
+    left: auto;
+}
+
+/* Hover effect untuk item dropdown */
 .dropdown-item {
+    padding: 0.5rem 1rem !important;
     color: #ffffff !important;
     font-weight: bold;
 }
 
-/* Efek hover untuk item dropdown */
 .dropdown-item:hover {
     background-color: #0056b3 !important;
     color: #ffffff !important;
 }
 
-
+/* Untuk memastikan dropdown tetap di tempat yang benar */
+@media (max-width: 991.98px) {
+    .navbar-nav .dropdown-menu-end {
+        position: absolute !important;
+        right: auto !important;
+        left: auto !important;
+    }
+}
 
 /* Biar tiap item navbar lebih merata */
 .navbar-nav .nav-item.flex-fill {
@@ -137,12 +160,6 @@ footer hr {
 .navbar-collapse {
     padding-left: 20px;
     padding-right: 20px;
-}
-
-/* Menghilangkan border pada dropdown */
-.dropdown-menu {
-    border: none !important;
-    box-shadow: none !important;
 }
 
 
@@ -321,7 +338,7 @@ footer hr {
 
 /* Trending Section Styles */
 .trending-section {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .trending-list {
