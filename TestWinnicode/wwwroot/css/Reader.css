@@ -278,6 +278,14 @@ footer hr {
     text-align: center;
     transition: background-color 0.3s, color 0.3s;
 }
+    
+/* Efek hover untuk tag biru */
+.blue-tag:hover {
+    background-color: #4053c7;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: underline;
+}
 
 /* Tag dengan background pink dan teks putih */
 .pink-tag {
@@ -295,17 +303,47 @@ footer hr {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* Efek hover untuk tag biru */
-.blue-tag:hover {
-    background-color: #4053c7;
+.pink-tag {
+    background-color: #FF66C4;
     color: #ffffff;
-    cursor: pointer;
-    text-decoration: underline;
+    padding: 0.5rem 1.5rem;
+    border-radius: 68px;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 15px;
+    white-space: nowrap;
+    max-width: fit-content;
+    font-size: 0.9rem;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 /* Efek hover untuk tag pink*/
 .pink-tag:hover {
     background-color: #cc308f;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.red-tag {
+    background-color: #FF4D4D;
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 68px;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 15px;
+    white-space: nowrap;
+    max-width: fit-content;
+    font-size: 0.9rem;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Efek hover untuk tag merah */
+.red-tag:hover {
+    background-color: #d93636;
     color: #ffffff;
     cursor: pointer;
     text-decoration: underline;
@@ -400,6 +438,7 @@ footer hr {
     font-weight: bold;
 }
 
+/* === TRENDING SECTION === */
 /* Container untuk section trending */
 .trending-section {
     margin-bottom: 1rem;
@@ -418,6 +457,7 @@ footer hr {
     border: none;
     padding: 5px 0;
     cursor: pointer;
+    text-decoration: none;
     background: transparent !important;
 }
 
@@ -481,6 +521,16 @@ footer hr {
 .trending-link:hover {
     text-decoration: underline;
 }
+
+/* Hilangkan underline pada semua teks dalam link trending */
+.trending-item a,
+.trending-item a:hover,
+.trending-item a:focus,
+.trending-item a:visited {
+    text-decoration: none !important;
+    color: inherit; /* Menjaga warna sesuai elemen dalam, seperti .trending-title dan .trending-meta */
+}
+
 
 /* Sembunyikan banner event di layar HP */
 @media (max-width: 767.98px) {
@@ -653,4 +703,31 @@ footer hr {
     font-size: 1rem;
     margin-bottom: 0.5rem;
     text-decoration: none !important; /* Hilangkan underline */
+}
+
+/* === Profil User === */
+
+.label-blue {
+    font-weight: 600;
+    color: #5271FF;
+    margin-bottom: 0;
+}
+
+.data-pink {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #FF66C4;
+    margin-bottom: 1rem;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 2rem;
+    color: #5271FF;
+}
+
+.email-user {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #FF66C4;
 }
