@@ -19,5 +19,9 @@ namespace TestWinnicode.Controllers.Reader
         {
             return View();
         }
+        public IActionResult ProfilUser()
+        {
+            return View();
+        }
     }
 }

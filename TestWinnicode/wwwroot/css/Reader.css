@@ -1,8 +1,8 @@
 /* === Container Styles === */
 /* Menghilangkan padding kiri dan kanan default container */
 .container {
-    padding-left: 0px !important;
-    padding-right: 0px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
 }
 
 
@@ -103,7 +103,8 @@ footer hr {
 /* Menghilangkan margin/padding default navbar-nav,
    dan memastikan teks tidak wrap */
 .navbar-nav {
-    margin: 0;
+    margin-left: 10px;
+    margin-right: 10px;
     white-space: nowrap;
 }
 
@@ -416,6 +417,7 @@ footer hr {
     align-items: flex-start;
     border: none;
     padding: 5px 0;
+    cursor: pointer;
     background: transparent !important;
 }
 
@@ -499,6 +501,7 @@ footer hr {
     background-color: none;
     border-radius: 10px;
     padding: 0;
+    cursor: pointer;
 }
 
 /* Efek hover untuk item terbaru */
@@ -602,11 +605,24 @@ footer hr {
     padding-bottom: 10px;
 }
 
+.writer-profile {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.writer-profile:hover {
+    background-color: #FFEAF5;
+    font-weight: bold;
+}
+
+
 .writer-image {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
+    margin-left: 10px;
 }
 
 .writer-name {
@@ -617,12 +633,24 @@ footer hr {
 }
 
 .writer-profession {
-    color: #555;
-    font-size: 14px;
+    font-size: 1rem;
     color: #FF66C4;
 }
 
 .latest-article {
     color: #777;
-    font-size: 12px;
+    font-size: 1rem;
+}
+
+/* Styling untuk judul What's-On */
+.whats-on a {
+    text-decoration: none !important;
+}
+
+.whats-on a h6 {
+    color: #000000 !important;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    text-decoration: none !important; /* Hilangkan underline */
 }
