@@ -140,7 +140,7 @@ footer hr {
    - Posisi horizontal di tengah toggle dropdown */
 .dropdown-menu {
     width: auto !important;
-    min-width: 80px; /* Tambahkan satuan px agar valid */
+    min-width: 130px; /* Tambahkan satuan px agar valid */
     max-width: 200px;
     background-color: #5271FF !important;
     border-radius: 0;
