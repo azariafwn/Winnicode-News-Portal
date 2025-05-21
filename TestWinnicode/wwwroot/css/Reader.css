@@ -136,7 +136,6 @@ footer hr {
 /* Styling dropdown-menu:
    - Lebar otomatis dengan batas minimal dan maksimal
    - Background biru agar serasi dengan navbar
-   - Border-radius 0 agar kotak tajam
    - Posisi horizontal di tengah toggle dropdown */
 .dropdown-menu {
     width: auto !important;
@@ -251,7 +250,7 @@ footer hr {
 
 .sub-headline-item {
     background-color: none;
-    border-radius: 10px;
+    border-radius: 0;
     padding: 0;
     cursor: pointer;
 }
@@ -263,7 +262,6 @@ footer hr {
 /* Efek hover untuk item terbaru */
 .sub-headline-item:hover {
     background-color: #EAF2FF;
-    box-shadow: 0 4px 15px rgba(82, 113, 255, 0.15);
 }
 
 /* Efek hover pada judul, kategori, dan tanggal */
@@ -518,7 +516,7 @@ footer hr {
 /* Efek hover untuk item trending */
 .trending-item:hover {
     background-color: #FFEAF5 !important;
-    border-radius: 8px;
+    
 }
 
 /* Hapus border bawah pada item terakhir */
@@ -603,15 +601,13 @@ footer hr {
 /* Item berita terbaru */
 .terbaru-item {
     background-color: none;
-    border-radius: 10px;
-    padding: 0;
+    padding-right: 1rem;
     cursor: pointer;
 }
 
 /* Efek hover untuk item terbaru */
 .terbaru-item:hover {
     background-color: #EAF2FF;
-    box-shadow: 0 4px 15px rgba(82, 113, 255, 0.15);
 }
 
 /* Efek hover pada judul, kategori, dan tanggal */

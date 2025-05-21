@@ -21,6 +21,7 @@
         </div>
     </div>
 
+    <!-- Headline & Sub Headline Section -->
     <div class="row">
         <!-- Headline Section -->
         <div class="col-lg-6">
@@ -38,10 +39,10 @@
         </div>
 
         <!-- Sub Headline di Samping -->
-        <div class="col-lg-5 mt-5 ms-3">
+        <div class="col-lg-5 mt-5 ms-3 align-content-center">
             @for (int i = 1; i <= 3; i++)
             {
-                <div class="d-flex mb-4 sub-headline-item">
+                <div class="d-flex mb-3 sub-headline-item">
                     <a href="/Reader/Berita" class="d-flex w-100">
                         <img src="/images/dummy-news-image.png" class="sub-headline me-3" alt="Sub Headline">
                         <div class="align-self-start">
@@ -51,6 +52,205 @@
                     </a>
                 </div>
             }
+        </div>
+
+    </div>
+
+    <!-- Terbaru Section -->
+    <div class="terbaru-section mt-4">
+        <h5 class="blue-tag">TERBARU</h5>
+        <div class="row g-3">
+            @for (int i = 1; i <= 6; i++) // misalnya 10 berita
+            {
+                <div class="col-6 col-sm-4 col-md-2-4 col-lg-2">
+                    <!-- 2-4 = custom, nanti dijelaskan -->
+                    <a href="/reader/Berita" class="text-decoration-none text-dark">
+                        <div class="terbaru-item text-start">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded mb-2" alt="Berita Terbaru">
+                            <h6 class="terbaru-title">Judul Berita @i Judul Berita @i</h6>
+                            <span class="terbaru-category d-block">Sub Kategori: Teknologi</span>
+                            <span class="terbaru-date d-block">Diperbarui 1 jam lalu</span>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- What's On dan Kolom Penulis Section -->
+    <div class="row align-items-start mt-5">
+        <!-- What's On Section -->
+        <div class="col-lg-8">
+            <!-- What's On Section kategori 1-->
+            <div class=whats-on mb-4">
+                <h5 class="blue-tag">WHAT'S ON (Nama Kategori)</h5>
+                <div class="row">
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What's On Section kategori 1-->
+            <div class=whats-on mb-4">
+                <h5 class="blue-tag">WHAT'S ON (Nama Kategori)</h5>
+                <div class="row">
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What's On Section kategori 1-->
+            <div class=whats-on mb-4">
+                <h5 class="blue-tag">WHAT'S ON (Nama Kategori)</h5>
+                <div class="row">
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What's On Section kategori 1-->
+            <div class=whats-on mb-4">
+                <h5 class="blue-tag">WHAT'S ON (Nama Kategori)</h5>
+                <div class="row">
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                    <div class="col mb-3">
+                        <a href="/Reader/Berita">
+                            <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="What's On">
+                            <h6 class="mt-2">Judul Berita What's On Judul Berita What's On</h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Trending Section -->
+            <div class="trending-section mt-3">
+                <h5 class="pink-tag">TRENDING</h5>
+                <ul class="list-group trending-list">
+                    @for (int i = 1; i <= 10; i++) // misalnya 10 berita
+                    {
+                        <li class="list-group-item trending-item">
+                            <div class="ranking">@((i).ToString("D2"))</div>
+                            <div class="trending-details">
+                                <a href="/reader/berita">
+                                    <h6 class="trending-title">Judul Berita Trending Judul Berita Trending Judul Berita Trending</h6>
+                                    <span class="trending-meta">Kategori: Politik | Dibaca 500 kali</span>
+                                </a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <a href="/Reader/Trending" class="trending-link">Trending Lainnya >></a>
+            </div>
         </div>
 
     </div>
