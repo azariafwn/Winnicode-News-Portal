@@ -236,11 +236,7 @@ footer hr {
 }
 
 /* Styling untuk judul sub headline */
-.sub-headline a {
-    text-decoration: none !important;
-}
-
-.sub-headline a h6 {
+.sub-headline-title {
     color: #000000 !important;
     font-weight: 600;
     font-size: 1rem;
@@ -248,6 +244,33 @@ footer hr {
     text-decoration: none !important; /* Hilangkan underline */
 }
 
+.sub-headline-category {
+    color: #5271FF;
+    font-weight: normal;
+}
+
+.sub-headline-item {
+    background-color: none;
+    border-radius: 10px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.sub-headline-item a {
+    text-decoration: none !important;
+}
+
+/* Efek hover untuk item terbaru */
+.sub-headline-item:hover {
+    background-color: #EAF2FF;
+    box-shadow: 0 4px 15px rgba(82, 113, 255, 0.15);
+}
+
+/* Efek hover pada judul, kategori, dan tanggal */
+.sub-headline-item:hover .sub-headline-title,
+.sub-headline-item:hover .sub-headline-category {
+    font-weight: bold;
+}
 
 /* === Event Styles === */
 /* Banner untuk event dengan ukuran penuh, proporsional, 
@@ -283,6 +306,31 @@ footer hr {
     
 /* Efek hover untuk tag biru */
 .blue-tag:hover {
+    background-color: #4053c7;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.light-blue-tag {
+    background-color: #38B6FF;
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 68px;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 15px;
+    white-space: nowrap;
+    max-width: fit-content;
+    font-size: 0.9rem;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+    border: none;
+    outline: none;
+}
+
+/* Efek hover untuk tag biru */
+.light-blue-tag:hover {
     background-color: #4053c7;
     color: #ffffff;
     cursor: pointer;

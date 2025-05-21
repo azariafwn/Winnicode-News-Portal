@@ -3,8 +3,56 @@
     ViewBag.Title = "Kategori - NewsPortal";
 }
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+<div class="container">
+    <!-- Kategori dan Subkategori -->
+    <div class="d-flex flex-wrap align-items-center">
+        <h5 class="pink-tag me-3">TEKNOLOGI</h5>
+        <div class="d-flex flex-wrap gap-2">
+            <span class="light-blue-tag">AI</span>
+            <span class="light-blue-tag">Gadget</span>
+            <span class="light-blue-tag">Sosial Media</span>
+            <span class="light-blue-tag">Start-up</span>
+            <span class="light-blue-tag">Software</span>
+            <span class="light-blue-tag">AI</span>
+            <span class="light-blue-tag">Gadget</span>
+            <span class="light-blue-tag">Sosial Media</span>
+            <span class="light-blue-tag">Start-up</span>
+            <span class="light-blue-tag">Software</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Headline Section -->
+        <div class="col-lg-6">
+            <div class="headline-section mb-4">
+                <div class="blue-tag mb-3">HEADLINE</div>
+                <a href="/Reader/Berita" class="headline-link">
+                    <div class="headline-image position-relative">
+                        <img src="/images/dummy-news-image.png" class="img-fluid rounded" alt="Headline">
+                        <div class="headline-title mt-2 fw-bold">
+                            Judul Headline Utama Judul Headline Utama Judul Headline Utama
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Sub Headline di Samping -->
+        <div class="col-lg-5 mt-5 ms-3">
+            @for (int i = 1; i <= 3; i++)
+            {
+                <div class="d-flex mb-4 sub-headline-item">
+                    <a href="/Reader/Berita" class="d-flex w-100">
+                        <img src="/images/dummy-news-image.png" class="sub-headline me-3" alt="Sub Headline">
+                        <div class="align-self-start">
+                            <h6 class="mb-1 sub-headline-title">Judul Sub Headline @i Judul Sub Headline @i</h6>
+                            <div class="sub-headline-category">Sub Kategori: Teknologi</div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+
+    </div>
+
+</div>
