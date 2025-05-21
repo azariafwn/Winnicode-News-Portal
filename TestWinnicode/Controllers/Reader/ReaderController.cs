@@ -23,5 +23,9 @@ namespace TestWinnicode.Controllers.Reader
         {
             return View();
         }
+        public IActionResult ProfilPenulis()
+        {
+            return View();
+        }
     }
 }

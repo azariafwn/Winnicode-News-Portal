@@ -2,3 +2,27 @@
     Layout = "~/Views/Shared/_ReaderLayout.cshtml";
     ViewBag.Title = "Profil Penulis - NewsPortal";
 }
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Foto Penulis -->
+        <div class="col-md-4 text-center">
+            <img src="/images/profile-icon.png" alt="Foto Penulis" class="img-fluid rounded-circle shadow writer-profil-photo">
+        </div>
+
+        <!-- Info Penulis -->
+        <div class="col-md-8">
+            <h2 class="writer-profil-name">Nama Lengkap Penulis</h2>
+            <p class="joined-date mb-1">🗓️ Bergabung Sejak: <span class="joined-value">21 Mei 2023</span></p>
+            <p class="article-count mb-1">📝 Artikel Dipublikasikan: <span class="article-value">32 artikel</span></p>
+            <p class="views-count mb-4">👁️ Total Dibaca: <span class="views-value">18.300 kali</span></p>
+
+            <div class="writer-description-box p-3">
+                <h5 class="description-heading">Tentang Penulis</h5>
+                <p class="writer-description">
+                    Saya adalah jurnalis teknologi dengan fokus pada perkembangan AI, perangkat lunak open-source, dan teknologi masa depan. Saya percaya bahwa informasi yang jelas dan akurat dapat membantu masyarakat memahami dunia digital dengan lebih baik.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

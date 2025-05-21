@@ -742,3 +742,57 @@ footer hr {
     color: #FF66C4;
 }
 
+/* === Halaman Profil Penulis === */
+.writer-profil-photo {
+    width: 240px;
+    height: 240px;
+    object-fit: cover;
+    border: 5px solid #5271FF;
+}
+
+.writer-profil-name {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.joined-date,
+.article-count,
+.views-count {
+    font-size: 1rem;
+    color: #555;
+}
+
+.joined-value {
+    color: #5271FF;
+    font-weight: 500;
+}
+
+.article-value {
+    color: #E91E63;
+    font-weight: 500;
+}
+
+.views-value {
+    color: #009688;
+    font-weight: 500;
+}
+
+.writer-description-box {
+    background-color: #f8f9fa;
+    border-left: 5px solid #5271FF;
+    border-radius: 4px;
+}
+
+.description-heading {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.writer-description {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+}
