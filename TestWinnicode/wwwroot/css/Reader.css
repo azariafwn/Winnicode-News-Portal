@@ -849,7 +849,23 @@ footer hr {
     transition: 0.2s;
 }
 
-.icon-img:hover {
+.icon-img-lg {
+    width: 2.2rem;
+    height: 2.2rem;
+    transition: transform 0.2s ease;
+}
+
+.icon-img:hover,
+.icon-img-lg:hover {
     opacity: 1;
     transform: scale(1.2);
 }
+
+.comment-section textarea {
+    resize: vertical;
+}
+
+.comment-list .comment {
+    background-color: #f8f9fa;
+}
+

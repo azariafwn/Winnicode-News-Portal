@@ -69,6 +69,55 @@
                     Nam tincidunt auctor est in ultricies. Duis vitae nibh in massa pretium laoreet. Nulla facilisi. Praesent nulla mi, placerat sit amet commodo ac, consectetur at lectus. Sed blandit mauris et felis dictum, et luctus ex faucibus. Donec leo tellus, hendrerit eu volutpat in, fermentum volutpat felis. Nam id tristique purus. In ac eros sit amet justo bibendum condimentum cursus ut nunc. Phasellus et commodo purus. Suspendisse ut odio tristique nisi tempus dapibus. Sed tincidunt gravida accumsan. Nullam dapibus ullamcorper leo nec varius. Proin egestas, urna id placerat sollicitudin, velit metus fringilla tellus, vel euismod augue turpis bibendum sem.
                 </p>
             </div>
+
+            <!-- === Baris Ikon Tambahan Setelah Konten Berita === -->
+            <div class="icon-actions-bottom d-flex justify-content-between align-items-center mt-4 ms-1 me-5" style="max-width: 90%;">
+                <a href="#" title="Suka">
+                    <img src="~/images/like-icon.png" alt="Like" class="icon-img-lg">
+                </a>
+                <a href="#" title="Tidak Suka">
+                    <img src="~/images/dislike-icon.png" alt="Dislike" class="icon-img-lg">
+                </a>
+                <a href="#" title="Komentar">
+                    <img src="~/images/comment-icon.png" alt="Comment" class="icon-img-lg">
+                </a>
+                <a href="#" title="Bagikan">
+                    <img src="~/images/share-icon.png" alt="Share" class="icon-img-lg">
+                </a>
+                <a href="#" title="Simpan">
+                    <img src="~/images/bookmark-icon.png" alt="Bookmark" class="icon-img-lg">
+                </a>
+            </div>
+
+            <!-- === Comment Section === -->
+            <div class="comment-section mt-5">
+                <h5 class="mb-4">Komentar</h5>
+
+                <!-- Form Komentar -->
+                <form action="/Reader/KirimKomentar" method="post" class="mb-2">
+                    <div class="mb-3">
+                        <textarea class="form-control" name="komentar" rows="3" placeholder="Tulis komentar Anda..."></textarea>
+                    </div>
+                    <button type="submit" class="light-blue-tag">Kirim Komentar</button>
+                </form>
+
+                <!-- Daftar Komentar -->
+                <div class="comment-list">
+                    <!-- Contoh Komentar -->
+                    <div class="comment mb-3 p-3 border rounded">
+                        <strong>John Doe</strong>
+                        <small class="text-muted d-block mb-2">12 Mei 2025, 11:00 WIB</small>
+                        <p>Keren banget artikelnya! Banyak insight baru 👏</p>
+                    </div>
+
+                    <div class="comment mb-3 p-3 border rounded">
+                        <strong>Jane Smith</strong>
+                        <small class="text-muted d-block mb-2">12 Mei 2025, 11:15 WIB</small>
+                        <p>Menurut saya kurang objektif. Tapi tetap menarik dibaca!</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- === Kolom Sidebar (Trending dan Terbaru) === -->
