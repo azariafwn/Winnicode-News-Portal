@@ -840,3 +840,16 @@ footer hr {
     color: #444;
     line-height: 1.6;
 }
+
+.icon-img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+    opacity: 0.7;
+    transition: 0.2s;
+}
+
+.icon-img:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}

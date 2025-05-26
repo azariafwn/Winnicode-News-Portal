@@ -5,19 +5,48 @@
 
 <div class="container">
     <div class="row">
+        <div class="mb-2">
+            <a href="/Reader/Index" class="text-decoration-none text-muted">winnicode.com</a> /
+            <a href="/Reader/Kategori" class="text-decoration-none text-muted">kategori</a> /
+            <a href="/Reader/Kategori" class="text-decoration-none text-muted">sub kategori</a>
+        </div>
+
         <!-- === Kolom Konten Berita === -->
         <div class="col-lg-8">
             <!-- Judul Berita -->
             <h1 class="news-title">Judul Berita Judul Berita Judul Berita Judul Berita</h1>
 
-            <!-- Informasi Penulis -->
-            <div class="author-info d-flex align-items-center mb-3">
-                <img src="~/images/profile-icon.png" alt="Foto Profil" class="author-profile-img me-3">
-                <div>
-                    <span class="author-name">Nama Penulis</span><br>
-                    <small class="news-timestamp">Pada 12/05/2025, 10:30 WIB</small>
+            <!-- Informasi Penulis + Icon -->
+            <div class="author-info d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between mb-3">
+                <!-- Profil Penulis -->
+                <div class="d-flex align-items-center me-md-auto mb-2 mb-md-0">
+                    <img src="~/images/profile-icon.png" alt="Foto Profil" class="author-profile-img me-3">
+                    <div>
+                        <span class="author-name">Nama Penulis</span><br>
+                        <small class="news-timestamp">Pada 12/05/2025, 10:30 WIB</small>
+                    </div>
+                </div>
+
+                <!-- Ikon Aksi -->
+                <div class="icon-actions d-flex align-items-center me-5">
+                    <a href="#" class="me-3" title="Suka">
+                        <img src="~/images/like-icon.png" alt="Like" class="icon-img">
+                    </a>
+                    <a href="#" class="me-3" title="Tidak Suka">
+                        <img src="~/images/dislike-icon.png" alt="Dislike" class="icon-img">
+                    </a>
+                    <a href="#" class="me-3" title="Komentar">
+                        <img src="~/images/comment-icon.png" alt="Comment" class="icon-img">
+                    </a>
+                    <a href="#" class="me-3" title="Bagikan">
+                        <img src="~/images/share-icon.png" alt="Share" class="icon-img">
+                    </a>
+                    <a href="#" title="Simpan">
+                        <img src="~/images/bookmark-icon.png" alt="Bookmark" class="icon-img">
+                    </a>
                 </div>
             </div>
+
 
             <!-- Gambar Berita -->
             <img src="~/images/dummy-news-image.png" alt="Gambar Berita" class="news-image mb-4">
