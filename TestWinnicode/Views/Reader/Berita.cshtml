@@ -5,70 +5,44 @@
 
 <div class="container">
     <div class="row">
+        <!-- Navigasi Lokasi -->
         <div class="mb-2">
             <a href="/Reader/Index" class="text-decoration-none text-muted">winnicode.com</a> /
-            <a href="/Reader/Kategori" class="text-decoration-none text-muted">kategori</a> /
-            <a href="/Reader/Kategori" class="text-decoration-none text-muted">sub kategori</a>
+            <a href="/Reader/Kategori?nama=@Model.SubKategori.Kategori.Nama" class="text-decoration-none text-muted">@Model.SubKategori.Kategori.Nama</a> /
+            <a href="/Reader/Kategori?sub=@Model.SubKategori.Nama" class="text-decoration-none text-muted">@Model.SubKategori.Nama</a>
         </div>
 
         <!-- === Kolom Konten Berita === -->
         <div class="col-lg-8">
             <!-- Judul Berita -->
-            <h1 class="news-title">Judul Berita Judul Berita Judul Berita Judul Berita</h1>
+            <h1 class="news-title">@Model.Judul</h1>
 
             <!-- Informasi Penulis + Icon -->
             <div class="author-info d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between mb-3">
-                <!-- Profil Penulis -->
                 <div class="d-flex align-items-center me-md-auto mb-2 mb-md-0">
                     <img src="~/images/profile-icon.png" alt="Foto Profil" class="author-profile-img me-3">
                     <div>
-                        <span class="author-name">Nama Penulis</span><br>
-                        <small class="news-timestamp">Pada 12/05/2025, 10:30 WIB</small>
+                        <span class="author-name">@Model.Penulis</span><br>
+                        <small class="news-timestamp">Pada @Model.Tanggal_Publish.ToString("dd/MM/yyyy, HH:mm") WIB</small>
                     </div>
                 </div>
-
-                <!-- Ikon Aksi -->
                 <div class="icon-actions d-flex align-items-center me-5">
-                    <a href="#" class="me-3" title="Suka">
-                        <img src="~/images/like-icon.png" alt="Like" class="icon-img">
-                    </a>
-                    <a href="#" class="me-3" title="Tidak Suka">
-                        <img src="~/images/dislike-icon.png" alt="Dislike" class="icon-img">
-                    </a>
-                    <a href="#" class="me-3" title="Komentar">
-                        <img src="~/images/comment-icon.png" alt="Comment" class="icon-img">
-                    </a>
-                    <a href="#" class="me-3" title="Bagikan">
-                        <img src="~/images/share-icon.png" alt="Share" class="icon-img">
-                    </a>
-                    <a href="#" title="Simpan">
-                        <img src="~/images/bookmark-icon.png" alt="Bookmark" class="icon-img">
-                    </a>
+                    <a href="#" class="me-3" title="Suka"><img src="~/images/like-icon.png" alt="Like" class="icon-img"></a>
+                    <a href="#" class="me-3" title="Tidak Suka"><img src="~/images/dislike-icon.png" alt="Dislike" class="icon-img"></a>
+                    <a href="#" class="me-3" title="Komentar"><img src="~/images/comment-icon.png" alt="Comment" class="icon-img"></a>
+                    <a href="#" class="me-3" title="Bagikan"><img src="~/images/share-icon.png" alt="Share" class="icon-img"></a>
+                    <a href="#" title="Simpan"><img src="~/images/bookmark-icon.png" alt="Bookmark" class="icon-img"></a>
                 </div>
             </div>
-
 
             <!-- Gambar Berita -->
             <img src="~/images/dummy-news-image.png" alt="Gambar Berita" class="news-image mb-4">
 
             <!-- Isi Berita -->
             <div class="news-content">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec urna eros, scelerisque ut neque sit amet, dapibus mollis nulla. Etiam enim enim, porta id nulla quis, convallis congue augue. In vel neque tortor. Nulla at porta arcu. Morbi elit nibh, tincidunt in maximus a, consectetur a nisl. Integer ligula nisi, posuere vitae dictum a, volutpat vel sem. Morbi auctor aliquet pulvinar. Proin dui lorem, vehicula et ultrices vel, elementum ac nulla.
-                </p>
-                <p>
-                    Sed lacinia sit amet ex feugiat semper. Suspendisse lectus purus, commodo at ante sed, mollis feugiat mi. Nullam tempus purus non metus volutpat sodales. Pellentesque porttitor dui eget erat sollicitudin vulputate. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin ac ligula magna. Aenean sit amet neque vitae felis tempor placerat. Integer hendrerit nisi in ex elementum, tincidunt posuere felis venenatis. Vivamus nibh sem, consequat et sagittis at, iaculis at augue. Etiam viverra ipsum a leo posuere pulvinar interdum vel purus. Donec finibus tincidunt lorem euismod pellentesque. Morbi hendrerit dui erat, ac tincidunt quam sodales sit amet. Donec laoreet felis vel augue porttitor, porta lobortis erat aliquet. Curabitur pellentesque lorem lacus, ac eleifend dolor imperdiet id. Nullam quis justo a ex fringilla luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                </p>
-                <p>
-                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Pellentesque mattis quis metus sit amet luctus. Vestibulum eget luctus quam. Phasellus bibendum pulvinar sapien eu ultrices. Quisque lectus libero, sodales nec accumsan vitae, feugiat quis sapien. Suspendisse potenti. Mauris risus lorem, rutrum vitae varius at, mattis dignissim libero. Phasellus aliquet lorem diam, non bibendum est lacinia et. Praesent finibus velit magna, ut pharetra turpis malesuada at. Quisque non nunc vulputate erat vestibulum dignissim quis sed sem. Fusce et ex quis enim egestas fermentum vitae at ante.
-                </p>
-                <p>
-                    Suspendisse ut metus auctor, porta nulla nec, ultrices lectus. Nulla scelerisque fermentum mi, tristique sollicitudin lacus eleifend ut. Sed a purus eu lorem tincidunt laoreet. Suspendisse dictum interdum semper. Donec vitae suscipit leo. Suspendisse a aliquam arcu. Aenean pellentesque sollicitudin nisi, eget dignissim velit efficitur sit amet. Nulla nec tellus lorem. Aliquam eu nulla a purus volutpat suscipit eu et metus.
-                </p>
-                <p>
-                    Nam tincidunt auctor est in ultricies. Duis vitae nibh in massa pretium laoreet. Nulla facilisi. Praesent nulla mi, placerat sit amet commodo ac, consectetur at lectus. Sed blandit mauris et felis dictum, et luctus ex faucibus. Donec leo tellus, hendrerit eu volutpat in, fermentum volutpat felis. Nam id tristique purus. In ac eros sit amet justo bibendum condimentum cursus ut nunc. Phasellus et commodo purus. Suspendisse ut odio tristique nisi tempus dapibus. Sed tincidunt gravida accumsan. Nullam dapibus ullamcorper leo nec varius. Proin egestas, urna id placerat sollicitudin, velit metus fringilla tellus, vel euismod augue turpis bibendum sem.
-                </p>
+                <p>@Model.Isi</p>
             </div>
+
 
             <!-- === Baris Ikon Tambahan Setelah Konten Berita === -->
             <div class="icon-actions-bottom d-flex justify-content-between align-items-center mt-4 ms-1 me-5" style="max-width: 90%;">
