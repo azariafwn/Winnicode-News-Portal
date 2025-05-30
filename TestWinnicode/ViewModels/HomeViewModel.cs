@@ -1,0 +1,10 @@
+﻿using TestWinnicode.Models;
+
+namespace TestWinnicode.ViewModels
+{
+    public class HomeViewModel
+    {
+        public List<Berita> TrendingList { get; set; }
+        public List<Berita> TerbaruList { get; set; }
+    }
+}

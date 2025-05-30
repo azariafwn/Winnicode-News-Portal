@@ -18,7 +18,25 @@ namespace TestWinnicode.Controllers.Reader
         public IActionResult Index()
         {
             ViewBag.Username = User.Identity.Name;
-            return View();
+            
+            var viewModel = new HomeViewModel
+            {
+                TrendingList = _context.Berita
+            .Include(b => b.SubKategori)
+            .ThenInclude(sk => sk.Kategori)
+            .OrderByDescending(b => b.Jumlah_View)
+            .Take(10)
+            .ToList(),
+
+                TerbaruList = _context.Berita
+            .Include(b => b.SubKategori)
+            .ThenInclude(sk => sk.Kategori)
+            .OrderByDescending(b => b.Tanggal_Publish)
+            .Take(12)
+            .ToList()
+            };
+
+            return View(viewModel);
         }
         public IActionResult Kategori(string nama)
         {
