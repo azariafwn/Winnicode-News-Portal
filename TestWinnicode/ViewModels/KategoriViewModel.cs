@@ -1,0 +1,13 @@
+﻿using System.Collections.Generic;
+using TestWinnicode.Models;
+
+namespace TestWinnicode.ViewModels
+{
+    public class KategoriViewModel
+    {
+        public List<Kategori> KategoriList { get; set; }
+        public List<SubKategori> SubKategoriList { get; set; }
+        public List<Berita> BeritaList { get; set; }
+        public List<Berita> TrendingList { get; set; }
+    }
+}

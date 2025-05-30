@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TestWinnicode.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using TestWinnicode.Data;
 using TestWinnicode.Models;
@@ -19,10 +20,46 @@ namespace TestWinnicode.Controllers.Reader
             ViewBag.Username = User.Identity.Name;
             return View();
         }
-        public IActionResult Kategori()
+        public IActionResult Kategori(string nama)
         {
-            return View();
+            // Ambil kategori berdasarkan nama (case-insensitive)
+            var kategori = _context.Kategori
+                .FirstOrDefault(k => k.Nama.ToLower() == nama.ToLower());
+
+            if (kategori == null)
+            {
+                return NotFound();
+            }
+
+            var subKategoriList = _context.SubKategori
+                .Where(sk => sk.KategoriId == kategori.Id)
+                .Include(sk => sk.Kategori)
+                .ToList();
+
+            var beritaList = _context.Berita
+                .Include(b => b.SubKategori)
+                .Where(b => b.SubKategori.KategoriId == kategori.Id)
+                .OrderByDescending(b => b.Tanggal_Publish)
+                .Take(24)
+                .ToList();
+
+            var trendingList = _context.Berita
+                .Where(b => b.SubKategori.KategoriId == kategori.Id)
+                .OrderByDescending(b => b.Jumlah_View)
+                .Take(10)
+                .ToList();
+
+            var viewModel = new KategoriViewModel
+            {
+                KategoriList = new List<Kategori> { kategori },
+                SubKategoriList = subKategoriList,
+                BeritaList = beritaList,
+                TrendingList = trendingList
+            };
+
+            return View(viewModel);
         }
+
         public IActionResult Berita(int id)
         {
             var berita = _context.Berita

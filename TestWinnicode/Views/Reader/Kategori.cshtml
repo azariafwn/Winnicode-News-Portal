@@ -1,4 +1,5 @@
-﻿@{
+﻿@model TestWinnicode.ViewModels.KategoriViewModel
+@{
     Layout = "~/Views/Shared/_ReaderLayout.cshtml";
     ViewBag.Title = "Kategori - NewsPortal";
 }
@@ -6,20 +7,18 @@
 <div class="container">
     <!-- Kategori dan Subkategori -->
     <div class="d-flex flex-wrap align-items-center">
-        <h5 class="pink-tag me-3">TEKNOLOGI</h5>
+        @if (Model.KategoriList.Count > 0)
+        {
+            <h5 class="pink-tag me-3">@Model.KategoriList.First().Nama.ToUpper()</h5>
+        }
         <div class="d-flex flex-wrap gap-2">
-            <span class="light-blue-tag">AI</span>
-            <span class="light-blue-tag">Gadget</span>
-            <span class="light-blue-tag">Sosial Media</span>
-            <span class="light-blue-tag">Start-up</span>
-            <span class="light-blue-tag">Software</span>
-            <span class="light-blue-tag">AI</span>
-            <span class="light-blue-tag">Gadget</span>
-            <span class="light-blue-tag">Sosial Media</span>
-            <span class="light-blue-tag">Start-up</span>
-            <span class="light-blue-tag">Software</span>
+            @foreach (var sub in Model.SubKategoriList)
+            {
+                <span class="light-blue-tag">@sub.Nama</span>
+            }
         </div>
     </div>
+
 
     <!-- Headline & Sub Headline Section -->
     <div class="row">
