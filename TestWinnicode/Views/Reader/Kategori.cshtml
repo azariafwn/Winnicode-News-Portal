@@ -59,21 +59,24 @@
     <div class="terbaru-section mt-4">
         <h5 class="blue-tag">TERBARU</h5>
         <div class="row g-3">
-            @for (int i = 1; i <= 6; i++) // misalnya 10 berita
+            @foreach (var b in Model.TerbaruList.Take(6))
             {
                 <div class="col-6 col-sm-4 col-md-2-4 col-lg-2">
-                    <a href="/reader/Berita" class="text-decoration-none text-dark">
+                    <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
                         <div class="terbaru-item text-start">
                             <img src="/images/dummy-news-image.png" class="img-fluid rounded mb-2" alt="Berita Terbaru">
-                            <h6 class="terbaru-title">Judul Berita @i Judul Berita @i</h6>
-                            <span class="terbaru-category d-block">Sub Kategori: Teknologi</span>
-                            <span class="terbaru-date d-block">Diperbarui 1 jam lalu</span>
+                            <h6 class="terbaru-title">@b.Judul</h6>
+                            <span class="terbaru-category d-block">Sub Kategori: @b.SubKategori?.Nama</span>
+                            <span class="terbaru-date d-block">
+                                Diperbarui @b.Tanggal_Publish.ToString("dd MMM yyyy, HH:mm")
+                            </span>
                         </div>
                     </a>
                 </div>
             }
         </div>
     </div>
+
 
     <!-- Sub Kategori & Trending Section -->
     <div class="row align-items-start mt-5">
@@ -101,7 +104,6 @@
             }
         </div>
 
-        <!-- Trending Section -->
         <!-- Trending Section -->
         <div class="col-lg-4">
             <div class="trending-section mt-4">

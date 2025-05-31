@@ -67,12 +67,21 @@ namespace TestWinnicode.Controllers.Reader
                 .Take(10)
                 .ToList();
 
+            var terbaruList = _context.Berita
+                .Include(b => b.SubKategori)
+                .ThenInclude(sk => sk.Kategori)
+                .Where(b => b.SubKategori.KategoriId == kategori.Id)
+                .OrderByDescending(b => b.Tanggal_Publish)
+                .Take(10)
+                .ToList();
+
             var viewModel = new KategoriViewModel
             {
                 KategoriList = new List<Kategori> { kategori },
                 SubKategoriList = subKategoriList,
                 BeritaList = beritaList,
-                TrendingList = trendingList
+                TrendingList = trendingList,
+                TerbaruList = terbaruList
             };
 
             return View(viewModel);

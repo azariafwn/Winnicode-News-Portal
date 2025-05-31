@@ -9,5 +9,7 @@ namespace TestWinnicode.ViewModels
         public List<SubKategori> SubKategoriList { get; set; }
         public List<Berita> BeritaList { get; set; }
         public List<Berita> TrendingList { get; set; }
+        public List<Berita> TerbaruList { get; set; }
+
     }
 }
