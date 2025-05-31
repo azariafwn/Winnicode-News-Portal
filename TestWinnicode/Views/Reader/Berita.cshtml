@@ -1,4 +1,5 @@
-﻿@{
+﻿@model TestWinnicode.ViewModels.BeritaViewModel
+@{
     Layout = "~/Views/Shared/_ReaderLayout.cshtml";
     ViewBag.Title = "Berita - NewsPortal";
 }
@@ -8,22 +9,22 @@
         <!-- Navigasi Lokasi -->
         <div class="mb-2">
             <a href="/Reader/Index" class="text-decoration-none text-muted">winnicode.com</a> /
-            <a href="/Reader/Kategori?nama=@Model.SubKategori.Kategori.Nama" class="text-decoration-none text-muted">@Model.SubKategori.Kategori.Nama</a> /
-            <a href="/Reader/Kategori?sub=@Model.SubKategori.Nama" class="text-decoration-none text-muted">@Model.SubKategori.Nama</a>
+            <a href="/Reader/Kategori?nama=@Model.BeritaDetail.SubKategori.Kategori.Nama" class="text-decoration-none text-muted">@Model.BeritaDetail.SubKategori.Kategori.Nama</a> /
+            <a href="/Reader/Kategori?sub=@Model.BeritaDetail.SubKategori.Nama" class="text-decoration-none text-muted">@Model.BeritaDetail.SubKategori.Nama</a>
         </div>
 
         <!-- === Kolom Konten Berita === -->
         <div class="col-lg-8">
             <!-- Judul Berita -->
-            <h1 class="news-title">@Model.Judul</h1>
+            <h1 class="news-title">@Model.BeritaDetail.Judul</h1>
 
             <!-- Informasi Penulis + Icon -->
             <div class="author-info d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between mb-3">
                 <div class="d-flex align-items-center me-md-auto mb-2 mb-md-0">
                     <img src="~/images/profile-icon.png" alt="Foto Profil" class="author-profile-img me-3">
                     <div>
-                        <span class="author-name">@Model.Penulis</span><br>
-                        <small class="news-timestamp">Pada @Model.Tanggal_Publish.ToString("dd/MM/yyyy, HH:mm") WIB</small>
+                        <span class="author-name">@Model.BeritaDetail.Penulis</span><br>
+                        <small class="news-timestamp">Pada @Model.BeritaDetail.Tanggal_Publish.ToString("dd/MM/yyyy, HH:mm") WIB</small>
                     </div>
                 </div>
                 <div class="icon-actions d-flex align-items-center me-5">
@@ -40,7 +41,7 @@
 
             <!-- Isi Berita -->
             <div class="news-content">
-                <p>@Model.Isi</p>
+                <p>@Model.BeritaDetail.Isi</p>
             </div>
 
 
@@ -100,18 +101,20 @@
             <div class="trending-section mt-3">
                 <h5 class="pink-tag">TRENDING</h5>
                 <ul class="list-group trending-list">
-                    @for (int i = 1; i <= 8; i++) // misalnya 10 berita
+                    @for (int i = 0; i < Model.TrendingList.Count; i++)
                     {
+                        var b = Model.TrendingList[i];
                         <li class="list-group-item trending-item">
-                            <div class="ranking">@((i).ToString("D2"))</div>
+                            <div class="ranking">@((i + 1).ToString("D2"))</div>
                             <div class="trending-details">
-                                <a href="/reader/berita">
-                                    <h6 class="trending-title">Judul Berita Trending Judul Berita Trending Judul Berita Trending</h6>
-                                    <span class="trending-meta">Kategori: Politik | Dibaca 500 kali</span>
+                                <a href="/reader/berita/@b.Id">
+                                    <h6 class="trending-title">@b.Judul</h6>
+                                    <span class="trending-meta">Kategori: @b.SubKategori?.Kategori?.Nama | Dibaca @b.Jumlah_View kali</span>
                                 </a>
                             </div>
                         </li>
                     }
+
                 </ul>
                 <a href="/Reader/Trending" class="trending-link">Trending Lainnya >></a>
             </div>
@@ -120,71 +123,20 @@
             <div class="terbaru-section mt-4">
                 <h5 class="blue-tag">TERBARU</h5>
                 <div class="terbaru-list">
-                    <a href="/reader/Berita" class="text-decoration-none text-dark">
-                        <div class="terbaru-item d-flex mb-3">
-                            <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
-                            <div>
-                                <h6 class="terbaru-title">Judul Berita Terbaru Judul Berita Terbaru Judul Berita Terbaru</h6>
-                                <span class="terbaru-category">Kategori: Teknologi</span><br>
-                                <span class="terbaru-date">Diperbarui 1 jam lalu</span>
+                    @foreach (var b in Model.TerbaruList)
+                    {
+                        <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
+                            <div class="terbaru-item d-flex mb-3">
+                                <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
+                                <div>
+                                    <h6 class="terbaru-title">@b.Judul</h6>
+                                    <span class="terbaru-category">Kategori: @b.SubKategori?.Kategori?.Nama</span><br>
+                                    <span class="terbaru-date">Diperbarui @b.Tanggal_Publish.ToString("dd MMM yyyy, HH:mm")</span>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    }
 
-                    <a href="/reader/Berita" class="text-decoration-none text-dark">
-                        <div class="terbaru-item d-flex mb-3">
-                            <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
-                            <div>
-                                <h6 class="terbaru-title">Judul Berita Terbaru Judul Berita Terbaru Judul Berita Terbaru</h6>
-                                <span class="terbaru-category">Kategori: Teknologi</span><br>
-                                <span class="terbaru-date">Diperbarui 1 jam lalu</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="/reader/Berita" class="text-decoration-none text-dark">
-                        <div class="terbaru-item d-flex mb-3">
-                            <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
-                            <div>
-                                <h6 class="terbaru-title">Judul Berita Terbaru Judul Berita Terbaru Judul Berita Terbaru</h6>
-                                <span class="terbaru-category">Kategori: Teknologi</span><br>
-                                <span class="terbaru-date">Diperbarui 1 jam lalu</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="/reader/Berita" class="text-decoration-none text-dark">
-                        <div class="terbaru-item d-flex mb-3">
-                            <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
-                            <div>
-                                <h6 class="terbaru-title">Judul Berita Terbaru Judul Berita Terbaru Judul Berita Terbaru</h6>
-                                <span class="terbaru-category">Kategori: Teknologi</span><br>
-                                <span class="terbaru-date">Diperbarui 1 jam lalu</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="/reader/Berita" class="text-decoration-none text-dark">
-                        <div class="terbaru-item d-flex mb-3">
-                            <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
-                            <div>
-                                <h6 class="terbaru-title">Judul Berita Terbaru Judul Berita Terbaru Judul Berita Terbaru</h6>
-                                <span class="terbaru-category">Kategori: Teknologi</span><br>
-                                <span class="terbaru-date">Diperbarui 1 jam lalu</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="/reader/Berita" class="text-decoration-none text-dark">
-                        <div class="terbaru-item d-flex mb-3">
-                            <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
-                            <div>
-                                <h6 class="terbaru-title">Judul Berita Terbaru Judul Berita Terbaru Judul Berita Terbaru</h6>
-                                <span class="terbaru-category">Kategori: Teknologi</span><br>
-                                <span class="terbaru-date">Diperbarui 1 jam lalu</span>
-                            </div>
-                        </div>
-                    </a>
                 </div>
             </div>
 

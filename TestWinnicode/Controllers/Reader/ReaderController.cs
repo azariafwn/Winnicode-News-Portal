@@ -94,14 +94,33 @@ namespace TestWinnicode.Controllers.Reader
                 .ThenInclude(sk => sk.Kategori)
                 .FirstOrDefault(b => b.Id == id);
 
-
             if (berita == null)
             {
                 return NotFound();
             }
 
-            return View("Berita", berita);
+            var trending = _context.Berita
+                .Include(b => b.SubKategori).ThenInclude(sk => sk.Kategori)
+                .OrderByDescending(b => b.Jumlah_View)
+                .Take(8)
+                .ToList();
+
+            var terbaru = _context.Berita
+                .Include(b => b.SubKategori).ThenInclude(sk => sk.Kategori)
+                .OrderByDescending(b => b.Tanggal_Publish)
+                .Take(6)
+                .ToList();
+
+            var viewModel = new BeritaViewModel
+            {
+                BeritaDetail = berita,
+                TrendingList = trending,
+                TerbaruList = terbaru
+            };
+
+            return View("Berita", viewModel);
         }
+
 
         public IActionResult ProfilUser()
         {
