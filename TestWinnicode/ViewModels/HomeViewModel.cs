@@ -8,5 +8,7 @@ namespace TestWinnicode.ViewModels
         public List<Berita> SubHeadlineList { get; set; }
         public List<Berita> TrendingList { get; set; }
         public List<Berita> TerbaruList { get; set; }
+        public Dictionary<string, List<Berita>> WhatsOnByKategori { get; set; }
+
     }
 }

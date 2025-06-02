@@ -18,35 +18,58 @@ namespace TestWinnicode.Controllers.Reader
         public IActionResult Index()
         {
             ViewBag.Username = User.Identity.Name;
-            
+
+            // Ambil 4 kategori (acak atau sesuai ID)
+            var kategoriList = _context.Kategori
+                .OrderBy(k => Guid.NewGuid()) // acak
+                .Take(4)
+                .ToList();
+
+            var whatsOnDict = new Dictionary<string, List<Berita>>();
+
+            foreach (var kategori in kategoriList)
+            {
+                var beritaPerKategori = _context.Berita
+                    .Include(b => b.SubKategori)
+                    .ThenInclude(sk => sk.Kategori)
+                    .Where(b => b.SubKategori.KategoriId == kategori.Id)
+                    .OrderByDescending(b => b.Tanggal_Publish)
+                    .Take(6)
+                    .ToList();
+
+                whatsOnDict[kategori.Nama] = beritaPerKategori;
+            }
+
             var viewModel = new HomeViewModel
             {
+                WhatsOnByKategori = whatsOnDict,
+
                 Headline = _context.Berita
-            .Include(b => b.SubKategori)
-            .ThenInclude(sk => sk.Kategori)
-            .FirstOrDefault(b => b.IsHeadline),
+                    .Include(b => b.SubKategori)
+                    .ThenInclude(sk => sk.Kategori)
+                    .FirstOrDefault(b => b.IsHeadline),
 
                 SubHeadlineList = _context.Berita
-            .Include(b => b.SubKategori)
-            .ThenInclude(sk => sk.Kategori)
-            .Where(b => b.IsSubHeadline)
-            .OrderByDescending(b => b.Tanggal_Publish)
-            .Take(6)
-            .ToList(),
+                    .Include(b => b.SubKategori)
+                    .ThenInclude(sk => sk.Kategori)
+                    .Where(b => b.IsSubHeadline)
+                    .OrderByDescending(b => b.Tanggal_Publish)
+                    .Take(6)
+                    .ToList(),
 
                 TrendingList = _context.Berita
-            .Include(b => b.SubKategori)
-            .ThenInclude(sk => sk.Kategori)
-            .OrderByDescending(b => b.Jumlah_View)
-            .Take(10)
-            .ToList(),
+                    .Include(b => b.SubKategori)
+                    .ThenInclude(sk => sk.Kategori)
+                    .OrderByDescending(b => b.Jumlah_View)
+                    .Take(10)
+                    .ToList(),
 
                 TerbaruList = _context.Berita
-            .Include(b => b.SubKategori)
-            .ThenInclude(sk => sk.Kategori)
-            .OrderByDescending(b => b.Tanggal_Publish)
-            .Take(12)
-            .ToList()
+                    .Include(b => b.SubKategori)
+                    .ThenInclude(sk => sk.Kategori)
+                    .OrderByDescending(b => b.Tanggal_Publish)
+                    .Take(12)
+                    .ToList()
             };
 
             return View(viewModel);
