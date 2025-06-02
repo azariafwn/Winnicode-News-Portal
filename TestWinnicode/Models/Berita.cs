@@ -11,6 +11,9 @@
 
         public int SubKategoriId { get; set; }
         public SubKategori SubKategori { get; set; }
+        public bool IsHeadline { get; set; }
+        public bool IsSubHeadline { get; set; }
+
     }
 
 }

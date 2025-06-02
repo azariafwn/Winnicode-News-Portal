@@ -10,6 +10,9 @@ namespace TestWinnicode.ViewModels
         public List<Berita> BeritaList { get; set; }
         public List<Berita> TrendingList { get; set; }
         public List<Berita> TerbaruList { get; set; }
+        public Berita Headline { get; set; }
+        public List<Berita> SubHeadlines { get; set; }
+
 
     }
 }

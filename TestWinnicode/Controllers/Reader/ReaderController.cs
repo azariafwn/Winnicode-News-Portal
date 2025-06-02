@@ -21,6 +21,19 @@ namespace TestWinnicode.Controllers.Reader
             
             var viewModel = new HomeViewModel
             {
+                Headline = _context.Berita
+            .Include(b => b.SubKategori)
+            .ThenInclude(sk => sk.Kategori)
+            .FirstOrDefault(b => b.IsHeadline),
+
+                SubHeadlineList = _context.Berita
+            .Include(b => b.SubKategori)
+            .ThenInclude(sk => sk.Kategori)
+            .Where(b => b.IsSubHeadline)
+            .OrderByDescending(b => b.Tanggal_Publish)
+            .Take(6)
+            .ToList(),
+
                 TrendingList = _context.Berita
             .Include(b => b.SubKategori)
             .ThenInclude(sk => sk.Kategori)
@@ -75,13 +88,28 @@ namespace TestWinnicode.Controllers.Reader
                 .Take(10)
                 .ToList();
 
+            var headline = _context.Berita
+                .Include(b => b.SubKategori)
+                .ThenInclude(sk => sk.Kategori)
+                .FirstOrDefault(b => b.SubKategori.KategoriId == kategori.Id && b.IsHeadline);
+
+            var subHeadlines = _context.Berita
+                .Include(b => b.SubKategori)
+                .ThenInclude(sk => sk.Kategori)
+                .Where(b => b.SubKategori.KategoriId == kategori.Id && b.IsSubHeadline)
+                .Take(3)
+                .ToList();
+
+
             var viewModel = new KategoriViewModel
             {
                 KategoriList = new List<Kategori> { kategori },
                 SubKategoriList = subKategoriList,
                 BeritaList = beritaList,
                 TrendingList = trendingList,
-                TerbaruList = terbaruList
+                TerbaruList = terbaruList,
+                Headline = headline,
+                SubHeadlines = subHeadlines
             };
 
             return View(viewModel);
