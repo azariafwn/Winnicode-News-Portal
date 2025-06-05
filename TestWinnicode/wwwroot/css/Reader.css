@@ -760,12 +760,13 @@ footer hr {
 .label-blue {
     color: #38B6FF;
     font-weight: 500;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0rem;
 }
 
 .data-pink {
     color: #FF66C4;
-    font-weight: bold;
+    font-weight: bolder;
+    font-size: 1.5rem;
     margin-bottom: 0;
 }
 

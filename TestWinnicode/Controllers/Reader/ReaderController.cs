@@ -172,11 +172,20 @@ namespace TestWinnicode.Controllers.Reader
             return View("Berita", viewModel);
         }
 
-
         public IActionResult ProfilUser()
         {
-            return View();
+            var username = User.Identity.Name;
+
+            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user); // kirim objek User ke View
         }
+
         public IActionResult ProfilPenulis()
         {
             return View();
