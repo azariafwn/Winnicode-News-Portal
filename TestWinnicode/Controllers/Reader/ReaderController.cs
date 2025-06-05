@@ -69,6 +69,12 @@ namespace TestWinnicode.Controllers.Reader
                     .ThenInclude(sk => sk.Kategori)
                     .OrderByDescending(b => b.Tanggal_Publish)
                     .Take(12)
+                    .ToList(),
+
+                 PenulisList = _context.Penulis
+                    .Include(p => p.User)
+                    .Include(p => p.KategoriFokus)
+                    .Take(7)
                     .ToList()
             };
 
@@ -143,6 +149,8 @@ namespace TestWinnicode.Controllers.Reader
             var berita = _context.Berita
                 .Include(b => b.SubKategori)
                 .ThenInclude(sk => sk.Kategori)
+                .Include(b => b.Penulis)
+                .ThenInclude(p => p.User)
                 .FirstOrDefault(b => b.Id == id);
 
             if (berita == null)
@@ -186,9 +194,40 @@ namespace TestWinnicode.Controllers.Reader
             return View(user); // kirim objek User ke View
         }
 
-        public IActionResult ProfilPenulis()
+        public IActionResult ProfilPenulis(int id)
         {
-            return View();
+            var penulis = _context.Penulis
+                .Include(p => p.User)
+                .Include(p => p.KategoriFokus)
+                .FirstOrDefault(p => p.Id == id);
+
+            if (penulis == null)
+            {
+                return NotFound();
+            }
+
+            var beritaTerbaru = _context.Berita
+                .Include(b => b.SubKategori)
+                .ThenInclude(sk => sk.Kategori)
+                .Where(b => b.PenulisId == id)
+                .OrderByDescending(b => b.Tanggal_Publish)
+                .Take(6)
+                .ToList();
+
+            var totalView = _context.Berita
+                .Where(b => b.PenulisId == id)
+                .Sum(b => b.Jumlah_View);
+
+            var viewModel = new ProfilPenulisViewModel
+            {
+                User = penulis.User,
+                Penulis = penulis,
+                BeritaTerbaru = beritaTerbaru,
+                TotalView = totalView
+            };
+
+            return View(viewModel);
         }
+
     }
 }

@@ -11,6 +11,7 @@ namespace TestWinnicode.Data
         public DbSet<Kategori> Kategori { get; set; }
         public DbSet<SubKategori> SubKategori { get; set; }
         public DbSet<Berita> Berita { get; set; }
+        public DbSet<Penulis> Penulis { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

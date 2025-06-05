@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestWinnicode.Data;
 
@@ -11,9 +12,11 @@ using TestWinnicode.Data;
 namespace TestWinnicode.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250605060849_AddPenulisTable")]
+    partial class AddPenulisTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,38 +24,6 @@ namespace TestWinnicode.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
-            modelBuilder.Entity("Penulis", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Deskripsi")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("FotoProfil")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("TotalArtikel")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalDibaca")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Penulis");
-                });
 
             modelBuilder.Entity("TestWinnicode.Models.Berita", b =>
                 {
@@ -79,6 +50,10 @@ namespace TestWinnicode.Migrations
                     b.Property<int>("Jumlah_View")
                         .HasColumnType("int");
 
+                    b.Property<string>("Penulis")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int?>("PenulisId")
                         .HasColumnType("int");
 
@@ -89,8 +64,6 @@ namespace TestWinnicode.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PenulisId");
 
                     b.HasIndex("SubKategoriId");
 
@@ -196,30 +169,13 @@ namespace TestWinnicode.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Penulis", b =>
-                {
-                    b.HasOne("TestWinnicode.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("TestWinnicode.Models.Berita", b =>
                 {
-                    b.HasOne("Penulis", "Penulis")
-                        .WithMany("BeritaList")
-                        .HasForeignKey("PenulisId");
-
                     b.HasOne("TestWinnicode.Models.SubKategori", "SubKategori")
                         .WithMany("Beritas")
                         .HasForeignKey("SubKategoriId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Penulis");
 
                     b.Navigation("SubKategori");
                 });
@@ -233,11 +189,6 @@ namespace TestWinnicode.Migrations
                         .IsRequired();
 
                     b.Navigation("Kategori");
-                });
-
-            modelBuilder.Entity("Penulis", b =>
-                {
-                    b.Navigation("BeritaList");
                 });
 
             modelBuilder.Entity("TestWinnicode.Models.Kategori", b =>

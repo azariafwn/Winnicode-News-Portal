@@ -138,13 +138,13 @@
                 <h5 class="pink-tag">KOLOM PENULIS</h5>
                 <div class="writer-column mb-4">
                     <!-- Daftar Profil Penulis -->
-                    @for (int i = 1; i <= 7; i++)
+                    @foreach (var penulis in Model.PenulisList)
                     {
-                        <a href="/reader/ProfilPenulis" class="writer-profile d-flex mb-3 text-decoration-none text-dark">
+                        <a href="/reader/ProfilPenulis/@penulis.Id" class="writer-profile d-flex mb-3 text-decoration-none text-dark">
                             <img src="/images/profile-icon.png" class="writer-image me-3" alt="Penulis">
                             <div>
-                                <h6 class="writer-name mb-0">Nama Lengkap Penulis</h6>
-                                <span class="writer-profession d-block">Jurnalis Teknologi</span>
+                                <h6 class="writer-name mb-0">@penulis.User?.NamaLengkap</h6>
+                                <span class="writer-profession d-block">Jurnalis @penulis.KategoriFokus?.Nama</span>
                                 <small class="latest-article">Judul Berita Terbaru Penulis</small>
                             </div>
                         </a>
