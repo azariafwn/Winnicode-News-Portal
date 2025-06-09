@@ -78,24 +78,23 @@
         </div>
     </div>
 
-
     <!-- Sub Kategori & Trending Section -->
     <div class="row align-items-start mt-5">
 
         <!-- Sub Kategori Section -->
         <div class="col-lg-8">
-            @for (int section = 1; section <= 4; section++) 
+            @foreach (var entry in Model.BeritaPerSubKategori)
             {
                 <div class="terbaru-section mb-4">
-                    <h5 class="blue-tag">Sub Kategori</h5>
+                    <h5 class="blue-tag">Sub Kategori: @entry.Key</h5>
                     <div class="row g-3">
-                        @for (int i = 1; i <= 6; i++)
+                        @foreach (var b in entry.Value)
                         {
                             <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                                <a href="/reader/Berita" class="text-decoration-none text-dark">
+                                <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
                                     <div class="sub-headline-item text-start">
                                         <img src="/images/dummy-news-image.png" class="img-fluid rounded mb-2" alt="Berita Sub Kategori">
-                                        <h6 class="sub-headline-title">Judul Berita Sub Kategori</h6>
+                                        <h6 class="sub-headline-title">@b.Judul</h6>
                                     </div>
                                 </a>
                             </div>
@@ -104,6 +103,7 @@
                 </div>
             }
         </div>
+
 
         <!-- Trending Section -->
         <div class="col-lg-4">

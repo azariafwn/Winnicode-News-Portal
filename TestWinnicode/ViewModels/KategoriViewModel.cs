@@ -12,6 +12,8 @@ namespace TestWinnicode.ViewModels
         public List<Berita> TerbaruList { get; set; }
         public Berita Headline { get; set; }
         public List<Berita> SubHeadlines { get; set; }
+        public Dictionary<string, List<Berita>> BeritaPerSubKategori { get; set; }
+
 
 
     }

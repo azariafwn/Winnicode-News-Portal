@@ -129,6 +129,17 @@ namespace TestWinnicode.Controllers.Reader
                 .Take(3)
                 .ToList();
 
+            // berita per subkategori untuk di halaman kategori
+            var beritaPerSubKategori = subKategoriList.ToDictionary(
+                sub => sub.Nama,
+                sub => _context.Berita
+                    .Include(b => b.SubKategori)
+                    .Where(b => b.SubKategoriId == sub.Id)
+                    .OrderByDescending(b => b.Tanggal_Publish)
+                    .Take(6)
+                    .ToList()
+            );
+
 
             var viewModel = new KategoriViewModel
             {
@@ -138,7 +149,8 @@ namespace TestWinnicode.Controllers.Reader
                 TrendingList = trendingList,
                 TerbaruList = terbaruList,
                 Headline = headline,
-                SubHeadlines = subHeadlines
+                SubHeadlines = subHeadlines,
+                BeritaPerSubKategori = beritaPerSubKategori
             };
 
             return View(viewModel);
