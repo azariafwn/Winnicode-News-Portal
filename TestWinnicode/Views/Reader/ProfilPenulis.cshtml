@@ -34,82 +34,50 @@
         </div>
     </div>
 
-    <!-- Terbaru Section -->
+    <!-- TERBARU SECTION -->
     <div class="terbaru-section mt-4">
         <h5 class="blue-tag">TERBARU</h5>
         <div class="row">
+            @{
+                var beritaKiri = Model.BeritaTerbaru.Take(3).ToList();
+                var beritaKanan = Model.BeritaTerbaru.Skip(3).Take(3).ToList();
+            }
+
             <!-- Section Kiri -->
             <div class="col-md-6">
-                <a href="/reader/Berita" class="text-decoration-none text-dark">
-                    <div class="terbaru-item d-flex mb-3">
-                        <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
-                        <div>
-                            <h6 class="terbaru-title">Judul Berita Terbaru Oleh Penulis Judul Berita Terbaru Oleh Penulis</h6>
-                            <span class="terbaru-category">Kategori: Teknologi</span><br>
-                            <span class="terbaru-date">Diperbarui 1 jam lalu</span>
+                @foreach (var b in beritaKiri)
+                {
+                    <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
+                        <div class="terbaru-item d-flex mb-3">
+                            <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
+                            <div>
+                                <h6 class="terbaru-title">@b.Judul</h6>
+                                <span class="terbaru-category">Kategori: @b.SubKategori?.Kategori?.Nama</span><br>
+                                <span class="terbaru-date">Diperbarui @b.Tanggal_Publish.ToString("dd MMM yyyy HH:mm")</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-
-                <a href="/reader/Berita" class="text-decoration-none text-dark">
-                    <div class="terbaru-item d-flex mb-3">
-                        <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
-                        <div>
-                            <h6 class="terbaru-title">Judul Berita Terbaru Oleh Penulis Judul Berita Terbaru Oleh Penulis</h6>
-                            <span class="terbaru-category">Kategori: Teknologi</span><br>
-                            <span class="terbaru-date">Diperbarui 1 jam lalu</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="/reader/Berita" class="text-decoration-none text-dark">
-                    <div class="terbaru-item d-flex mb-3">
-                        <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
-                        <div>
-                            <h6 class="terbaru-title">Judul Berita Terbaru Oleh Penulis Judul Berita Terbaru Oleh Penulis</h6>
-                            <span class="terbaru-category">Kategori: Teknologi</span><br>
-                            <span class="terbaru-date">Diperbarui 1 jam lalu</span>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                }
             </div>
 
             <!-- Section Kanan -->
             <div class="col-md-6">
-                <a href="/reader/Berita" class="text-decoration-none text-dark">
-                    <div class="terbaru-item d-flex mb-3">
-                        <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
-                        <div>
-                            <h6 class="terbaru-title">Judul Berita Terbaru Oleh Penulis Judul Berita Terbaru Oleh Penulis</h6>
-                            <span class="terbaru-category">Kategori: Teknologi</span><br>
-                            <span class="terbaru-date">Diperbarui 1 jam lalu</span>
+                @foreach (var b in beritaKanan)
+                {
+                    <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
+                        <div class="terbaru-item d-flex mb-3">
+                            <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
+                            <div>
+                                <h6 class="terbaru-title">@b.Judul</h6>
+                                <span class="terbaru-category">Kategori: @b.SubKategori?.Kategori?.Nama</span><br>
+                                <span class="terbaru-date">Diperbarui @b.Tanggal_Publish.ToString("dd MMM yyyy HH:mm")</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-
-                <a href="/reader/Berita" class="text-decoration-none text-dark">
-                    <div class="terbaru-item d-flex mb-3">
-                        <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
-                        <div>
-                            <h6 class="terbaru-title">Judul Berita Terbaru Oleh Penulis Judul Berita Terbaru Oleh Penulis</h6>
-                            <span class="terbaru-category">Kategori: Teknologi</span><br>
-                            <span class="terbaru-date">Diperbarui 1 jam lalu</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="/reader/Berita" class="text-decoration-none text-dark">
-                    <div class="terbaru-item d-flex mb-3">
-                        <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
-                        <div>
-                            <h6 class="terbaru-title">Judul Berita Terbaru Oleh Penulis Judul Berita Terbaru Oleh Penulis</h6>
-                            <span class="terbaru-category">Kategori: Teknologi</span><br>
-                            <span class="terbaru-date">Diperbarui 1 jam lalu</span>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                }
             </div>
         </div>
     </div>
+
 
 </div>
