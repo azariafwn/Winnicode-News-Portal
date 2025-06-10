@@ -1,16 +1,14 @@
 ﻿@model TestWinnicode.Models.User
-
 @{
     Layout = "~/Views/Shared/_ReaderLayout.cshtml";
     ViewBag.Title = "Profil - NewsPortal";
+    var isEdit = ViewBag.IsEdit == true;
 }
 
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-
             <div class="card shadow-lg border-0 rounded-4 p-4 bg-white text-center">
-
                 <!-- FOTO, NAMA, EMAIL -->
                 <div class="mb-0 pb-1 d-flex flex-row align-items-center justify-content-center">
                     <img src="~/images/profile-icon.png" alt="Foto Profil" class="rounded-circle me-4" width="100" height="100">
@@ -20,60 +18,99 @@
                     </div>
                 </div>
 
-
-                <!-- GARIS PEMISAH -->
                 <hr class="mb-4">
 
                 <!-- DETAIL DATA -->
-                <div class="row mb-4 text-center">
-                    <div class="col-md-6 mb-3">
-                        <div class="border rounded p-3 h-100">
-                            <p class="label-blue mb-0">Gender</p>
-                            <p class="data-pink mb-0">@Model.Gender</p>
+                <form asp-action="ProfilUser" method="post">
+                    <div class="row mb-4 text-center">
+                        <div class="col-md-6 mb-3">
+                            <div class="border rounded p-3 h-100">
+                                <p class="label-blue mb-0">Gender</p>
+                                @if (isEdit)
+                                {
+                                    <input class="form-control text-center" name="Gender" value="@Model.Gender" />
+                                }
+                                else
+                                {
+                                    <p class="data-pink mb-0">@Model.Gender</p>
+                                }
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="border rounded p-3 h-100">
-                            <p class="label-blue mb-0">Tanggal Lahir</p>
-                            <p class="data-pink mb-0">@Model.TanggalLahir?.ToString("dd MMMM yyyy")</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="border rounded p-3 h-100">
-                            <p class="label-blue mb-0">Nomor Telepon</p>
-                            <p class="data-pink mb-0">@Model.NomorTelepon</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="border rounded p-3 h-100">
-                            <p class="label-blue mb-0">Alamat</p>
-                            <p class="data-pink mb-0">@Model.Alamat</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="border rounded p-3 h-100">
-                            <p class="label-blue mb-0">Bergabung Sejak</p>
-                            <p class="data-pink mb-0">@Model.TanggalBergabung?.ToString("dd MMMM yyyy")</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="border rounded p-3 h-100">
-                            <p class="label-blue mb-0">Role</p>
-                            <p class="data-pink mb-0">@Model.Role</p>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- TOMBOL -->
-                <div>
-                    <a href="/Reader/EditProfil" class="blue-tag me-3">Edit Profil</a>
-                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
-                        <button type="submit" class="red-tag">Logout</button>
-                    </form>
-                </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="border rounded p-3 h-100">
+                                <p class="label-blue mb-0">Tanggal Lahir</p>
+                                @if (isEdit)
+                                {
+                                    <input class="form-control text-center" type="date" name="TanggalLahir" value="@Model.TanggalLahir?.ToString("yyyy-MM-dd")" />
+                                }
+                                else
+                                {
+                                    <p class="data-pink mb-0">@Model.TanggalLahir?.ToString("dd MMMM yyyy")</p>
+                                }
+                            </div>
+                        </div>
 
+                        <div class="col-md-6 mb-3">
+                            <div class="border rounded p-3 h-100">
+                                <p class="label-blue mb-0">Nomor Telepon</p>
+                                @if (isEdit)
+                                {
+                                    <input class="form-control text-center" name="NomorTelepon" value="@Model.NomorTelepon" />
+                                }
+                                else
+                                {
+                                    <p class="data-pink mb-0">@Model.NomorTelepon</p>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="border rounded p-3 h-100">
+                                <p class="label-blue mb-0">Alamat</p>
+                                @if (isEdit)
+                                {
+                                    <input class="form-control text-center" name="Alamat" value="@Model.Alamat" />
+                                }
+                                else
+                                {
+                                    <p class="data-pink mb-0">@Model.Alamat</p>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="border rounded p-3 h-100">
+                                <p class="label-blue mb-0">Bergabung Sejak</p>
+                                <p class="data-pink mb-0">@Model.TanggalBergabung?.ToString("dd MMMM yyyy")</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="border rounded p-3 h-100">
+                                <p class="label-blue mb-0">Role</p>
+                                <p class="data-pink mb-0">@Model.Role</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TOMBOL -->
+                    <div>
+                        @if (isEdit)
+                        {
+                            <button type="submit" class="blue-tag me-3">Simpan</button>
+                            <a href="/Reader/ProfilUser" class="red-tag">Batal</a>
+                        }
+                        else
+                        {
+                            <a href="/Reader/ProfilUser?edit=true" class="blue-tag me-3">Edit Profil</a>
+                        }
+                        <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                            <button type="submit" class="red-tag">Logout</button>
+                        </form>
+                    </div>
+                </form>
             </div>
-
         </div>
     </div>
 </div>

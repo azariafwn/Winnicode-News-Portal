@@ -155,7 +155,6 @@ namespace TestWinnicode.Controllers.Reader
 
             return View(viewModel);
         }
-
         public IActionResult Berita(int id)
         {
             var berita = _context.Berita
@@ -192,18 +191,34 @@ namespace TestWinnicode.Controllers.Reader
             return View("Berita", viewModel);
         }
 
-        public IActionResult ProfilUser()
+        [HttpGet]
+        public IActionResult ProfilUser(bool edit = false)
         {
             var username = User.Identity.Name;
-
             var user = _context.Users.FirstOrDefault(u => u.Username == username);
 
-            if (user == null)
+            ViewBag.IsEdit = edit;
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult ProfilUser(string Gender, DateTime? TanggalLahir, string NomorTelepon, string Alamat)
+        {
+            var username = User.Identity.Name;
+            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+
+            if (user != null)
             {
-                return NotFound();
+                user.Gender = Gender;
+                user.TanggalLahir = TanggalLahir;
+                user.NomorTelepon = NomorTelepon;
+                user.Alamat = Alamat;
+
+                _context.SaveChanges();
             }
 
-            return View(user); // kirim objek User ke View
+            ViewBag.IsEdit = false;
+            return RedirectToAction("ProfilUser");
         }
 
         public IActionResult ProfilPenulis(int id)
