@@ -4,7 +4,9 @@
             <a href="/Reader/Index"><img src="/images/logo-black-text.png" alt="Logo" width="150"></a>
         </div>
         <div class="search-bar w-50">
-            <input type="text" class="form-control" placeholder="Search..." />
+            <form method="get" action="/Reader/Search" class="search-bar w-50">
+                <input type="text" name="query" class="form-control" placeholder="Search..." />
+            </form>
         </div>
         <div class="d-flex align-items-center">
             <a href="/Reader/ProfilUser">

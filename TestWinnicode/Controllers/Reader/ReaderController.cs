@@ -255,6 +255,28 @@ namespace TestWinnicode.Controllers.Reader
 
             return View(viewModel);
         }
+        public IActionResult Search(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return RedirectToAction("Index");
+            }
+
+            var hasil = _context.Berita
+                .Include(b => b.SubKategori)
+                .ThenInclude(sk => sk.Kategori)
+                .Where(b =>
+                        b.Judul.ToLower().Contains(query.ToLower()) ||
+                        b.Isi.ToLower().Contains(query.ToLower()) ||
+                        b.SubKategori.Nama.ToLower().Contains(query.ToLower()) ||
+                        b.SubKategori.Kategori.Nama.ToLower().Contains(query.ToLower())
+                )
+
+                .OrderByDescending(b => b.Tanggal_Publish)
+                .ToList();
+
+            return View("SearchResult", hasil);
+        }
 
     }
 }

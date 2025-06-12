@@ -1,0 +1,44 @@
+﻿@model List<TestWinnicode.Models.Berita>
+
+@{
+    Layout = "~/Views/Shared/_ReaderLayout.cshtml";
+    ViewBag.Title = "Hasil Pencarian";
+}
+
+<div class="terbaru-section mt-4">
+    <h4>Hasil Pencarian : <span class="text-primary">@Context.Request.Query["query"]</span></h4>
+    <div class="row">
+        <div class="col-md-6">
+            @foreach (var b in Model.Take(6))
+            {
+                <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
+                    <div class="terbaru-item d-flex mb-3">
+                        <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita">
+                        <div>
+                            <h6 class="terbaru-title">@b.Judul</h6>
+                            <span class="terbaru-category">Kategori: @b.SubKategori?.Kategori?.Nama</span><br />
+                            <span class="terbaru-date">@b.Tanggal_Publish.ToString("dd/MM/yyyy HH:mm")</span>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+
+        <div class="col-md-6">
+            @foreach (var b in Model.Skip(6).Take(6))
+            {
+                <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
+                    <div class="terbaru-item d-flex mb-3">
+                        <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita">
+                        <div>
+                            <h6 class="terbaru-title">@b.Judul</h6>
+                            <span class="terbaru-category">Kategori: @b.SubKategori?.Kategori?.Nama</span><br />
+                            <span class="terbaru-date">@b.Tanggal_Publish.ToString("dd/MM/yyyy HH:mm")</span>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
