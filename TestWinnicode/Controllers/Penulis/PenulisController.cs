@@ -11,5 +11,10 @@ namespace TestWinnicode.Controllers.Penulis
             ViewBag.Username = User.Identity.Name;
             return View();
         }
+
+        public IActionResult ArtikelSaya() => View();
+        public IActionResult TulisArtikel() => View();
+        public IActionResult Profil() => View();
+
     }
 }

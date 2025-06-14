@@ -1,0 +1,15 @@
+.nav-link:hover {
+    background-color: #e0e0e0;
+    color: #6f42c1 !important;
+    transition: 0.3s;
+}
+
+.active-link {
+    background-color: #f3e8ff;
+    color: #6f42c1 !important;
+    font-weight: 600;
+}
+
+    .active-link i {
+        color: #6f42c1;
+    }
