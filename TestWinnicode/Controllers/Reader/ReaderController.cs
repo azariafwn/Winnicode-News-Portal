@@ -54,7 +54,7 @@ namespace TestWinnicode.Controllers.Reader
                     .ThenInclude(sk => sk.Kategori)
                     .Where(b => b.IsSubHeadline)
                     .OrderByDescending(b => b.Tanggal_Publish)
-                    .Take(4)
+                    .Take(6)
                     .ToList(),
 
                 TrendingList = _context.Berita

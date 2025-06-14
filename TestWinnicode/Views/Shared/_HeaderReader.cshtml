@@ -1,17 +1,40 @@
-﻿<header class="reader-header bg-light py-1 px-5 border-bottom">
-    <div class="d-flex align-items-center justify-content-between">
-        <div>
-            <a href="/Reader/Index"><img src="/images/logo-black-text.png" alt="Logo" width="150"></a>
-        </div>
-        <div class="search-bar w-50">
-            <form method="get" action="/Reader/Search" class="search-bar w-50">
-                <input type="text" name="query" class="form-control" placeholder="Search..." />
-            </form>
-        </div>
-        <div class="d-flex align-items-center">
-            <a href="/Reader/ProfilUser">
-                <img src="/images/profile-icon.png" alt="Profile" width=30" class="rounded-circle ms-3">
-            </a>
+﻿<header class="reader-header bg-light py-2 px-3 px-md-5 border-bottom">
+    <div class="container-fluid">
+        <div class="row align-items-center g-2">
+
+            <!-- Logo -->
+            <div class="col-6 col-md-2 text-start">
+                <a href="/Reader/Index">
+                    <img src="/images/logo-black-text.png" alt="Logo" class="img-fluid" style="max-width: 120px;">
+                </a>
+            </div>
+
+            <!-- Search Bar (desktop only) -->
+            <div class="d-none d-md-block col-md-8">
+                <form method="get" action="/Reader/Search">
+                    <input type="text" name="query" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+
+            <!-- Icons -->
+            <div class="col-6 col-md-2 text-end d-flex justify-content-end align-items-center gap-3">
+                <!-- Search Icon for small screen -->
+                <a href="javascript:void(0);" onclick="toggleMobileSearch()" class="d-md-none">
+                    <img src="/images/search-icon.png" alt="Search" width="24" height="24">
+                </a>
+                <!-- Profile Icon -->
+                <a href="/Reader/ProfilUser">
+                    <img src="/images/profile-icon.png" alt="Profile" class="rounded-circle" style="width: 30px; height: 30px;">
+                </a>
+            </div>
+
         </div>
     </div>
 </header>
+
+<!-- Mobile Search Bar -->
+<div id="mobile-search" class="d-md-none d-none px-3 mt-2">
+    <form method="get" action="/Reader/Search">
+        <input type="text" name="query" class="form-control" placeholder="Search...">
+    </form>
+</div>

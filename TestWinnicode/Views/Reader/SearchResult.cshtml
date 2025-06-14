@@ -9,7 +9,7 @@
     <h4>Hasil Pencarian : <span class="text-primary">@Context.Request.Query["query"]</span></h4>
     <div class="row">
         <div class="col-md-6">
-            @foreach (var b in Model.Take(6))
+            @foreach (var b in Model.Take(5))
             {
                 <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
                     <div class="terbaru-item d-flex mb-3">
@@ -25,7 +25,7 @@
         </div>
 
         <div class="col-md-6">
-            @foreach (var b in Model.Skip(6).Take(6))
+            @foreach (var b in Model.Skip(5).Take(5))
             {
                 <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
                     <div class="terbaru-item d-flex mb-3">

@@ -23,12 +23,12 @@
                 }
 
                 <!-- Sub Headline -->
-                <div class="row mt-3">
+                <div class="row mt-3 g-3">
                     @foreach (var b in Model.SubHeadlineList)
                     {
-                        <div class="col-5 sub-headline-item ms-4">
-                            <a href="/Reader/Berita/@b.Id">
-                                <img src="/images/dummy-news-image.png" class="img-fluid rounded mb-2" alt="Sub Headline">
+                        <div class="col-6 col-md-4">
+                            <a href="/Reader/Berita/@b.Id" class="text-decoration-none text-dark">
+                                <img src="/images/dummy-news-image.png" class="sub-headline-img mb-2" alt="Sub Headline">
                                 <h6 class="sub-headline-title">@b.Judul</h6>
                             </a>
                         </div>
