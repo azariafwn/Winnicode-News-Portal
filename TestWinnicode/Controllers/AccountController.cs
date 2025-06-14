@@ -72,7 +72,16 @@ namespace TestWinnicode.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(string username, string password, string role)
+        public async Task<IActionResult> Register(
+    string username,
+    string password,
+    string role,
+    string namaLengkap,
+    string email,
+    string gender,
+    DateTime tanggalLahir,
+    string nomorTelepon,
+    string alamat)
         {
             if (await _context.Users.AnyAsync(u => u.Username == username))
             {
@@ -84,7 +93,14 @@ namespace TestWinnicode.Controllers
             {
                 Username = username,
                 PasswordHash = HashPassword(password),
-                Role = Enum.Parse<UserRole>(role)
+                Role = Enum.Parse<UserRole>(role),
+                NamaLengkap = namaLengkap,
+                Email = email,
+                Gender = gender,
+                TanggalLahir = tanggalLahir,
+                NomorTelepon = nomorTelepon,
+                Alamat = alamat,
+                TanggalBergabung = DateTime.Now
             };
 
             _context.Users.Add(user);
@@ -93,6 +109,7 @@ namespace TestWinnicode.Controllers
             ViewBag.SuccessMessage = "Akun berhasil dibuat. Silakan login.";
             return RedirectToAction("Login");
         }
+
 
         private string HashPassword(string password)
         {

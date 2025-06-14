@@ -194,21 +194,42 @@ namespace TestWinnicode.Controllers.Reader
         [HttpGet]
         public IActionResult ProfilUser(bool edit = false)
         {
+            if (User.Identity == null || string.IsNullOrEmpty(User.Identity.Name))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             var username = User.Identity.Name;
             var user = _context.Users.FirstOrDefault(u => u.Username == username);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Cek dan isi default untuk menghindari DBNull
+            user.NamaLengkap ??= "Pengguna";
+            user.Email ??= "user@example.com";
+            user.Gender ??= "-";
+            user.TanggalLahir ??= new DateTime(2000, 1, 1);
+            user.NomorTelepon ??= "-";
+            user.Alamat ??= "-";
+            user.TanggalBergabung ??= DateTime.Now;
 
             ViewBag.IsEdit = edit;
             return View(user);
         }
 
         [HttpPost]
-        public IActionResult ProfilUser(string Gender, DateTime? TanggalLahir, string NomorTelepon, string Alamat)
+        public IActionResult ProfilUser(string NamaLengkap, string Email, string Gender, DateTime? TanggalLahir, string NomorTelepon, string Alamat)
         {
             var username = User.Identity.Name;
             var user = _context.Users.FirstOrDefault(u => u.Username == username);
 
             if (user != null)
             {
+                user.NamaLengkap = NamaLengkap;
+                user.Email = Email;
                 user.Gender = Gender;
                 user.TanggalLahir = TanggalLahir;
                 user.NomorTelepon = NomorTelepon;
