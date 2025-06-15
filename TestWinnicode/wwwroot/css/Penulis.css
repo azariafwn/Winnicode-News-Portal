@@ -10,6 +10,113 @@
     font-weight: 600;
 }
 
-    .active-link i {
-        color: #6f42c1;
+.active-link i {
+    color: #6f42c1;
+}
+
+
+.author-name {
+    color: #5271FF;
+    font-weight: bold;
+}
+
+/* Ukuran icon */
+.dashboard-icon {
+    font-size: 2rem;
+}
+
+/* Warna custom tiap card */
+.text-published {
+    color: #28a745; /* Hijau */
+}
+
+.text-written {
+    color: #17a2b8; /* Biru muda */
+}
+
+.text-rejected {
+    color: #dc3545; /* Merah */
+}
+
+.text-pending {
+    color: #fd7e14; /* Oranye */
+}
+
+.text-category {
+    color: #007bff; /* Biru */
+}
+
+/* Warna nama penulis */
+.text-purple {
+    color: #6f42c1;
+}
+
+.border-dashboard {
+    border: 1px solid #5271FF;
+}
+
+/* Custom for mobile sidebar */
+@media (max-width: 767.98px) {
+    #sidebarMenu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1040;
+        background-color: #f8f9fa;
+        width: 75%;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+        #sidebarMenu.show {
+            transform: translateX(0);
+        }
+
+    .dashboard-grid .col-md-4,
+    .dashboard-grid .col-md-8 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .dashboard-grid .col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .dashboard-grid .card h1,
+    .dashboard-grid .card h2,
+    .dashboard-grid .card h3 {
+        font-size: 1.5rem;
+    }
+
+    .dashboard-grid .card h5 {
+        font-size: 0.95rem;
+    }
+
+    .dashboard-grid .card i.dashboard-icon {
+        font-size: 1.5rem;
+    }
+
+    .dashboard-grid .card {
+        padding: 1rem !important;
+    }
+}
+
+
+/* Overlay: layar gelap transparan saat sidebar muncul */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1039;
+}
+
+    /* Tampilkan overlay jika sidebar aktif */
+    .sidebar-overlay.show {
+        display: block;
     }

@@ -1,7 +1,67 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutPenulis.cshtml";
     ViewBag.Title = "Dashboard Penulis";
+    var namaPenulis = "Azaria Putri"; // nanti bisa dinamis
 }
 
-<h2>Dashboard Penulis</h2>
-<p>Halo, @ViewBag.Username! Anda login sebagai Penulis.</p>
+<div class="container mt-4">
+    <!-- HEADER: Halo Penulis -->
+    <h2>
+        <span class="ms-3 fw-bold text-dark">Halo, </span>
+        <span class="author-name text-purple">@namaPenulis!</span>
+    </h2>
+
+    <!-- CARD GRID -->
+    <div class="row mt-4 dashboard-grid g-3">
+
+        <!-- KIRI: Artikel Terpublikasi -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-dashboard rounded-4 h-100 d-flex flex-column justify-content-center align-items-center text-center">
+                <i class="bi bi-check-circle-fill dashboard-icon text-published mb-2"></i>
+                <h2 class="text-muted mb-1">Artikel Terpublikasi</h2>
+                <h1 class="fw-bold text-published">24</h1> <!-- dummy data -->
+            </div>
+        </div>
+
+
+        <!-- KANAN: GRID 2x2 -->
+        <div class="col-md-8">
+            <div class="row g-3">
+
+                <div class="col-sm-6">
+                    <div class="card shadow-sm border-dashboard rounded-4 p-3 h-100 text-center">
+                        <i class="bi bi-pencil-fill dashboard-icon text-written mb-2"></i>
+                        <h5 class="text-muted mb-1">Ditulis</h5>
+                        <h3 class="fw-semibold text-written">7</h3>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="card shadow-sm border-dashboard rounded-4 p-3 h-100 text-center">
+                        <i class="bi bi-x-circle-fill dashboard-icon text-rejected mb-2"></i>
+                        <h5 class="text-muted mb-1">Ditolak</h5>
+                        <h3 class="fw-semibold text-rejected">2</h3>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="card shadow-sm border-dashboard rounded-4 p-3 h-100 text-center">
+                        <i class="bi bi-hourglass-split dashboard-icon text-pending mb-2"></i>
+                        <h5 class="text-muted mb-1">Menunggu Review</h5>
+                        <h3 class="fw-semibold text-pending">3</h3>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="card shadow-sm border-dashboard rounded-4 p-3 h-100 text-center">
+                        <i class="bi bi-layers-fill dashboard-icon text-category mb-2"></i>
+                        <h5 class="text-muted mb-1">Cakupan Kategori</h5>
+                        <h3 class="fw-semibold text-category">3</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
