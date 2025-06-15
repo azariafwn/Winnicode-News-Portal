@@ -3,7 +3,82 @@
     ViewBag.Title = "Profil Penulis - Penulis";
 }
 
-<div class="container mt-4">
-    <h2>Profil Penulis</h2>
-    <p>Ini adalah halaman profil Anda sebagai penulis.</p>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg border-0 rounded-4 p-4 bg-white text-center">
+
+                <!-- FOTO + NAMA + EMAIL -->
+                <div class="d-flex flex-column align-items-center mb-4">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <img src="~/images/profile-icon.png" alt="Foto Profil" class="rounded-circle me-4" width="100" height="100">
+                        <div class="text-start">
+                            <h4 class="mb-1 fw-bold text-primary">Azaria Putri</h4>
+                            <p class="mb-0 text-danger">azaria@example.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DESKRIPSI PENULIS -->
+                <div class="mb-4 text-start">
+                    <h5 class="fw-semibold text-secondary">Tentang Penulis</h5>
+                    <p>
+                        Saya adalah jurnalis teknologi dengan fokus pada perkembangan AI, perangkat lunak open-source, dan teknologi masa depan.
+                        Saya percaya bahwa informasi yang jelas dan akurat dapat membantu masyarakat memahami dunia digital dengan lebih baik.
+                    </p>
+                </div>
+
+                <!-- GRID 3 KOLOM -->
+                <div class="row text-center">
+                    <!-- KIRI -->
+                    <div class="col-md-4 mb-3">
+                        <div class="border rounded-3 p-3 h-100">
+                            <p class="label-blue mb-1">Gender</p>
+                            <p class="data-pink">Perempuan</p>
+                            <p class="label-blue mb-1">Tanggal Lahir</p>
+                            <p class="data-pink">01 Januari 2000</p>
+                            <p class="label-blue mb-1">No. Telepon</p>
+                            <p class="data-pink">+62 812 3456 7890</p>
+                            <p class="label-blue mb-1">Alamat</p>
+                            <p class="data-pink">ITS Surabaya</p>
+                        </div>
+                    </div>
+
+                    <!-- TENGAH -->
+                    <div class="col-md-4 mb-3">
+                        <div class="border rounded-3 p-3 h-100">
+                            <p class="label-blue mb-1">Bergabung Sejak</p>
+                            <p class="data-pink">15 Mei 2024</p>
+                            <p class="label-blue mb-1">Role</p>
+                            <p class="data-pink">Penulis</p>
+                            <p class="label-blue mb-1">Cakupan Kategori</p>
+                            <p class="data-pink">Teknologi</p>
+                            <p class="label-blue mb-1">Jumlah Penayangan</p>
+                            <p class="data-pink">18.300 kali</p>
+                        </div>
+                    </div>
+
+                    <!-- KANAN -->
+                    <div class="col-md-4 mb-3">
+                        <div class="border rounded-3 p-3 h-100">
+                            <p class="label-blue mb-1">Artikel Ditulis</p>
+                            <p class="data-pink">12</p>
+                            <p class="label-blue mb-1">Artikel Ditolak</p>
+                            <p class="data-pink">2</p>
+                            <p class="label-blue mb-1">Menunggu Verifikasi</p>
+                            <p class="data-pink">3</p>
+                            <p class="label-blue mb-1">Artikel Terpublikasi</p>
+                            <p class="data-pink">7</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TOMBOL EDIT PROFIL -->
+                <div class="text-center mt-4">
+                    <a href="/Penulis/EditProfil" class="blue-tag">Edit Profil</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>

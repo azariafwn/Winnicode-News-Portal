@@ -103,7 +103,6 @@
     }
 }
 
-
 /* Overlay: layar gelap transparan saat sidebar muncul */
 .sidebar-overlay {
     display: none;
@@ -119,4 +118,57 @@
     /* Tampilkan overlay jika sidebar aktif */
     .sidebar-overlay.show {
         display: block;
+    }
+
+
+/* Untuk header tabel */
+.table-header {
+    background-color: #5271FF !important;
+    color: #ffffff !important;
+    font-weight: bold !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+    vertical-align: middle;
+}
+
+.label-blue {
+    color: #5271FF;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.data-pink {
+    color: #e83e8c;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.blue-tag {
+    background-color: #5271FF;
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 68px;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 15px;
+    white-space: nowrap;
+    max-width: fit-content;
+    font-size: 0.9rem;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+    border: none;
+    outline: none;
+}
+
+    /* Efek hover untuk tag biru */
+    .blue-tag:hover {
+        background-color: #4053c7;
+        color: #ffffff;
+        cursor: pointer;
+        text-decoration: underline;
     }
