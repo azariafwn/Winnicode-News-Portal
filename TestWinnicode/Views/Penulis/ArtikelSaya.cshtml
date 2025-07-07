@@ -1,6 +1,8 @@
-﻿@{
+﻿@model List<TestWinnicode.ViewModels.ArtikelPenulisViewModel>
+@{
     Layout = "~/Views/Shared/_LayoutPenulis.cshtml";
     ViewBag.Title = "Artikel Saya - Penulis";
+    int no = 1;
 }
 
 <div class="container mt-4">
@@ -19,50 +21,40 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Mengenal Kecerdasan Buatan</td>
-                    <td><span class="badge bg-warning text-dark">Draft</span></td>
-                    <td>05 Juni 2025</td>
-                    <td>
-                        <a href="#" class="text-primary me-2" title="Lihat"><i class="bi bi-eye-fill"></i></a>
-                        <a href="#" class="text-success me-2" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                        <a href="#" class="text-danger" title="Hapus"><i class="bi bi-trash-fill"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Tren Teknologi 2025</td>
-                    <td><span class="badge bg-secondary">Ditinjau</span></td>
-                    <td>02 Juni 2025</td>
-                    <td>
-                        <a href="#" class="text-primary me-2" title="Lihat"><i class="bi bi-eye-fill"></i></a>
-                        <a href="#" class="text-success me-2" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                        <a href="#" class="text-danger" title="Hapus"><i class="bi bi-trash-fill"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Pentingnya Literasi Digital</td>
-                    <td><span class="badge bg-success">Terbit</span></td>
-                    <td>30 Mei 2025</td>
-                    <td>
-                        <a href="#" class="text-primary me-2" title="Lihat"><i class="bi bi-eye-fill"></i></a>
-                        <a href="#" class="text-success me-2" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                        <a href="#" class="text-danger" title="Hapus"><i class="bi bi-trash-fill"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Review Perangkat Lunak Open Source</td>
-                    <td><span class="badge bg-danger">Ditolak</span></td>
-                    <td>28 Mei 2025</td>
-                    <td>
-                        <a href="#" class="text-primary me-2" title="Lihat"><i class="bi bi-eye-fill"></i></a>
-                        <a href="#" class="text-success me-2" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                        <a href="#" class="text-danger" title="Hapus"><i class="bi bi-trash-fill"></i></a>
-                    </td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@no</td>
+                        <td>@item.Judul</td>
+                        <td>
+                            @switch (item.Status?.ToLower())
+                            {
+                                case "draft":
+                                    <span class="badge bg-warning text-dark">Draft</span>
+                                    break;
+                                case "ditinjau":
+                                    <span class="badge bg-secondary">Ditinjau</span>
+                                    break;
+                                case "ditolak":
+                                    <span class="badge bg-danger">Ditolak</span>
+                                    break;
+                                case "terbit":
+                                    <span class="badge bg-success">Terbit</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-light text-dark">Tidak Diketahui</span>
+                                    break;
+                            }
+                        </td>
+                        <td>@item.TanggalEdit.ToString("dd MMMM yyyy")</td>
+                        <td>
+                            <a href="/Berita/Detail/@item.Id" class="text-primary me-2" title="Lihat"><i class="bi bi-eye-fill"></i></a>
+                            <a href="/Penulis/EditArtikel/@item.Id" class="text-success me-2" title="Edit"><i class="bi bi-pencil-square"></i></a>
+                            <a href="/Penulis/DeleteArtikel/@item.Id" class="text-danger" title="Hapus"><i class="bi bi-trash-fill"></i></a>
+                        </td>
+                    </tr>
+                    no++;
+                }
             </tbody>
         </table>
     </div>

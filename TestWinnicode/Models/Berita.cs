@@ -6,6 +6,7 @@
         public string Judul { get; set; }
         public DateTime Tanggal_Publish { get; set; }
         public string Isi { get; set; }
+        public string Status { get; set; }
         public int Jumlah_View { get; set; }
 
         public int SubKategoriId { get; set; }

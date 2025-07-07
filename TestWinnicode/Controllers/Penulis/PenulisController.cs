@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestWinnicode.Data;
+using TestWinnicode.Models;
 using TestWinnicode.ViewModels;
 
 namespace TestWinnicode.Controllers.Penulis
@@ -37,8 +38,6 @@ namespace TestWinnicode.Controllers.Penulis
 
             return View(model);
         }
-
-        public IActionResult ArtikelSaya() => View();
         public IActionResult TulisArtikel() => View();
         public IActionResult Profil()
         {
@@ -71,6 +70,48 @@ namespace TestWinnicode.Controllers.Penulis
 
             return View(model);
         }
+        public async Task<IActionResult> ArtikelSaya()
+        {
+            // Ambil username dari sesi login
+            var username = User.Identity?.Name;
+
+            if (string.IsNullOrEmpty(username))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Ambil user dari database
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Ambil penulis dari tabel Penulis
+            var penulis = await _context.Penulis.FirstOrDefaultAsync(p => p.UserId == user.Id);
+
+            if (penulis == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Ambil semua artikel milik penulis ini
+            var artikelList = await _context.Berita
+                .Where(b => b.PenulisId == penulis.Id)
+                .OrderByDescending(b => b.Tanggal_Publish)
+                .Select(b => new ArtikelPenulisViewModel
+                {
+                    Id = b.Id,
+                    Judul = b.Judul,
+                    Status = b.Status,
+                    TanggalEdit = b.Tanggal_Publish
+                })
+                .ToListAsync();
+
+            return View(artikelList);
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Profil(bool edit = false)
@@ -106,8 +147,6 @@ namespace TestWinnicode.Controllers.Penulis
             ViewBag.IsEdit = edit;
             return View(vm);
         }
-
-
         [HttpPost]
         public async Task<IActionResult> EditProfil(string Gender, DateTime TanggalLahir, string NomorTelepon, string Alamat)
         {
