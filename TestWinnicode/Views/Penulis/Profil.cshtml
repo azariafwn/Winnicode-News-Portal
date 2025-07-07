@@ -2,7 +2,9 @@
 @{
     Layout = "~/Views/Shared/_LayoutPenulis.cshtml";
     ViewBag.Title = "Profil Penulis - Penulis";
+    var isEdit = ViewBag.IsEdit == true;
 }
+
 
 <div class="container my-5">
     <div class="row justify-content-center">
@@ -30,17 +32,57 @@
                 <div class="row text-center">
                     <!-- KIRI -->
                     <div class="col-md-4 mb-3">
-                        <div class="border rounded-3 p-3 h-100">
-                            <p class="label-blue mb-1">Gender</p>
-                            <p class="data-pink">@Model.Gender</p>
-                            <p class="label-blue mb-1">Tanggal Lahir</p>
-                            <p class="data-pink">@Model.TanggalLahir?.ToString("dd MMMM yyyy")</p>
-                            <p class="label-blue mb-1">No. Telepon</p>
-                            <p class="data-pink">@Model.NomorTelepon</p>
-                            <p class="label-blue mb-1">Alamat</p>
-                            <p class="data-pink">@Model.Alamat</p>
-                        </div>
+                        @if (isEdit)
+                        {
+                            <form asp-action="EditProfil" method="post" class="border rounded-3 p-3 h-100">
+                                <div class="text-center">
+                                    <div class="mb-2">
+                                        <label class="label-blue mb-1" for="Gender">Gender</label>
+                                        <select id="Gender" name="Gender" class="form-select text-center">
+                                            <option value="Laki-laki" selected="@(Model.Gender == "Laki-laki")">Laki-laki</option>
+                                            <option value="Perempuan" selected="@(Model.Gender == "Perempuan")">Perempuan</option>
+                                            <option value="Lainnya" selected="@(Model.Gender == "Lainnya")">Lainnya</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="label-blue mb-1" for="TanggalLahir">Tanggal Lahir</label>
+                                        <input type="date" name="TanggalLahir" class="form-control text-center" value="@Model.TanggalLahir?.ToString("yyyy-MM-dd")" />
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="label-blue mb-1" for="NomorTelepon">No. Telepon</label>
+                                        <input type="text" name="NomorTelepon" class="form-control text-center" value="@Model.NomorTelepon" />
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="label-blue mb-1" for="Alamat">Alamat</label>
+                                        <textarea name="Alamat" class="form-control text-center">@Model.Alamat</textarea>
+                                    </div>
+
+                                    <div class="text-center mt-3">
+                                        <button type="submit" class="blue-tag me-2">Simpan</button>
+                                        <a href="/Penulis/Profil" class="red-tag">Batal</a>
+                                    </div>
+                                </div>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="border rounded-3 p-3 h-100">
+                                <p class="label-blue mb-1">Gender</p>
+                                <p class="data-pink">@Model.Gender</p>
+                                <p class="label-blue mb-1">Tanggal Lahir</p>
+                                <p class="data-pink">@Model.TanggalLahir?.ToString("dd MMMM yyyy")</p>
+                                <p class="label-blue mb-1">No. Telepon</p>
+                                <p class="data-pink">@Model.NomorTelepon</p>
+                                <p class="label-blue mb-1">Alamat</p>
+                                <p class="data-pink">@Model.Alamat</p>
+                            </div>
+                        }
                     </div>
+
+
 
                     <!-- TENGAH -->
                     <div class="col-md-4 mb-3">
@@ -73,8 +115,12 @@
 
                 <!-- TOMBOL EDIT PROFIL -->
                 <div class="text-center mt-4">
-                    <a href="/Penulis/EditProfil" class="blue-tag">Edit Profil</a>
+                    @if (!isEdit)
+                    {
+                        <a href="/Penulis/Profil?edit=true" class="blue-tag">Edit Profil</a>
+                    }
                 </div>
+
 
             </div>
         </div>

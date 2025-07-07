@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TestWinnicode.Data;
 using TestWinnicode.ViewModels;
 
@@ -70,6 +71,62 @@ namespace TestWinnicode.Controllers.Penulis
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Profil(bool edit = false)
+        {
+            var username = User.Identity?.Name;
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+            if (user == null) return NotFound();
+
+            var penulis = await _context.Penulis
+                .Include(p => p.KategoriFokus)
+                .FirstOrDefaultAsync(p => p.UserId == user.Id);
+
+            var vm = new PenulisProfilViewModel
+            {
+                NamaLengkap = user.NamaLengkap,
+                Email = user.Email,
+                Gender = user.Gender,
+                TanggalLahir = user.TanggalLahir,
+                NomorTelepon = user.NomorTelepon,
+                Alamat = user.Alamat,
+                TanggalBergabung = user.TanggalBergabung,
+                Role = user.Role.ToString(),
+                KategoriFokus = penulis?.KategoriFokus?.Nama ?? "-",
+                Deskripsi = penulis?.Deskripsi ?? "",
+                TotalDibaca = penulis?.TotalDibaca ?? 0,
+                TotalArtikel = penulis?.TotalArtikel ?? 0,
+                JumlahArtikelDraft = penulis?.JumlahArtikelDraft ?? 0,
+                JumlahArtikelDitolak = penulis?.JumlahArtikelDitolak ?? 0,
+                JumlahArtikelMenunggu = penulis?.JumlahArtikelMenunggu ?? 0
+            };
+
+            ViewBag.IsEdit = edit;
+            return View(vm);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EditProfil(string Gender, DateTime TanggalLahir, string NomorTelepon, string Alamat)
+        {
+            var username = User.Identity?.Name;
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+            if (user == null) return NotFound();
+
+            user.Gender = Gender;
+            user.TanggalLahir = TanggalLahir;
+            user.NomorTelepon = NomorTelepon;
+            user.Alamat = Alamat;
+
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Profil");
+        }
+
 
     }
 }
