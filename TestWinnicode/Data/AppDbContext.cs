@@ -14,6 +14,7 @@ namespace TestWinnicode.Data
         public DbSet<Penulis> Penulis { get; set; }
 
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

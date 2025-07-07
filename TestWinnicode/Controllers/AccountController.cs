@@ -65,23 +65,15 @@ namespace TestWinnicode.Controllers
             return RedirectToAction("Login");
         }
 
-        // Tambahkan action untuk register
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        // Tambahkan action untuk register
         [HttpPost]
-        public async Task<IActionResult> Register(
-    string username,
-    string password,
-    string role,
-    string namaLengkap,
-    string email,
-    string gender,
-    DateTime tanggalLahir,
-    string nomorTelepon,
-    string alamat)
+        public async Task<IActionResult> Register(string username, string password, string role, string namaLengkap, string email, string gender, DateTime? tanggalLahir, string nomorTelepon, string alamat)
         {
             if (await _context.Users.AnyAsync(u => u.Username == username))
             {
@@ -105,6 +97,25 @@ namespace TestWinnicode.Controllers
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+
+            // Jika role adalah Penulis, tambahkan ke tabel Penulis
+            if (user.Role == UserRole.Penulis)
+            {
+                var penulis = new TestWinnicode.Models.Penulis
+                {
+                    UserId = user.Id,
+                    Deskripsi = "",
+                    TotalArtikel = 0,
+                    TotalDibaca = 0,
+                    KategoriFokusId = null,
+                    JumlahArtikelDraft = 0,
+                    JumlahArtikelDitolak = 0,
+                    JumlahArtikelMenunggu = 0
+                };
+
+                _context.Penulis.Add(penulis);
+                await _context.SaveChangesAsync();
+            }
 
             ViewBag.SuccessMessage = "Akun berhasil dibuat. Silakan login.";
             return RedirectToAction("Login");
