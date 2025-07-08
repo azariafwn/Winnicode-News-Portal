@@ -190,7 +190,42 @@ namespace TestWinnicode.Controllers.Penulis
             return View("DetailArtikel", artikel);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> EditArtikel(int id)
+        {
+            var artikel = await _context.Berita
+                .Include(b => b.Penulis)
+                .ThenInclude(p => p.User)
+                .FirstOrDefaultAsync(b => b.Id == id);
 
+            if (artikel == null) return NotFound();
+
+            var viewModel = new EditArtikelViewModel
+            {
+                Id = artikel.Id,
+                Judul = artikel.Judul,
+                Isi = artikel.Isi
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditArtikel(EditArtikelViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var artikel = await _context.Berita.FirstOrDefaultAsync(b => b.Id == model.Id);
+
+            if (artikel == null) return NotFound();
+
+            artikel.Judul = model.Judul;
+            artikel.Isi = model.Isi;
+            artikel.Tanggal_Publish = DateTime.Now; // update waktu edit
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("ArtikelSaya");
+        }
 
 
     }
