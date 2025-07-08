@@ -103,6 +103,15 @@
     }
 }
 
+@media (min-width: 768px) {
+    #sidebarMenu {
+        position: sticky;
+        top: 0px; 
+        height: calc(100vh - 80px); /* agar sticky tetap dalam batas layar */
+        overflow-y: auto;
+    }
+}
+
 /* Overlay: layar gelap transparan saat sidebar muncul */
 .sidebar-overlay {
     display: none;
@@ -261,4 +270,18 @@ h2 {
     border-left: 4px solid #38B6FF;
 }
 
+
+.scroll-table-container {
+    max-height: 550px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+}
+
+table.dataTable thead th {
+    position: sticky;
+    top: 0;
+    background-color: #5271FF;
+    color: white;
+    z-index: 2;
+}
 
