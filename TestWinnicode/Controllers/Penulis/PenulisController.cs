@@ -165,6 +165,32 @@ namespace TestWinnicode.Controllers.Penulis
 
             return RedirectToAction("Profil");
         }
+        [HttpGet]
+        public async Task<IActionResult> DetailArtikel(int id)
+        {
+            var artikel = await _context.Berita
+                .Include(b => b.SubKategori)
+                    .ThenInclude(sk => sk.Kategori)
+                .Include(b => b.Penulis)
+                    .ThenInclude(p => p.User)
+                .FirstOrDefaultAsync(b => b.Id == id);
+
+            var username = User.Identity.Name;
+            if (artikel.Penulis?.User?.Username != username)
+            {
+                return Forbid();
+            }
+
+
+            if (artikel == null)
+            {
+                return NotFound();
+            }
+
+            return View("DetailArtikel", artikel);
+        }
+
+
 
 
     }
