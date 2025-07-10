@@ -9,4 +9,5 @@ namespace TestWinnicode.ViewModels
         public string Status { get; set; }
         public DateTime TanggalEdit { get; set; }
     }
+
 }

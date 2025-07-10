@@ -38,7 +38,13 @@ namespace TestWinnicode.Controllers.Penulis
 
             return View(model);
         }
-        public IActionResult TulisArtikel() => View();
+        // Ambil semua kategori saat render halaman
+        public async Task<IActionResult> TulisArtikel()
+        {
+            var kategoriList = await _context.Kategori.ToListAsync();
+            ViewBag.KategoriList = kategoriList;
+            return View();
+        }
         public IActionResult Profil()
         {
             var username = User.Identity.Name;
@@ -227,6 +233,17 @@ namespace TestWinnicode.Controllers.Penulis
             return RedirectToAction("ArtikelSaya");
         }
 
+        // Ambil subkategori via AJAX
+        [HttpGet]
+        public async Task<JsonResult> GetSubKategori(int kategoriId)
+        {
+            var subkategoriList = await _context.SubKategori
+                .Where(s => s.KategoriId == kategoriId)
+                .Select(s => new { s.Id, s.Nama })
+                .ToListAsync();
+
+            return Json(subkategoriList);
+        }
 
     }
 }

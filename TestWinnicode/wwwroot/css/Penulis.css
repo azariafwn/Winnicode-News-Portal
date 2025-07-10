@@ -342,3 +342,9 @@ table.dataTable thead th {
         max-height: 100%;
         overflow-y: auto;
     }
+
+/*membatasi jumlah dropdown kategori */
+select.form-select#kategori {
+    max-height: 250px; /* cukup untuk 8 item kira-kira */
+    overflow-y: auto;
+}

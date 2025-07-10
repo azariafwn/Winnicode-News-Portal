@@ -23,15 +23,18 @@
         <div class="row mb-3">
             <div class="col-md-6">
                 <label for="kategori" class="form-label fw-semibold">Kategori</label>
+                <!-- Dropdown Kategori -->
                 <select id="kategori" name="KategoriId" class="form-select" required>
                     <option value="">Pilih Kategori</option>
-                    <!-- Kategori dummy -->
-                    <option value="1">Teknologi</option>
-                    <option value="2">Kesehatan</option>
+                    @foreach (var kategori in ViewBag.KategoriList)
+                    {
+                        <option value="@kategori.Id">@kategori.Nama</option>
+                    }
                 </select>
             </div>
             <div class="col-md-6">
                 <label for="subkategori" class="form-label fw-semibold">Subkategori</label>
+                <!-- Dropdown Subkategori -->
                 <select id="subkategori" name="SubKategoriId" class="form-select" required>
                     <option value="">Pilih Subkategori</option>
                 </select>

@@ -94,5 +94,58 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("form").onsubmit = function () {
             document.getElementById("IsiArtikel").value = quill.root.innerHTML;
     };
+
+    document.getElementById("kategori").addEventListener("change", function () {
+        const kategoriId = this.value;
+        const subkategoriSelect = document.getElementById("subkategori");
+
+        // Kosongkan opsi lama
+        subkategoriSelect.innerHTML = '<option value="">Pilih Subkategori</option>';
+
+        if (kategoriId) {
+            fetch(`/Penulis/GetSubKategoriByKategoriId?kategoriId=${kategoriId}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(sub => {
+                        const opt = document.createElement("option");
+                        opt.value = sub.id;
+                        opt.textContent = sub.nama;
+                        subkategoriSelect.appendChild(opt);
+                    });
+                })
+                .catch(error => {
+                    console.error("Gagal mengambil subkategori:", error);
+                });
+        }
+    });
+
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const kategoriSelect = document.getElementById("kategori");
+    const subkategoriSelect = document.getElementById("subkategori");
+
+    if (kategoriSelect && subkategoriSelect) {
+        kategoriSelect.addEventListener("change", function () {
+            const kategoriId = this.value;
+
+            subkategoriSelect.innerHTML = '<option value="">Pilih Subkategori</option>';
+
+            if (kategoriId) {
+                fetch(`/Penulis/GetSubKategori?kategoriId=${kategoriId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(sub => {
+                            const option = document.createElement("option");
+                            option.value = sub.id;
+                            option.textContent = sub.nama;
+                            subkategoriSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error("Gagal mengambil subkategori:", error));
+            }
+        });
+    }
+});
+
     
