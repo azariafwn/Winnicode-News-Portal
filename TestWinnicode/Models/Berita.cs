@@ -8,6 +8,8 @@
         public string Isi { get; set; }
         public string Status { get; set; }
         public int Jumlah_View { get; set; }
+        public string Tag { get; set; }
+        public string Gambar { get; set; }
 
         public int SubKategoriId { get; set; }
         public SubKategori SubKategori { get; set; }

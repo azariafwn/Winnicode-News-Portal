@@ -39,12 +39,67 @@ namespace TestWinnicode.Controllers.Penulis
             return View(model);
         }
         // Ambil semua kategori saat render halaman
+        [HttpGet]
         public async Task<IActionResult> TulisArtikel()
         {
             var kategoriList = await _context.Kategori.ToListAsync();
             ViewBag.KategoriList = kategoriList;
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> TulisArtikel(TulisArtikelViewModel model)
+        {
+            var username = User.Identity.Name;
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            var penulis = await _context.Penulis.FirstOrDefaultAsync(p => p.UserId == user.Id);
+
+            if (!ModelState.IsValid || penulis == null)
+            {
+                ViewBag.KategoriList = await _context.Kategori.ToListAsync();
+                return View(model);
+            }
+
+            // Simpan gambar
+            string gambarPath = null;
+            if (model.Gambar != null)
+            {
+                string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                Directory.CreateDirectory(folder);
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.Gambar.FileName);
+                string filePath = Path.Combine(folder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.Gambar.CopyToAsync(stream);
+                }
+
+                gambarPath = "/uploads/" + fileName;
+            }
+
+            // Simpan ke database
+            var berita = new Berita
+            {
+                Judul = model.Judul,
+                PenulisId = penulis.Id,
+                SubKategoriId = model.SubKategoriId,
+                Tag = model.Tag,
+                Gambar = gambarPath,
+                Isi = model.IsiArtikel,
+                Tanggal_Publish = DateTime.Now,
+                Status = "Draft",
+                Jumlah_View = 0,
+                IsHeadline = false,
+                IsSubHeadline = false
+            };
+
+            _context.Berita.Add(berita);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ArtikelSaya");
+        }
+
+
         public IActionResult Profil()
         {
             var username = User.Identity.Name;

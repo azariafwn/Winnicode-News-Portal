@@ -2,5 +2,11 @@
 {
     public class TulisArtikelViewModel
     {
+        public string Judul { get; set; }
+        public int SubKategoriId { get; set; }
+        public string Tag { get; set; }
+        public IFormFile Gambar { get; set; }
+        public string IsiArtikel { get; set; }
     }
+
 }
