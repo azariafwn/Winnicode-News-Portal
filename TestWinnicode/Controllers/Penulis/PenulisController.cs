@@ -60,6 +60,7 @@ namespace TestWinnicode.Controllers.Penulis
                 return View(model);
             }
 
+            // Simpan gambar
             string gambarPath = null;
             if (model.Gambar != null)
             {

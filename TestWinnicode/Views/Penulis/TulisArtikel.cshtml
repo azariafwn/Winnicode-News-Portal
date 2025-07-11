@@ -4,62 +4,51 @@
     ViewBag.Title = "Tulis Artikel - Penulis";
 }
 
-<div class="container-fluid sticky-top bg-white p-2" style="z-index: 1020;">
-    <div class="container">
-        <h2 class="mb-3 author-name">Tulis Artikel</h2>
+<form asp-action="TulisArtikel" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label asp-for="Judul" class="form-label fw-semibold"></label>
+        <input asp-for="Judul" class="form-control" placeholder="Masukkan judul artikel" required />
     </div>
-</div>
 
-<div class="container">
-    <form asp-action="TulisArtikel" method="post" enctype="multipart/form-data">
-        <!-- Judul -->
-        <div class="mb-3">
-            <label asp-for="Judul" class="form-label fw-semibold">Judul Artikel</label>
-            <input asp-for="Judul" class="form-control" placeholder="Masukkan judul artikel" required />
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label asp-for="KategoriId" class="form-label fw-semibold">Kategori</label>
+            <select asp-for="KategoriId" class="form-select" id="kategori">
+                <option value="">Pilih Kategori</option>
+                @foreach (var kategori in ViewBag.KategoriList)
+                {
+                    <option value="@kategori.Id">@kategori.Nama</option>
+                }
+            </select>
         </div>
-
-        <!-- Kategori & Subkategori -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">Kategori</label>
-                <select asp-for="KategoriId" class="form-select" id="kategori" required>
-                    <option value="">Pilih Kategori</option>
-                    @foreach (var kategori in ViewBag.KategoriList)
-                    {
-                        <option value="@kategori.Id">@kategori.Nama</option>
-                    }
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label asp-for="SubKategoriId" class="form-label fw-semibold">Subkategori</label>
-                <select asp-for="SubKategoriId" class="form-select" id="subkategori" required>
-                    <option value="">Pilih Subkategori</option>
-                </select>
-            </div>
+        <div class="col-md-6">
+            <label asp-for="SubKategoriId" class="form-label fw-semibold">Subkategori</label>
+            <select asp-for="SubKategoriId" class="form-select" id="subkategori">
+                <option value="">Pilih Subkategori</option>
+            </select>
         </div>
+    </div>
 
-        <!-- Tag -->
-        <div class="mb-3">
-            <label asp-for="Tag" class="form-label fw-semibold">Tag</label>
-            <input asp-for="Tag" class="form-control" id="tag" placeholder="Pisahkan dengan koma (,)" />
-        </div>
+    <div class="mb-3">
+        <label asp-for="Tag" class="form-label fw-semibold"></label>
+        <input asp-for="Tag" class="form-control" placeholder="Pisahkan dengan koma (,)" />
+    </div>
 
-        <!-- Upload Gambar -->
-        <div class="mb-4">
-            <label asp-for="Gambar" class="form-label fw-semibold">Upload Gambar Cover</label>
-            <input asp-for="Gambar" type="file" class="form-control" id="gambar" accept="image/*" />
-        </div>
+    <div class="mb-4">
+        <label asp-for="Gambar" class="form-label fw-semibold">Upload Gambar Cover</label>
+        <input asp-for="Gambar" class="form-control" accept="image/*" />
+    </div>
 
-        <!-- Editor Isi Artikel -->
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Isi Artikel</label>
-            <!-- Quill -->
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Isi Artikel</label>
+        <div class="editor-wrapper">
             <div id="editor"></div>
-            <input asp-for="IsiArtikel" type="hidden" id="IsiArtikel" />
         </div>
+        <input type="hidden" id="IsiArtikel" name="IsiArtikel" />
 
-        <div class="text-end">
-            <button type="submit" class="btn btn-primary">Publikasikan</button>
-        </div>
-    </form>
-</div>
+    </div>
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">Publikasikan</button>
+    </div>
+</form>

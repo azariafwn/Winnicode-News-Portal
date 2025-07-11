@@ -1,22 +1,5 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    // === SIDEBAR TOGGLE ===
-    const sidebar = document.getElementById('sidebarMenu');
-    const toggleBtn = document.querySelector('[data-bs-target="#sidebarMenu"]');
-    const overlay = document.getElementById('sidebarOverlay');
-
-    if (toggleBtn && sidebar && overlay) {
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle("show");
-            overlay.classList.toggle("show");
-        });
-
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove("show");
-            overlay.classList.remove("show");
-        });
-    }
-
-    // === QUILL EDITOR ===
+    // Inisialisasi Quill
     const quillElement = document.getElementById("editor");
     const isiArtikelField = document.getElementById("IsiArtikel");
 
@@ -36,19 +19,14 @@
             }
         });
 
-        // Simpan isi Quill ke input hidden saat submit
         const form = document.querySelector("form");
-        if (form) {
-            form.addEventListener("submit", function (e) {
-                e.preventDefault(); // Stop default submit dulu
-                isiArtikelField.value = quill.root.innerHTML;
-                this.submit(); // Submit ulang setelah field terisi
-            });
-
-        }
+        form.addEventListener("submit", function (e) {
+            const isiField = document.getElementById("IsiArtikel");
+            isiField.value = quill.root.innerHTML;
+        });
     }
 
-    // === DROPDOWN KATEGORI → SUBKATEGORI ===
+    // Kategori → SubKategori
     const kategoriSelect = document.getElementById("kategori");
     const subkategoriSelect = document.getElementById("subkategori");
 
