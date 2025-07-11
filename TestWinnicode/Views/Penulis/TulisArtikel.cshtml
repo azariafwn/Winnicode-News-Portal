@@ -1,9 +1,9 @@
-﻿@{
+﻿@model TestWinnicode.ViewModels.TulisArtikelViewModel
+@{
     Layout = "~/Views/Shared/_LayoutPenulis.cshtml";
     ViewBag.Title = "Tulis Artikel - Penulis";
 }
 
-<!-- STICKY JUDUL + FILTER -->
 <div class="container-fluid sticky-top bg-white p-2" style="z-index: 1020;">
     <div class="container">
         <h2 class="mb-3 author-name">Tulis Artikel</h2>
@@ -11,20 +11,18 @@
 </div>
 
 <div class="container">
-
-    <form method="post" enctype="multipart/form-data">
+    <form asp-action="TulisArtikel" method="post" enctype="multipart/form-data">
         <!-- Judul -->
         <div class="mb-3">
-            <label for="judul" class="form-label fw-semibold">Judul Artikel</label>
-            <input type="text" class="form-control" id="judul" name="Judul" placeholder="Masukkan judul artikel" required>
+            <label asp-for="Judul" class="form-label fw-semibold">Judul Artikel</label>
+            <input asp-for="Judul" class="form-control" placeholder="Masukkan judul artikel" required />
         </div>
 
         <!-- Kategori & Subkategori -->
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="kategori" class="form-label fw-semibold">Kategori</label>
-                <!-- Dropdown Kategori -->
-                <select id="kategori" name="KategoriId" class="form-select" required>
+                <label class="form-label fw-semibold">Kategori</label>
+                <select asp-for="KategoriId" class="form-select" id="kategori" required>
                     <option value="">Pilih Kategori</option>
                     @foreach (var kategori in ViewBag.KategoriList)
                     {
@@ -33,9 +31,8 @@
                 </select>
             </div>
             <div class="col-md-6">
-                <label for="subkategori" class="form-label fw-semibold">Subkategori</label>
-                <!-- Dropdown Subkategori -->
-                <select id="subkategori" name="SubKategoriId" class="form-select" required>
+                <label asp-for="SubKategoriId" class="form-label fw-semibold">Subkategori</label>
+                <select asp-for="SubKategoriId" class="form-select" id="subkategori" required>
                     <option value="">Pilih Subkategori</option>
                 </select>
             </div>
@@ -43,33 +40,26 @@
 
         <!-- Tag -->
         <div class="mb-3">
-            <label for="tag" class="form-label fw-semibold">Tag</label>
-            <input type="text" class="form-control" id="tag" name="Tag" placeholder="Pisahkan dengan koma (,)">
+            <label asp-for="Tag" class="form-label fw-semibold">Tag</label>
+            <input asp-for="Tag" class="form-control" id="tag" placeholder="Pisahkan dengan koma (,)" />
         </div>
 
         <!-- Upload Gambar -->
         <div class="mb-4">
-            <label for="gambar" class="form-label fw-semibold">Upload Gambar Cover</label>
-            <input type="file" class="form-control" id="gambar" name="Gambar" accept="image/*">
+            <label asp-for="Gambar" class="form-label fw-semibold">Upload Gambar Cover</label>
+            <input asp-for="Gambar" type="file" class="form-control" id="gambar" accept="image/*" />
         </div>
 
         <!-- Editor Isi Artikel -->
         <div class="mb-3">
             <label class="form-label fw-semibold">Isi Artikel</label>
-            <div class="editor-wrapper">
-                <div id="editor"></div>
-            </div>
-            <input type="hidden" id="IsiArtikel" name="IsiArtikel" />
+            <!-- Quill -->
+            <div id="editor"></div>
+            <input asp-for="IsiArtikel" type="hidden" id="IsiArtikel" />
         </div>
 
-
-        <!-- Tombol Submit -->
         <div class="text-end">
             <button type="submit" class="btn btn-primary">Publikasikan</button>
         </div>
     </form>
 </div>
-
-
-
-

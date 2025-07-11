@@ -60,7 +60,6 @@ namespace TestWinnicode.Controllers.Penulis
                 return View(model);
             }
 
-            // Simpan gambar
             string gambarPath = null;
             if (model.Gambar != null)
             {
@@ -77,7 +76,6 @@ namespace TestWinnicode.Controllers.Penulis
                 gambarPath = "/uploads/" + fileName;
             }
 
-            // Simpan ke database
             var berita = new Berita
             {
                 Judul = model.Judul,
@@ -98,6 +96,7 @@ namespace TestWinnicode.Controllers.Penulis
 
             return RedirectToAction("ArtikelSaya");
         }
+
 
 
         public IActionResult Profil()
