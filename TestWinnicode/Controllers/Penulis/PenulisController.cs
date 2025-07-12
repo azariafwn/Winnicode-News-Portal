@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestWinnicode.Data;
@@ -53,6 +54,7 @@ namespace TestWinnicode.Controllers.Penulis
             var username = User.Identity.Name;
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
             var penulis = await _context.Penulis.FirstOrDefaultAsync(p => p.UserId == user.Id);
+            Debug.Assert(model.IsiArtikel != null, "IsiArtikel masih null saat diterima!");
 
             if (!ModelState.IsValid || penulis == null)
             {

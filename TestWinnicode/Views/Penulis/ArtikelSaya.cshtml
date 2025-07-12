@@ -65,7 +65,10 @@
                         }
                     </td>
 
-                    <td>@item.TanggalEdit.ToString("dd MMMM yyyy")</td>
+                    <td data-order="@item.TanggalEdit.ToString("yyyy-MM-dd")">
+                        @item.TanggalEdit.ToString("dd MMMM yyyy")
+                    </td>
+
                     <td>
                         <a href="/Penulis/DetailArtikel/@item.Id" class="text-primary me-2" title="Lihat">
                             <i class="bi bi-eye-fill"></i>
