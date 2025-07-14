@@ -28,6 +28,12 @@ namespace TestWinnicode.Controllers.Editor
 
             return View();
         }
+
+        public IActionResult Profil()
+        {
+            return View();
+        }
+
     }
 
 }
