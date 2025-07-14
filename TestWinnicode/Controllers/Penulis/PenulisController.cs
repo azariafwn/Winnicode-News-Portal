@@ -49,12 +49,11 @@ namespace TestWinnicode.Controllers.Penulis
         }
 
         [HttpPost]
-        public async Task<IActionResult> TulisArtikel(TulisArtikelViewModel model)
+        public async Task<IActionResult> TulisArtikel(TulisArtikelViewModel model, string submitType)
         {
             var username = User.Identity.Name;
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
             var penulis = await _context.Penulis.FirstOrDefaultAsync(p => p.UserId == user.Id);
-            Debug.Assert(model.IsiArtikel != null, "IsiArtikel masih null saat diterima!");
 
             if (!ModelState.IsValid || penulis == null)
             {
@@ -79,6 +78,10 @@ namespace TestWinnicode.Controllers.Penulis
                 gambarPath = "/uploads/" + fileName;
             }
 
+            // Tentukan status
+            string status = (submitType == "draft") ? "Draft" : "Ditinjau";
+
+            // Simpan ke database
             var berita = new Berita
             {
                 Judul = model.Judul,
@@ -88,7 +91,7 @@ namespace TestWinnicode.Controllers.Penulis
                 Gambar = gambarPath,
                 Isi = model.IsiArtikel,
                 Tanggal_Publish = DateTime.Now,
-                Status = "Draft",
+                Status = status,
                 Jumlah_View = 0,
                 IsHeadline = false,
                 IsSubHeadline = false
@@ -100,6 +103,20 @@ namespace TestWinnicode.Controllers.Penulis
             return RedirectToAction("ArtikelSaya");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> DeleteArtikel(int id)
+        {
+            var artikel = await _context.Berita.FindAsync(id);
+            if (artikel == null)
+            {
+                return NotFound();
+            }
+
+            _context.Berita.Remove(artikel);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ArtikelSaya");
+        }
 
 
         public IActionResult Profil()
@@ -276,19 +293,23 @@ namespace TestWinnicode.Controllers.Penulis
         [HttpPost]
         public async Task<IActionResult> EditArtikel(EditArtikelViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
 
-            var artikel = await _context.Berita.FirstOrDefaultAsync(b => b.Id == model.Id);
-
-            if (artikel == null) return NotFound();
+            var artikel = await _context.Berita.FindAsync(model.Id);
+            if (artikel == null)
+                return NotFound();
 
             artikel.Judul = model.Judul;
             artikel.Isi = model.Isi;
-            artikel.Tanggal_Publish = DateTime.Now; // update waktu edit
+            artikel.Status = model.Status; // ← Update status sesuai tombol yang diklik
+            artikel.Tanggal_Publish = DateTime.Now;
 
             await _context.SaveChangesAsync();
+
             return RedirectToAction("ArtikelSaya");
         }
+
 
         // Ambil subkategori via AJAX
         [HttpGet]

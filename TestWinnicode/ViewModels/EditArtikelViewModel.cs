@@ -12,6 +12,8 @@ namespace TestWinnicode.ViewModels
 
         [Required]
         public string Isi { get; set; }
+
+        public string Status { get; set; }
     }
 }
 

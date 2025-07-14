@@ -8,6 +8,7 @@
 
 <form asp-action="EditArtikel" method="post">
     <input type="hidden" asp-for="Id" />
+    <input type="hidden" id="Status" name="Status" value="@Model.Status" />
 
     <!-- Judul Artikel -->
     <div class="mb-3">
@@ -21,9 +22,13 @@
         <textarea class="form-control" id="Isi" asp-for="Isi" rows="10" required></textarea>
     </div>
 
-    <!-- Tombol Simpan -->
-    <button type="submit" class="btn btn-primary">
-        <i class="bi bi-save"></i> Simpan Perubahan
+    <!-- Tombol Aksi -->
+    <button type="submit" class="btn btn-primary" onclick="document.getElementById('Status').value='Draft'">
+        <i class="bi bi-save"></i> Simpan Draft
+    </button>
+
+    <button type="submit" class="btn btn-success ms-2" onclick="document.getElementById('Status').value='Ditinjau'">
+        <i class="bi bi-send"></i> Ajukan
     </button>
 
     <a href="/Penulis/ArtikelSaya" class="btn btn-outline-secondary ms-2">
