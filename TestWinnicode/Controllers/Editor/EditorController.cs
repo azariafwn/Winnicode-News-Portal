@@ -34,6 +34,11 @@ namespace TestWinnicode.Controllers.Editor
             return View();
         }
 
+        public IActionResult ArtikelMasuk()
+        {
+            return View();
+        }
+
     }
 
 }

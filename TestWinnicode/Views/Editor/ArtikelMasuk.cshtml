@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutEditor.cshtml";
+    ViewBag.Title = "Artikel Masuk - Editor";
+}
+
+<!-- STICKY JUDUL + FILTER -->
+<div class="container-fluid sticky-top bg-white p-0" style="z-index: 1020;">
+    <div class="container">
+        <h2 class="mb-3 author-name">Artikel Masuk</h2>
+
+        <div class="mb-2 d-flex justify-content-start align-items-center gap-2">
+            <label for="statusFilter" class="form-label fw-semibold mb-0">Filter Status:</label>
+            <select id="statusFilter" class="form-select" style="width: 200px;">
+                <option value="">Semua</option>
+                <option value="Draft">Draft</option>
+                <option value="Ditinjau">Ditinjau</option>
+                <option value="Ditolak">Ditolak</option>
+                <option value="Terbit">Terbit</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- WRAPPER TABEL -->
+<div class="container mt-3">
+    <!-- Kontrol DataTables: Length + Search -->
+    <div id="tableControls" class="mb-2 d-flex justify-content-between flex-wrap"></div>
+
+    <!-- SCROLLABLE TABEL -->
+    <table id="artikelEditorTable" class="table table-bordered table-hover align-middle w-100">
+        <thead>
+            <tr>
+                <th class="table-header">No</th>
+                <th class="table-header">Judul Artikel</th>
+                <th class="table-header">Penulis</th>
+                <th class="table-header">Status</th>
+                <th class="table-header">Last Access</th>
+                <th class="table-header">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var dummyList = new List<dynamic>
+                        {
+                        new { Judul = "Mengenal AI Generatif", Penulis = "Azaria Putri", Status = "Draft", LastAccess = new DateTime(2025, 7, 1) },
+                        new { Judul = "Teknologi Kesehatan Modern", Penulis = "Rama Wicaksono", Status = "Ditinjau", LastAccess = new DateTime(2025, 7, 5) },
+                        new { Judul = "Pemanfaatan ChatGPT di Dunia Pendidikan", Penulis = "Nina Andari", Status = "Terbit", LastAccess = new DateTime(2025, 6, 30) },
+                        new { Judul = "Etika dalam Jurnalistik Digital", Penulis = "Andi Surya", Status = "Ditolak", LastAccess = new DateTime(2025, 6, 28) }
+                        };
+                int index = 1;
+                foreach (var item in dummyList)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@item.Judul</td>
+                        <td>@item.Penulis</td>
+                        <td data-order="@item.Status" data-search="@item.Status">
+                            @switch (item.Status.ToLower())
+                            {
+                                case "draft":
+                                    <span class="badge bg-warning text-dark">Draft</span>
+                                    break;
+                                case "ditinjau":
+                                    <span class="badge bg-secondary">Ditinjau</span>
+                                    break;
+                                case "ditolak":
+                                    <span class="badge bg-danger">Ditolak</span>
+                                    break;
+                                case "terbit":
+                                    <span class="badge bg-success">Terbit</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-light text-dark">-</span>
+                                    break;
+                            }
+                        </td>
+                        <td data-order="@item.LastAccess.ToString("yyyy-MM-dd")">@item.LastAccess.ToString("dd MMMM yyyy")</td>
+                        <td>
+                            <a href="#" class="text-primary me-2" title="Lihat">
+                                <i class="bi bi-eye-fill"></i>
+                            </a>
+                            <a href="#" class="text-success me-2" title="Edit">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="#" class="text-danger" title="Hapus" onclick="return confirm('Yakin ingin menghapus artikel ini?');">
+                                <i class="bi bi-trash-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            }
+        </tbody>
+    </table>
+
+    <!-- Kontrol DataTables bawah: Info + Pagination -->
+    <div id="tableFooterControls" class="d-flex justify-content-between flex-wrap mt-2"></div>
+</div>
