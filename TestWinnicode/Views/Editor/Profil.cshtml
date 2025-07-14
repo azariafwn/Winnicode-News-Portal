@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutEditor.cshtml";
+    ViewBag.Title = "Profil Editor";
+    bool isEdit = Context.Request.Query["edit"] == "true";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg border-0 rounded-4 p-4 bg-white text-center">
+
+                <!-- FOTO + NAMA + EMAIL -->
+                <div class="d-flex flex-column align-items-center mb-4">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <img src="~/images/profile-icon.png" alt="Foto Profil" class="rounded-circle me-4" width="100" height="100">
+                        <div class="text-start">
+                            <h4 class="mb-1 username">Azaria Fawnia</h4>
+                            <p class="mb-0 email-user">azaria.editor@mail.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DESKRIPSI -->
+                <div class="mb-4 text-start">
+                    <h5 class="fw-semibold text-secondary">Tentang Editor</h5>
+                    <p>Editor yang berfokus pada kualitas konten dan ketepatan informasi. Teliti, akurat, dan komunikatif.</p>
+                </div>
+
+                <!-- GRID 3 KOLOM -->
+                <div class="row text-center">
+                    <!-- KIRI -->
+                    <div class="col-md-4 mb-3">
+                        @if (isEdit)
+                        {
+                            <form method="post" class="border rounded-3 p-3 h-100">
+                                <div class="text-center">
+                                    <div class="mb-2">
+                                        <label class="label-blue mb-1" for="Gender">Gender</label>
+                                        <select id="Gender" name="Gender" class="form-select text-center">
+                                            <option selected>Laki-laki</option>
+                                            <option>Perempuan</option>
+                                            <option>Lainnya</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="label-blue mb-1" for="TanggalLahir">Tanggal Lahir</label>
+                                        <input type="date" name="TanggalLahir" class="form-control text-center" value="1999-10-10" />
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="label-blue mb-1" for="NomorTelepon">No. Telepon</label>
+                                        <input type="text" name="NomorTelepon" class="form-control text-center" value="081234567890" />
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="label-blue mb-1" for="Alamat">Alamat</label>
+                                        <textarea name="Alamat" class="form-control text-center">Jl. Mawar No. 10, Jakarta</textarea>
+                                    </div>
+
+                                    <div class="text-center mt-3">
+                                        <button type="submit" class="blue-tag me-2">Simpan</button>
+                                        <a href="/Editor/Profil" class="red-tag">Batal</a>
+                                    </div>
+                                </div>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="border rounded-3 p-3 h-100">
+                                <p class="label-blue mb-1">Gender</p>
+                                <p class="data-pink">Perempuan</p>
+                                <p class="label-blue mb-1">Tanggal Lahir</p>
+                                <p class="data-pink">10 Oktober 1999</p>
+                                <p class="label-blue mb-1">No. Telepon</p>
+                                <p class="data-pink">081234567890</p>
+                                <p class="label-blue mb-1">Alamat</p>
+                                <p class="data-pink">Jl. Mawar No. 10, Jakarta</p>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- TENGAH -->
+                    <div class="col-md-4 mb-3">
+                        <div class="border rounded-3 p-3 h-100">
+                            <p class="label-blue mb-1">Bergabung Sejak</p>
+                            <p class="data-pink">01 Januari 2023</p>
+                            <p class="label-blue mb-1">Role</p>
+                            <p class="data-pink">Editor</p>
+                            <p class="label-blue mb-1">Cakupan Kategori</p>
+                            <p class="data-pink">Teknologi, Kesehatan</p>
+                            <p class="label-blue mb-1">Artikel Diedit</p>
+                            <p class="data-pink">125 Artikel</p>
+                        </div>
+                    </div>
+
+                    <!-- KANAN -->
+                    <div class="col-md-4 mb-3">
+                        <div class="border rounded-3 p-3 h-100">
+                            <p class="label-blue mb-1">Menunggu Verifikasi</p>
+                            <p class="data-pink">8 Artikel</p>
+                            <p class="label-blue mb-1">Artikel Ditolak</p>
+                            <p class="data-pink">12 Artikel</p>
+                            <p class="label-blue mb-1">Artikel Terbit</p>
+                            <p class="data-pink">105 Artikel</p>
+                            <p class="label-blue mb-1">Total Review</p>
+                            <p class="data-pink">250 Review</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TOMBOL EDIT -->
+                <div class="text-center mt-4">
+                    @if (!isEdit)
+                    {
+                        <a href="/Editor/Profil?edit=true" class="blue-tag">Edit Profil</a>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

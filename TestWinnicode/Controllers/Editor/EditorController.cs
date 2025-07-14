@@ -1,15 +1,33 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TestWinnicode.Data;
 
 namespace TestWinnicode.Controllers.Editor
 {
     [Authorize(Roles = "Editor")]
     public class EditorController : Controller
     {
-        public IActionResult Index()
+        private readonly AppDbContext _context;
+
+        public EditorController(AppDbContext context)
         {
-            ViewBag.Username = User.Identity.Name;
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var jumlahArtikel = 10;
+            var jumlahMenunggu = 10;
+            var jumlahTerbit = 10;
+            var jumlahDitolak = 10;
+
+            ViewBag.JumlahArtikel = jumlahArtikel;
+            ViewBag.Menunggu = jumlahMenunggu;
+            ViewBag.Terbit = jumlahTerbit;
+            ViewBag.Ditolak = jumlahDitolak;
+
             return View();
         }
     }
+
 }
