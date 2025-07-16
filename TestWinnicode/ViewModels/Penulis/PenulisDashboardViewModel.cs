@@ -1,4 +1,4 @@
-﻿namespace TestWinnicode.ViewModels
+﻿namespace TestWinnicode.ViewModels.Penulis
 {
     public class PenulisDashboardViewModel
     {

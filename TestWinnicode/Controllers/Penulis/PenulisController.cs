@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestWinnicode.Data;
-using TestWinnicode.Models;
-using TestWinnicode.ViewModels;
+using TestWinnicode.Models.Reader;
+using TestWinnicode.ViewModels.Reader;
+using TestWinnicode.ViewModels.Penulis;
 
 namespace TestWinnicode.Controllers.Penulis
 {

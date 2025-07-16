@@ -1,5 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.EntityFrameworkCore;
 using TestWinnicode.Models;
+using TestWinnicode.Models.Editor;
+using TestWinnicode.Models.Penulis;
+using TestWinnicode.Models.Reader;
 
 namespace TestWinnicode.Data
 {
@@ -12,6 +16,8 @@ namespace TestWinnicode.Data
         public DbSet<SubKategori> SubKategori { get; set; }
         public DbSet<Berita> Berita { get; set; }
         public DbSet<Penulis> Penulis { get; set; }
+        public DbSet<Editor> Editor { get; set; }
+
 
 
 

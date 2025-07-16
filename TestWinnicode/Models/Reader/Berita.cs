@@ -1,4 +1,6 @@
-﻿namespace TestWinnicode.Models
+﻿using PenulisModel = TestWinnicode.Models.Penulis.Penulis;
+
+namespace TestWinnicode.Models.Reader
 {
     public class Berita
     {
@@ -16,7 +18,7 @@
         public bool IsHeadline { get; set; }
         public bool IsSubHeadline { get; set; }
         public int? PenulisId { get; set; }
-        public Penulis Penulis { get; set; }
+        public PenulisModel Penulis { get; set; }
 
 
     }

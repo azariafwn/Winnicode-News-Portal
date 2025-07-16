@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TestWinnicode.ViewModels;
+using TestWinnicode.ViewModels.Penulis;
+using TestWinnicode.ViewModels.Reader;
 using Microsoft.EntityFrameworkCore;
 using TestWinnicode.Data;
-using TestWinnicode.Models;
+using TestWinnicode.Models.Reader;
 
 namespace TestWinnicode.Controllers.Reader
 {

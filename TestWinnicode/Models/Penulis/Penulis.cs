@@ -1,6 +1,6 @@
-﻿using TestWinnicode.Models;
+﻿using TestWinnicode.Models.Reader;
 
-namespace TestWinnicode.Models
+namespace TestWinnicode.Models.Penulis
 {
     public class Penulis
     {

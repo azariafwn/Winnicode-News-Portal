@@ -1,4 +1,4 @@
-﻿namespace TestWinnicode.Models
+﻿namespace TestWinnicode.Models.Reader
 {
     public class Kategori
     {

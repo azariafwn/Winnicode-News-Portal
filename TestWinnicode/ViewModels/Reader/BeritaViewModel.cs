@@ -1,7 +1,7 @@
-﻿using TestWinnicode.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using TestWinnicode.Models.Reader;
 
-namespace TestWinnicode.ViewModels
+namespace TestWinnicode.ViewModels.Reader
 {
     public class BeritaViewModel
     {

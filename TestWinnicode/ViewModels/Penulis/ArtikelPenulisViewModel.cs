@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestWinnicode.ViewModels
+namespace TestWinnicode.ViewModels.Penulis
 {
     public class ArtikelPenulisViewModel
     {

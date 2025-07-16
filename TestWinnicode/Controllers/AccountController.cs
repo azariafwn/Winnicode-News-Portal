@@ -101,7 +101,7 @@ namespace TestWinnicode.Controllers
             // Jika role adalah Penulis, tambahkan ke tabel Penulis
             if (user.Role == UserRole.Penulis)
             {
-                var penulis = new TestWinnicode.Models.Penulis
+                var penulis = new TestWinnicode.Models.Penulis.Penulis
                 {
                     UserId = user.Id,
                     Deskripsi = "",

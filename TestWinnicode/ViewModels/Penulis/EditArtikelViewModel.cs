@@ -1,7 +1,7 @@
 ﻿using TestWinnicode.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace TestWinnicode.ViewModels
+namespace TestWinnicode.ViewModels.Penulis
 {
     public class EditArtikelViewModel
     {
