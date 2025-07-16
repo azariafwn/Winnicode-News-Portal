@@ -1,4 +1,6 @@
-﻿@{
+﻿@using TestWinnicode.ViewModels.Editor
+@model EditorProfilViewModel
+@{
     Layout = "~/Views/Shared/_LayoutEditor.cshtml";
     ViewBag.Title = "Profil Editor";
     bool isEdit = Context.Request.Query["edit"] == "true";
@@ -14,8 +16,8 @@
                     <div class="d-flex align-items-center justify-content-center">
                         <img src="~/images/profile-icon.png" alt="Foto Profil" class="rounded-circle me-4" width="100" height="100">
                         <div class="text-start">
-                            <h4 class="mb-1 username">Azaria Fawnia</h4>
-                            <p class="mb-0 email-user">azaria.editor@mail.com</p>
+                            <h4 class="mb-1 username">@Model.NamaLengkap</h4>
+                            <p class="mb-0 email-user">@Model.Email</p>
                         </div>
                     </div>
                 </div>
@@ -23,7 +25,7 @@
                 <!-- DESKRIPSI -->
                 <div class="mb-4 ms-4 text-start">
                     <h5 class="fw-semibold text-secondary">Tentang Editor</h5>
-                    <p>Editor yang berfokus pada kualitas konten dan ketepatan informasi. Teliti, akurat, dan komunikatif.</p>
+                    <p>@Model.Deskripsi</p>
                 </div>
 
                 <!-- GRID 3 KOLOM -->
@@ -69,13 +71,13 @@
                         {
                             <div class="border rounded-3 p-3 h-100">
                                 <p class="label-blue mb-1">Gender</p>
-                                <p class="data-pink">Perempuan</p>
+                                <p class="data-pink">@Model.Gender</p>
                                 <p class="label-blue mb-1">Tanggal Lahir</p>
-                                <p class="data-pink">10 Oktober 1999</p>
+                                <p class="data-pink">@Model.TanggalLahir?.ToString("dd MMMM yyyy")</p>
                                 <p class="label-blue mb-1">No. Telepon</p>
-                                <p class="data-pink">081234567890</p>
+                                <p class="data-pink">@Model.NomorTelepon</p>
                                 <p class="label-blue mb-1">Alamat</p>
-                                <p class="data-pink">Jl. Mawar No. 10, Jakarta</p>
+                                <p class="data-pink">@Model.Alamat</p>
                             </div>
                         }
                     </div>
@@ -84,13 +86,13 @@
                     <div class="col-md-6 mb-3">
                         <div class="border rounded-3 p-3 h-100">
                             <p class="label-blue mb-1">Bergabung Sejak</p>
-                            <p class="data-pink">01 Januari 2023</p>
+                            <p class="data-pink">@Model.TanggalBergabung?.ToString("dd MMMM yyyy")</p>
                             <p class="label-blue mb-1">Role</p>
                             <p class="data-pink">Editor</p>
-                            <p class="label-blue mb-1">Cakupan Kategori</p>
-                            <p class="data-pink">Teknologi, Kesehatan</p>
+                            <p class="label-blue mb-1">Fokus Kategori</p>
+                            <p class="data-pink">@Model.KategoriFokus</p>
                             <p class="label-blue mb-1">Total Review</p>
-                            <p class="data-pink">250 Review</p>
+                            <p class="data-pink">@Model.TotalReview</p>
                         </div>
                     </div>
 

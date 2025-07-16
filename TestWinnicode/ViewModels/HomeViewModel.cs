@@ -1,7 +1,7 @@
 ﻿using PenulisModel = TestWinnicode.Models.Penulis.Penulis;
 using TestWinnicode.Models.Reader;
 
-namespace TestWinnicode.ViewModels.Reader
+namespace TestWinnicode.ViewModels
 {
     public class HomeViewModel
     {

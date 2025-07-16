@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TestWinnicode.ViewModels;
 using TestWinnicode.ViewModels.Penulis;
 using TestWinnicode.ViewModels.Reader;
 using Microsoft.EntityFrameworkCore;
