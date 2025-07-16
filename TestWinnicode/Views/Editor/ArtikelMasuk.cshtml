@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<TestWinnicode.ViewModels.Editor.ArtikelEditorViewModel>
+
+@{
     Layout = "~/Views/Shared/_LayoutEditor.cshtml";
     ViewBag.Title = "Artikel Masuk - Editor";
 }
@@ -40,15 +42,7 @@
         </thead>
         <tbody>
             @{
-                var dummyList = new List<dynamic>
-                        {
-                        new { Judul = "Mengenal AI Generatif", Penulis = "Azaria Putri", Status = "Draft", LastAccess = new DateTime(2025, 7, 1) },
-                        new { Judul = "Teknologi Kesehatan Modern", Penulis = "Rama Wicaksono", Status = "Ditinjau", LastAccess = new DateTime(2025, 7, 5) },
-                        new { Judul = "Pemanfaatan ChatGPT di Dunia Pendidikan", Penulis = "Nina Andari", Status = "Terbit", LastAccess = new DateTime(2025, 6, 30) },
-                        new { Judul = "Etika dalam Jurnalistik Digital", Penulis = "Andi Surya", Status = "Ditolak", LastAccess = new DateTime(2025, 6, 28) }
-                        };
-                int index = 1;
-                foreach (var item in dummyList)
+                foreach (var item in Model)
                 {
                     <tr>
                         <td></td>
@@ -74,7 +68,7 @@
                                     break;
                             }
                         </td>
-                        <td data-order="@item.LastAccess.ToString("yyyy-MM-dd")">@item.LastAccess.ToString("dd MMMM yyyy")</td>
+                        <td data-order="@item.TanggalEdit.ToString("yyyy-MM-dd")">@item.TanggalEdit.ToString("dd MMMM yyyy")</td>
                         <td>
                             <a href="#" class="text-primary me-2" title="Lihat">
                                 <i class="bi bi-eye-fill"></i>
@@ -87,7 +81,6 @@
                             </a>
                         </td>
                     </tr>
-                    index++;
                 }
             }
         </tbody>

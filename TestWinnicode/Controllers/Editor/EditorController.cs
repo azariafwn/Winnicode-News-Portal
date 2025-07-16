@@ -80,11 +80,38 @@ namespace TestWinnicode.Controllers.Editor
             return RedirectToAction("Profil");
         }
 
-
-
-        public IActionResult ArtikelMasuk()
+        public async Task<IActionResult> ArtikelMasuk()
         {
-            return View();
+            // Ambil user yang sedang login
+            var username = User.Identity.Name;
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+            // Ambil editor dan kategori yang ditangani
+            var editor = await _context.Editor
+                .FirstOrDefaultAsync(e => e.UserId == user.Id);
+
+            if (editor == null)
+            {
+                return NotFound("Editor tidak ditemukan");
+            }
+
+            // Ambil semua berita yang kategori subkategorinya sesuai cakupan editor
+            var beritaList = await _context.Berita
+                .Include(b => b.SubKategori)
+                .ThenInclude(sk => sk.Kategori)
+                .Include(b => b.Penulis)
+                .Where(b => b.SubKategori.KategoriId == editor.KategoriId)
+                .Select(b => new ArtikelEditorViewModel
+                {
+                    Id = b.Id,
+                    Judul = b.Judul,
+                    Penulis = b.Penulis.NamaLengkap,
+                    Status = b.Status,
+                    TanggalEdit = b.Tanggal_Publish // atau LastModified jika punya
+                })
+                .ToListAsync();
+
+            return View(beritaList);
         }
 
     }

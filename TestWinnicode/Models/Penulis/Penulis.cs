@@ -17,6 +17,7 @@ namespace TestWinnicode.Models.Penulis
         public int JumlahArtikelMenunggu { get; set; }
 
         public User User { get; set; }
+        public string NamaLengkap => User?.NamaLengkap;
         public List<Berita> BeritaList { get; set; }
 
     }
