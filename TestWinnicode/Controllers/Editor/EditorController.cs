@@ -66,19 +66,26 @@ namespace TestWinnicode.Controllers.Editor
         [HttpPost]
         public async Task<IActionResult> Profil(EditorProfilViewModel model)
         {
-            var username = User.Identity.Name;
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
-            if (user == null) return NotFound();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+            var editor = await _context.Editor.FirstOrDefaultAsync(e => e.UserId == user.Id);
 
-            user.Gender = model.Gender;
-            user.TanggalLahir = model.TanggalLahir;
-            user.NomorTelepon = model.NomorTelepon;
-            user.Alamat = model.Alamat;
+            if (user != null && editor != null)
+            {
+                user.NamaLengkap = model.NamaLengkap;
+                user.Email = model.Email;
+                user.Gender = model.Gender;
+                user.TanggalLahir = model.TanggalLahir;
+                user.NomorTelepon = model.NomorTelepon;
+                user.Alamat = model.Alamat;
 
-            await _context.SaveChangesAsync();
+                editor.Deskripsi = model.Deskripsi;
+
+                await _context.SaveChangesAsync();
+            }
 
             return RedirectToAction("Profil");
         }
+
 
         public async Task<IActionResult> ArtikelMasuk()
         {

@@ -107,7 +107,7 @@ namespace TestWinnicode.Controllers
                     Deskripsi = "",
                     TotalArtikel = 0,
                     TotalDibaca = 0,
-                    KategoriFokusId = null,
+                    KategoriFokusId = 1,
                     JumlahArtikelDraft = 0,
                     JumlahArtikelDitolak = 0,
                     JumlahArtikelMenunggu = 0
@@ -117,6 +117,21 @@ namespace TestWinnicode.Controllers
                 await _context.SaveChangesAsync();
             }
 
+            // Jika role adalah Editor, tambahkan ke tabel Editor
+            if (user.Role == UserRole.Editor)
+            {
+                var editor = new TestWinnicode.Models.Editor.Editor
+                {
+                    UserId = user.Id,
+                    KategoriId = 1,
+                    Deskripsi = "",
+                    TotalReview = 0
+                };
+
+                _context.Editor.Add(editor);
+                await _context.SaveChangesAsync();
+            }
+                       
             ViewBag.SuccessMessage = "Akun berhasil dibuat. Silakan login.";
             return RedirectToAction("Login");
         }

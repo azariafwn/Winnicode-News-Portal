@@ -15,7 +15,7 @@ namespace TestWinnicode.Models.Editor
         public User User { get; set; }
 
         [Required]
-        public int KategoriId { get; set; }
+        public int? KategoriId { get; set; }
 
         [ForeignKey("KategoriId")]
         public Kategori Kategori { get; set; }

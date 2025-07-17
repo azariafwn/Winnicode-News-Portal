@@ -16,8 +16,16 @@
                     <div class="d-flex align-items-center justify-content-center">
                         <img src="~/images/profile-icon.png" alt="Foto Profil" class="rounded-circle me-4" width="100" height="100">
                         <div class="text-start">
-                            <h4 class="mb-1 username">@Model.NamaLengkap</h4>
-                            <p class="mb-0 email-user">@Model.Email</p>
+                            @if (isEdit)
+                            {
+                                <input type="text" name="NamaLengkap" class="form-control mb-2" value="@Model.NamaLengkap" />
+                                <input type="email" name="Email" class="form-control" value="@Model.Email" />
+                            }
+                            else
+                            {
+                                <h4 class="mb-1 username">@Model.NamaLengkap</h4>
+                                <p class="mb-0 email-user">@Model.Email</p>
+                            }
                         </div>
                     </div>
                 </div>
@@ -25,8 +33,16 @@
                 <!-- DESKRIPSI -->
                 <div class="mb-4 ms-4 text-start">
                     <h5 class="fw-semibold text-secondary">Tentang Editor</h5>
-                    <p>@Model.Deskripsi</p>
+                    @if (isEdit)
+                    {
+                        <textarea name="Deskripsi" class="form-control">@Model.Deskripsi</textarea>
+                    }
+                    else
+                    {
+                        <p>@Model.Deskripsi</p>
+                    }
                 </div>
+
 
                 <!-- GRID 3 KOLOM -->
                 <div class="row text-center">
