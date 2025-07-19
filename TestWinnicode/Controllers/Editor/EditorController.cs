@@ -87,11 +87,13 @@ namespace TestWinnicode.Controllers.Editor
         }
 
 
+
         public async Task<IActionResult> ArtikelMasuk()
         {
             // Ambil user yang sedang login
             var username = User.Identity.Name;
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Username == username);
 
             // Ambil editor dan kategori yang ditangani
             var editor = await _context.Editor
@@ -106,16 +108,18 @@ namespace TestWinnicode.Controllers.Editor
             var beritaList = await _context.Berita
                 .Include(b => b.SubKategori)
                 .ThenInclude(sk => sk.Kategori)
-                .Include(b => b.Penulis)
                 .Where(b => b.SubKategori.KategoriId == editor.KategoriId)
-                .Select(b => new ArtikelEditorViewModel
-                {
-                    Id = b.Id,
-                    Judul = b.Judul,
-                    Penulis = b.Penulis.NamaLengkap,
-                    Status = b.Status,
-                    TanggalEdit = b.Tanggal_Publish // atau LastModified jika punya
-                })
+                .Join(_context.Penulis.Include(p => p.User),
+                    berita => berita.PenulisId,
+                    penulis => penulis.Id,
+                    (berita, penulis) => new ArtikelEditorViewModel
+                    {
+                        Id = berita.Id,
+                        Judul = berita.Judul,
+                        Penulis = penulis.User.NamaLengkap,
+                        Status = berita.Status,
+                        TanggalEdit = berita.Tanggal_Publish
+                    })
                 .ToListAsync();
 
             return View(beritaList);
