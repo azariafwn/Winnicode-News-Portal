@@ -229,23 +229,28 @@ namespace TestWinnicode.Controllers.Penulis
             return View(vm);
         }
         [HttpPost]
-        public async Task<IActionResult> EditProfil(string Gender, DateTime TanggalLahir, string NomorTelepon, string Alamat)
+        public async Task<IActionResult> EditProfil(PenulisProfilViewModel model)
         {
-            var username = User.Identity?.Name;
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+            var penulis = await _context.Penulis.FirstOrDefaultAsync(p => p.UserId == user.Id);
 
-            if (user == null) return NotFound();
+            if (user != null && penulis != null)
+            {
+                user.NamaLengkap = model.NamaLengkap;
+                user.Email = model.Email;
+                user.Gender = model.Gender;
+                user.TanggalLahir = model.TanggalLahir;
+                user.NomorTelepon = model.NomorTelepon;
+                user.Alamat = model.Alamat;
 
-            user.Gender = Gender;
-            user.TanggalLahir = TanggalLahir;
-            user.NomorTelepon = NomorTelepon;
-            user.Alamat = Alamat;
+                penulis.Deskripsi = model.Deskripsi;
 
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+            }
 
             return RedirectToAction("Profil");
         }
+
         [HttpGet]
         public async Task<IActionResult> DetailArtikel(int id)
         {

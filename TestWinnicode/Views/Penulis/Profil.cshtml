@@ -6,37 +6,51 @@
     var isEdit = ViewBag.IsEdit == true;
 }
 
-
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card shadow-lg border-0 rounded-4 p-4 bg-white text-center">
 
-                <!-- FOTO + NAMA + EMAIL -->
-                <div class="d-flex flex-column align-items-center mb-4">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="~/images/profile-icon.png" alt="Foto Profil" class="rounded-circle me-4" width="100" height="100">
-                        <div class="text-start">
-                            <h4 class="mb-1 username">@Model.NamaLengkap</h4>
-                            <p class="mb-0 email-user">@Model.Email</p>
+                <form asp-action="EditProfil" method="post">
+                    <!-- FOTO + NAMA + EMAIL -->
+                    <div class="d-flex flex-column align-items-center mb-4">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img src="~/images/profile-icon.png" alt="Foto Profil" class="rounded-circle me-4" width="100" height="100">
+                            <div class="text-start">
+                                @if (isEdit)
+                                {
+                                    <input type="text" name="NamaLengkap" class="form-control mb-2" value="@Model.NamaLengkap" />
+                                    <input type="email" name="Email" class="form-control" value="@Model.Email" />
+                                }
+                                else
+                                {
+                                    <h4 class="mb-1 username">@Model.NamaLengkap</h4>
+                                    <p class="mb-0 email-user">@Model.Email</p>
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- DESKRIPSI PENULIS -->
-                <div class="mb-4 text-start">
-                    <h5 class="fw-semibold text-secondary">Tentang Penulis</h5>
-                    <p>@Model.Deskripsi</p>
-                </div>
-
-                <!-- GRID 3 KOLOM -->
-                <div class="row text-center">
-                    <!-- KIRI -->
-                    <div class="col-md-4 mb-3">
+                    <!-- DESKRIPSI PENULIS -->
+                    <div class="mb-4 text-start">
+                        <h5 class="fw-semibold text-secondary">Tentang Penulis</h5>
                         @if (isEdit)
                         {
-                            <form asp-action="EditProfil" method="post" class="border rounded-3 p-3 h-100">
-                                <div class="text-center">
+                            <textarea name="Deskripsi" class="form-control">@Model.Deskripsi</textarea>
+                        }
+                        else
+                        {
+                            <p>@Model.Deskripsi</p>
+                        }
+                    </div>
+
+                    <!-- GRID 3 KOLOM -->
+                    <div class="row text-center">
+                        <!-- KIRI -->
+                        <div class="col-md-4 mb-3">
+                            @if (isEdit)
+                            {
+                                <div class="border rounded-3 p-3 h-100">
                                     <div class="mb-2">
                                         <label class="label-blue mb-1" for="Gender">Gender</label>
                                         <select id="Gender" name="Gender" class="form-select text-center">
@@ -60,68 +74,65 @@
                                         <label class="label-blue mb-1" for="Alamat">Alamat</label>
                                         <textarea name="Alamat" class="form-control text-center">@Model.Alamat</textarea>
                                     </div>
-
-                                    <div class="text-center mt-3">
-                                        <button type="submit" class="blue-tag me-2">Simpan</button>
-                                        <a href="/Penulis/Profil" class="red-tag">Batal</a>
-                                    </div>
                                 </div>
-                            </form>
+                            }
+                            else
+                            {
+                                <div class="border rounded-3 p-3 h-100">
+                                    <p class="label-blue mb-1">Gender</p>
+                                    <p class="data-pink">@Model.Gender</p>
+                                    <p class="label-blue mb-1">Tanggal Lahir</p>
+                                    <p class="data-pink">@Model.TanggalLahir?.ToString("dd MMMM yyyy")</p>
+                                    <p class="label-blue mb-1">No. Telepon</p>
+                                    <p class="data-pink">@Model.NomorTelepon</p>
+                                    <p class="label-blue mb-1">Alamat</p>
+                                    <p class="data-pink">@Model.Alamat</p>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- TENGAH -->
+                        <div class="col-md-4 mb-3">
+                            <div class="border rounded-3 p-3 h-100">
+                                <p class="label-blue mb-1">Bergabung Sejak</p>
+                                <p class="data-pink">@Model.TanggalBergabung?.ToString("dd MMMM yyyy")</p>
+                                <p class="label-blue mb-1">Role</p>
+                                <p class="data-pink">@Model.Role</p>
+                                <p class="label-blue mb-1">Cakupan Kategori</p>
+                                <p class="data-pink">@Model.KategoriFokus</p>
+                                <p class="label-blue mb-1">Jumlah Penayangan</p>
+                                <p class="data-pink">@Model.TotalDibaca.ToString("N0") kali</p>
+                            </div>
+                        </div>
+
+                        <!-- KANAN -->
+                        <div class="col-md-4 mb-3">
+                            <div class="border rounded-3 p-3 h-100">
+                                <p class="label-blue mb-1">Artikel Ditulis</p>
+                                <p class="data-pink">@Model.JumlahArtikelDraft</p>
+                                <p class="label-blue mb-1">Artikel Ditolak</p>
+                                <p class="data-pink">@Model.JumlahArtikelDitolak</p>
+                                <p class="label-blue mb-1">Menunggu Verifikasi</p>
+                                <p class="data-pink">@Model.JumlahArtikelMenunggu</p>
+                                <p class="label-blue mb-1">Artikel Terpublikasi</p>
+                                <p class="data-pink">@Model.TotalArtikel</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TOMBOL -->
+                    <div class="text-center mt-4">
+                        @if (isEdit)
+                        {
+                            <button type="submit" class="blue-tag me-2">Simpan Perubahan</button>
+                            <a href="/Penulis/Profil" class="red-tag">Batal</a>
                         }
                         else
                         {
-                            <div class="border rounded-3 p-3 h-100">
-                                <p class="label-blue mb-1">Gender</p>
-                                <p class="data-pink">@Model.Gender</p>
-                                <p class="label-blue mb-1">Tanggal Lahir</p>
-                                <p class="data-pink">@Model.TanggalLahir?.ToString("dd MMMM yyyy")</p>
-                                <p class="label-blue mb-1">No. Telepon</p>
-                                <p class="data-pink">@Model.NomorTelepon</p>
-                                <p class="label-blue mb-1">Alamat</p>
-                                <p class="data-pink">@Model.Alamat</p>
-                            </div>
+                            <a href="/Penulis/Profil?edit=true" class="blue-tag">Edit Profil</a>
                         }
                     </div>
-
-
-
-                    <!-- TENGAH -->
-                    <div class="col-md-4 mb-3">
-                        <div class="border rounded-3 p-3 h-100">
-                            <p class="label-blue mb-1">Bergabung Sejak</p>
-                            <p class="data-pink">@Model.TanggalBergabung?.ToString("dd MMMM yyyy")</p>
-                            <p class="label-blue mb-1">Role</p>
-                            <p class="data-pink">@Model.Role</p>
-                            <p class="label-blue mb-1">Cakupan Kategori</p>
-                            <p class="data-pink">@Model.KategoriFokus</p>
-                            <p class="label-blue mb-1">Jumlah Penayangan</p>
-                            <p class="data-pink">@Model.TotalDibaca.ToString("N0") kali</p>
-                        </div>
-                    </div>
-
-                    <!-- KANAN -->
-                    <div class="col-md-4 mb-3">
-                        <div class="border rounded-3 p-3 h-100">
-                            <p class="label-blue mb-1">Artikel Ditulis</p>
-                            <p class="data-pink">@Model.JumlahArtikelDraft</p>
-                            <p class="label-blue mb-1">Artikel Ditolak</p>
-                            <p class="data-pink">@Model.JumlahArtikelDitolak</p>
-                            <p class="label-blue mb-1">Menunggu Verifikasi</p>
-                            <p class="data-pink">@Model.JumlahArtikelMenunggu</p>
-                            <p class="label-blue mb-1">Artikel Terpublikasi</p>
-                            <p class="data-pink">@Model.TotalArtikel</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TOMBOL EDIT PROFIL -->
-                <div class="text-center mt-4">
-                    @if (!isEdit)
-                    {
-                        <a href="/Penulis/Profil?edit=true" class="blue-tag">Edit Profil</a>
-                    }
-                </div>
-
+                </form>
 
             </div>
         </div>

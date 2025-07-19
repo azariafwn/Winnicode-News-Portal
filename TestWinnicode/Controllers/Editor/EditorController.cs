@@ -71,20 +71,22 @@ namespace TestWinnicode.Controllers.Editor
 
             if (user != null && editor != null)
             {
-                user.NamaLengkap = model.NamaLengkap;
-                user.Email = model.Email;
-                user.Gender = model.Gender;
-                user.TanggalLahir = model.TanggalLahir;
-                user.NomorTelepon = model.NomorTelepon;
-                user.Alamat = model.Alamat;
+                // Hanya update jika data tidak null
+                if (!string.IsNullOrEmpty(model.NamaLengkap)) user.NamaLengkap = model.NamaLengkap;
+                if (!string.IsNullOrEmpty(model.Email)) user.Email = model.Email;
+                if (!string.IsNullOrEmpty(model.Gender)) user.Gender = model.Gender;
+                if (model.TanggalLahir.HasValue) user.TanggalLahir = model.TanggalLahir;
+                if (!string.IsNullOrEmpty(model.NomorTelepon)) user.NomorTelepon = model.NomorTelepon;
+                if (!string.IsNullOrEmpty(model.Alamat)) user.Alamat = model.Alamat;
 
-                editor.Deskripsi = model.Deskripsi;
+                if (!string.IsNullOrEmpty(model.Deskripsi)) editor.Deskripsi = model.Deskripsi;
 
                 await _context.SaveChangesAsync();
             }
 
             return RedirectToAction("Profil");
         }
+
 
 
 
