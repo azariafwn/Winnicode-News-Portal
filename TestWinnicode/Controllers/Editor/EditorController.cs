@@ -87,9 +87,6 @@ namespace TestWinnicode.Controllers.Editor
             return RedirectToAction("Profil");
         }
 
-
-
-
         public async Task<IActionResult> ArtikelMasuk()
         {
             // Ambil user yang sedang login
@@ -110,7 +107,10 @@ namespace TestWinnicode.Controllers.Editor
             var beritaList = await _context.Berita
                 .Include(b => b.SubKategori)
                 .ThenInclude(sk => sk.Kategori)
-                .Where(b => b.SubKategori.KategoriId == editor.KategoriId)
+                .Where(b =>
+                    b.SubKategori.KategoriId == editor.KategoriId &&
+                    (b.Status == "Ditinjau" || b.Status == "Ditolak" || b.Status == "Terbit")
+                )
                 .Join(_context.Penulis.Include(p => p.User),
                     berita => berita.PenulisId,
                     penulis => penulis.Id,
