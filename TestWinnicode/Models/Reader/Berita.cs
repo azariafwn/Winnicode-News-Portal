@@ -20,7 +20,7 @@ namespace TestWinnicode.Models.Reader
         public int? PenulisId { get; set; }
         public PenulisModel Penulis { get; set; }
 
-
+        public string? KomentarEditor { get; set; }
 
     }
 

@@ -153,7 +153,8 @@ namespace TestWinnicode.Controllers.Editor
                 Id = artikel.Id,
                 Judul = artikel.Judul,
                 Isi = artikel.Isi,
-                Status = artikel.Status
+                Status = artikel.Status,
+                KomentarEditor = artikel.KomentarEditor
             };
 
             return View("Edit", model);
@@ -162,6 +163,12 @@ namespace TestWinnicode.Controllers.Editor
         [HttpPost]
         public async Task<IActionResult> EditArtikel(EditArtikelEditorViewModel model)
         {
+            // Tambahkan validasi ModelState jika diperlukan
+            if (!ModelState.IsValid)
+            {
+                return View("Edit", model);
+            }
+
             var artikel = await _context.Berita.FindAsync(model.Id);
             if (artikel == null)
                 return NotFound();
@@ -170,6 +177,17 @@ namespace TestWinnicode.Controllers.Editor
             artikel.Isi = model.Isi;
             artikel.Status = model.Status;
             artikel.Tanggal_Publish = DateTime.Now;
+
+            // Simpan komentar jika statusnya 'Ditolak'
+            if (model.Status == "Ditolak")
+            {
+                artikel.KomentarEditor = model.KomentarEditor;
+            }
+            else
+            {
+                // Opsional: Hapus komentar jika artikel disetujui
+                artikel.KomentarEditor = "";
+            }
 
             await _context.SaveChangesAsync();
 

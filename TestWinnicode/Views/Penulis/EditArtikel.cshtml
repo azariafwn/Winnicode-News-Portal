@@ -7,6 +7,15 @@
 
 <h1 class="news-title">Edit Artikel</h1>
 
+@if (!string.IsNullOrEmpty(Model.KomentarEditor))
+{
+    <div class="alert alert-danger">
+        <h5 class="alert-heading"><i class="bi bi-exclamation-triangle-fill"></i> Catatan dari Editor:</h5>
+        <p class="mb-0">@Model.KomentarEditor</p>
+    </div>
+}
+
+
 <form asp-action="EditArtikel" method="post">
     <input type="hidden" asp-for="Id" />
     <input type="hidden" id="Status" name="Status" value="@Model.Status" />

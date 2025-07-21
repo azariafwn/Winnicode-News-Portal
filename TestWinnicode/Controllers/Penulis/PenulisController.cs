@@ -286,11 +286,21 @@ namespace TestWinnicode.Controllers.Penulis
 
             if (artikel == null) return NotFound();
 
+            // Hanya bisa diedit jika statusnya Draft atau Ditolak
+            if (artikel.Status != "Draft" && artikel.Status != "Ditolak")
+            {
+                // Opsional: Redirect atau tampilkan pesan error
+                TempData["ErrorMessage"] = "Artikel ini tidak dapat diedit karena sedang ditinjau atau sudah terbit.";
+                return RedirectToAction("ArtikelSaya");
+            }
+
             var viewModel = new EditArtikelViewModel
             {
                 Id = artikel.Id,
                 Judul = artikel.Judul,
-                Isi = artikel.Isi
+                Isi = artikel.Isi,
+                Status = artikel.Status,
+                KomentarEditor = artikel.KomentarEditor
             };
 
             return View(viewModel);
@@ -310,6 +320,11 @@ namespace TestWinnicode.Controllers.Penulis
             artikel.Isi = model.Isi;
             artikel.Status = model.Status; // ← Update status sesuai tombol yang diklik
             artikel.Tanggal_Publish = DateTime.Now;
+
+            if (artikel.Status == "Ditinjau")
+            {
+                artikel.KomentarEditor = "";
+            }
 
             await _context.SaveChangesAsync();
 

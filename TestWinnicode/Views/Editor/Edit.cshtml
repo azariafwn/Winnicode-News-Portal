@@ -7,7 +7,7 @@
 
 <h1 class="news-title">Edit Artikel</h1>
 
-<form asp-action="EditArtikel" method="post">
+<form asp-action="EditArtikel" method="post" id="editArtikelForm">
     <input type="hidden" asp-for="Id" />
     <input type="hidden" id="Status" name="Status" value="@Model.Status" />
 
@@ -23,18 +23,43 @@
         <textarea class="form-control" id="Isi" asp-for="Isi" rows="10" required></textarea>
     </div>
 
-    <!-- Tombol Aksi -->
-    <button type="submit" class="btn btn-success" onclick="document.getElementById('Status').value='Terbit'">
-        <i class="bi bi-check-circle"></i> Artikel Disetujui
-    </button>
+    <!-- Menampilkan Komentar Penolakan Sebelumnya (jika ada) -->
+    @if (!string.IsNullOrEmpty(Model.KomentarEditor))
+    {
+        <div class="alert alert-warning">
+            <h5 class="alert-heading">Komentar Penolakan Sebelumnya:</h5>
+            <p>@Model.KomentarEditor</p>
+        </div>
+    }
 
-    <button type="submit" class="btn btn-danger ms-2" onclick="document.getElementById('Status').value='Ditolak'">
-        <i class="bi bi-x-circle"></i> Artikel Ditolak
-    </button>
+    <!-- KONTENER UNTUK TOMBOL AKSI UTAMA -->
+    <div id="mainActionButtons">
+        <button type="submit" class="btn btn-success" onclick="document.getElementById('Status').value='Terbit'">
+            <i class="bi bi-check-circle"></i> Artikel Disetujui
+        </button>
 
-    <a href="/Editor/ArtikelMasuk" class="btn btn-outline-secondary ms-2">
-        <i class="bi bi-arrow-left"></i> Batal
-    </a>
+        <!-- Tombol ini sekarang hanya untuk memunculkan form komentar -->
+        <button type="button" id="showRejectionFormBtn" class="btn btn-danger ms-2">
+            <i class="bi bi-x-circle"></i> Artikel Ditolak
+        </button>
 
-    </a>
+        <a href="/Editor/ArtikelMasuk" class="btn btn-outline-secondary ms-2">
+            <i class="bi bi-arrow-left"></i> Batal
+        </a>
+    </div>
+
+    <!-- KONTENER UNTUK FORM KOMENTAR PENOLAKAN (TERSEMBUNYI) -->
+    <div id="rejectionFormContainer" class="mt-4 p-3 border rounded bg-light" style="display: none;">
+        <div class="mb-3">
+            <label asp-for="KomentarEditor" class="form-label fw-bold">Alasan Penolakan:</label>
+            <textarea asp-for="KomentarEditor" class="form-control" rows="5" placeholder="Contoh: Artikel kurang memiliki sumber yang kredibel, mohon diperbaiki kembali..."></textarea>
+        </div>
+        <button type="submit" id="submitRejectionBtn" class="btn btn-danger">
+            <i class="bi bi-send"></i> Kirim Penolakan
+        </button>
+        <button type="button" id="cancelRejectionBtn" class="btn btn-secondary ms-2">Batal</button>
+    </div>
+
 </form>
+
+<!-- Modal sudah dihapus dari sini -->

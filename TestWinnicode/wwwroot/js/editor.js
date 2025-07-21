@@ -80,4 +80,44 @@
             editorTable.column(3).search(this.value).draw();
         });
     }
+
+    // === LOGIKA BARU UNTUK FORM PENOLAKAN INLINE ===
+    // GUARD: Cek apakah kita berada di halaman yang memiliki tombol-tombol ini
+    if ($('#showRejectionFormBtn').length) {
+
+        const mainActionButtons = $('#mainActionButtons');
+        const rejectionFormContainer = $('#rejectionFormContainer');
+        const showRejectionFormBtn = $('#showRejectionFormBtn');
+        const cancelRejectionBtn = $('#cancelRejectionBtn');
+        const submitRejectionBtn = $('#submitRejectionBtn');
+        const statusInput = $('#Status');
+        const commentTextarea = $('#KomentarEditor'); // asp-for="KomentarEditor" akan menghasilkan id="KomentarEditor"
+
+        // Ketika tombol "Artikel Ditolak" utama diklik
+        showRejectionFormBtn.on('click', function () {
+            mainActionButtons.hide(); // Sembunyikan tombol aksi utama
+            rejectionFormContainer.show(); // Tampilkan form komentar
+        });
+
+        // Ketika tombol "Batal" di form komentar diklik
+        cancelRejectionBtn.on('click', function () {
+            rejectionFormContainer.hide(); // Sembunyikan form komentar
+            mainActionButtons.show(); // Tampilkan kembali tombol aksi utama
+        });
+
+        // Ketika tombol "Kirim Penolakan" (yang tipe-nya submit) diklik
+        submitRejectionBtn.on('click', function (event) {
+            // 1. Validasi komentar tidak boleh kosong
+            if (commentTextarea.val().trim() === '') {
+                alert('Harap isi alasan penolakan.');
+                event.preventDefault(); // Mencegah form untuk submit jika validasi gagal
+                return;
+            }
+
+            // 2. Set status menjadi 'Ditolak' sebelum form disubmit
+            statusInput.val('Ditolak');
+
+            // Form akan tersubmit secara otomatis karena tombol ini bertipe "submit"
+        });
+    }
 });
