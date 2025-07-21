@@ -24,15 +24,17 @@
     </div>
 
     <!-- Tombol Aksi -->
-    <button type="submit" class="btn btn-primary" onclick="document.getElementById('Status').value='Draft'">
-        <i class="bi bi-save"></i> Simpan Draft
+    <button type="submit" class="btn btn-success" onclick="document.getElementById('Status').value='Terbit'">
+        <i class="bi bi-check-circle"></i> Artikel Disetujui
     </button>
 
-    <button type="submit" class="btn btn-success ms-2" onclick="document.getElementById('Status').value='Ditinjau'">
-        <i class="bi bi-send"></i> Ajukan
+    <button type="submit" class="btn btn-danger ms-2" onclick="document.getElementById('Status').value='Ditolak'">
+        <i class="bi bi-x-circle"></i> Artikel Ditolak
     </button>
 
     <a href="/Editor/ArtikelMasuk" class="btn btn-outline-secondary ms-2">
         <i class="bi bi-arrow-left"></i> Batal
+    </a>
+
     </a>
 </form>
