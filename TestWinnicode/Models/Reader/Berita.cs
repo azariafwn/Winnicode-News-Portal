@@ -21,6 +21,7 @@ namespace TestWinnicode.Models.Reader
         public PenulisModel Penulis { get; set; }
 
 
+
     }
 
 }

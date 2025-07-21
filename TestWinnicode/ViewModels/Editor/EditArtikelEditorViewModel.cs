@@ -8,5 +8,6 @@ namespace TestWinnicode.ViewModels.Editor
         public string Judul { get; set; }
         public string Isi { get; set; }
         public string Status { get; set; }
+
     }
 }
