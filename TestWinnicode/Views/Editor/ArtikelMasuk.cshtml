@@ -51,9 +51,6 @@
                         <td data-order="@item.Status" data-search="@item.Status">
                             @switch (item.Status.ToLower())
                             {
-                                case "draft":
-                                    <span class="badge bg-warning text-dark">Draft</span>
-                                    break;
                                 case "ditinjau":
                                     <span class="badge bg-secondary">Ditinjau</span>
                                     break;
@@ -69,17 +66,22 @@
                             }
                         </td>
                         <td data-order="@item.TanggalEdit.ToString("yyyy-MM-dd")">@item.TanggalEdit.ToString("dd MMMM yyyy")</td>
+
+                        <!-- Button  -->
                         <td>
-                            <a href="#" class="text-primary me-2" title="Lihat">
+                            <a href="/Editor/DetailArtikel/@item.Id" class="text-primary me-2" title="Lihat">
                                 <i class="bi bi-eye-fill"></i>
                             </a>
-                            <a href="#" class="text-success me-2" title="Edit">
+                            <a href="/Editor/EditArtikel/@item.Id" class="text-success me-2" title="Edit">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a href="#" class="text-danger" title="Hapus" onclick="return confirm('Yakin ingin menghapus artikel ini?');">
+                            <a href="/Editor/HapusArtikel/@item.Id" class="text-danger" title="Hapus"
+                               onclick="return confirm('Yakin ingin menghapus artikel ini?');">
                                 <i class="bi bi-trash-fill"></i>
                             </a>
                         </td>
+
+
                     </tr>
                 }
             }

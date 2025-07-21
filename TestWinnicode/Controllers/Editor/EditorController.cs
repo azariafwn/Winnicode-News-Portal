@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestWinnicode.Data;
 using TestWinnicode.ViewModels.Editor;
+using TestWinnicode.ViewModels.Penulis;
 
 namespace TestWinnicode.Controllers.Editor
 {
@@ -125,6 +126,66 @@ namespace TestWinnicode.Controllers.Editor
                 .ToListAsync();
 
             return View(beritaList);
+        }
+
+        // GET: Editor/LihatArtikel/5
+        public async Task<IActionResult> DetailArtikel(int id)
+        {
+            var artikel = await _context.Berita
+                .Include(b => b.Penulis)
+                .ThenInclude(p => p.User)
+                .FirstOrDefaultAsync(b => b.Id == id);
+
+            if (artikel == null)
+                return NotFound();
+
+            return View("Detail", artikel);
+        }
+
+        public async Task<IActionResult> EditArtikel(int id)
+        {
+            var artikel = await _context.Berita.FirstOrDefaultAsync(b => b.Id == id);
+            if (artikel == null)
+                return NotFound();
+
+            var model = new EditArtikelEditorViewModel
+            {
+                Id = artikel.Id,
+                Judul = artikel.Judul,
+                Isi = artikel.Isi,
+                Status = artikel.Status
+            };
+
+            return View("Edit", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditArtikel(EditArtikelEditorViewModel model)
+        {
+            var artikel = await _context.Berita.FindAsync(model.Id);
+            if (artikel == null)
+                return NotFound();
+
+            artikel.Judul = model.Judul;
+            artikel.Isi = model.Isi;
+            artikel.Status = model.Status;
+            artikel.Tanggal_Publish = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ArtikelMasuk");
+        }
+
+        public async Task<IActionResult> HapusArtikel(int id)
+        {
+            var artikel = await _context.Berita.FindAsync(id);
+            if (artikel == null)
+                return NotFound();
+
+            _context.Berita.Remove(artikel);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ArtikelMasuk");
         }
 
     }

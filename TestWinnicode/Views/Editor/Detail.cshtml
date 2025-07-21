@@ -1,0 +1,40 @@
+﻿@using TestWinnicode.Models.Reader
+@model Berita
+@{
+    Layout = "~/Views/Shared/_LayoutEditor.cshtml";
+    ViewBag.Title = Model.Judul;
+}
+
+<div class="container my-3">
+
+    <div class="mb-3 mx-3">
+        <a href="/Editor/ArtikelMasuk" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left"></i> Kembali
+        </a>
+    </div>
+
+    <!-- Judul Berita -->
+    <h1 class="news-title mb-3 mx-3">@Model.Judul</h1>
+
+    <!-- Informasi Penulis + Icon -->
+    <div class="author-info d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between mb-4 mx-3">
+        <div class="d-flex align-items-center me-md-auto mb-2 mb-md-0">
+            <img src="~/images/profile-icon.png" alt="Foto Profil" class="author-profile-img me-3" style="width: 50px; height: 50px; border-radius: 50%;">
+            <div class="d-flex flex-column">
+                <span class="author-name">@Model.Penulis?.User?.NamaLengkap</span>
+                <small class="news-timestamp text-muted">
+                    Pada @Model.Tanggal_Publish.ToString("dd/MM/yyyy, HH:mm") WIB
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gambar Berita -->
+    <img src="~/images/dummy-news-image.png" alt="Gambar Berita" class="news-image mb-4 mx-3" style="max-height: 450px;" />
+
+    <!-- Isi Berita -->
+    <div class="news-content mx-3" style="line-height: 1.8; font-size: 1.1rem;">
+        @Html.Raw(Model.Isi)
+    </div>
+
+</div>
