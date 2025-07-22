@@ -18,7 +18,7 @@
             <div class="card shadow-sm border-dashboard rounded-4 h-100 d-flex flex-column justify-content-center align-items-center text-center">
                 <i class="bi bi-check-circle-fill dashboard-icon text-published mb-2"></i>
                 <h2 class="text-muted mb-1">Total Artikel</h2>
-                <h1 class="fw-bold text-published">123</h1>
+                <h1 class="fw-bold text-published">@ViewBag.JumlahArtikel</h1>
             </div>
         </div>
 
@@ -30,7 +30,7 @@
                     <div class="card shadow-sm border-dashboard rounded-4 p-3 h-100 text-center">
                         <i class="bi bi-hourglass-split dashboard-icon text-pending mb-2"></i>
                         <h5 class="text-muted mb-1">Menunggu Review</h5>
-                        <h3 class="fw-semibold text-pending">45</h3>
+                        <h3 class="fw-semibold text-pending">@ViewBag.Menunggu</h3>
                     </div>
                 </div>
 
@@ -38,15 +38,15 @@
                     <div class="card shadow-sm border-dashboard rounded-4 p-3 h-100 text-center">
                         <i class="bi bi-x-circle-fill dashboard-icon text-rejected mb-2"></i>
                         <h5 class="text-muted mb-1">Artikel Ditolak & Dikembalikan</h5>
-                        <h3 class="fw-semibold text-rejected">17</h3>
+                        <h3 class="fw-semibold text-rejected">@ViewBag.Ditolak</h3>
                     </div>
                 </div>
 
                 <div class="col-sm-6">
                     <div class="card shadow-sm border-dashboard rounded-4 p-3 h-100 text-center">
                         <i class="bi bi-check2-circle dashboard-icon text-published mb-2"></i>
-                        <h5 class="text-muted mb-1">Artikel Siap Terbit</h5>
-                        <h3 class="fw-semibold text-published">61</h3>
+                        <h5 class="text-muted mb-1">Artikel Terbit</h5>
+                        <h3 class="fw-semibold text-published">@ViewBag.Terbit</h3>
                     </div>
                 </div>
 
@@ -54,7 +54,7 @@
                     <div class="card shadow-sm border-dashboard rounded-4 p-3 h-100 text-center">
                         <i class="bi bi-person-fill dashboard-icon text-category mb-2"></i>
                         <h5 class="text-muted mb-1">Jumlah Penulis</h5>
-                        <h3 class="fw-semibold text-category">9</h3>
+                        <h3 class="fw-semibold text-category">@ViewBag.JumlahPenulis</h3>
                     </div>
                 </div>
 

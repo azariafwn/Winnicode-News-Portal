@@ -19,18 +19,52 @@ namespace TestWinnicode.Controllers.Editor
 
         public async Task<IActionResult> Index()
         {
-            var jumlahArtikel = 10;
-            var jumlahMenunggu = 10;
-            var jumlahTerbit = 10;
-            var jumlahDitolak = 10;
+            var username = User.Identity.Name;
 
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Username == username);
+
+            var editor = await _context.Editor
+                .FirstOrDefaultAsync(e => e.UserId == user.Id);
+
+            if (editor == null)
+                return NotFound("Editor tidak ditemukan");
+
+            var kategoriId = editor.KategoriId;
+
+            var jumlahMenunggu = await _context.Berita
+                .Where(b => b.SubKategori.KategoriId == kategoriId && b.Status == "Ditinjau")
+                .CountAsync();
+
+            var jumlahTerbit = await _context.Berita
+                .Where(b => b.SubKategori.KategoriId == kategoriId && b.Status == "Terbit")
+                .CountAsync();
+
+            var jumlahDitolak = await _context.Berita
+                .Where(b => b.SubKategori.KategoriId == kategoriId && b.Status == "Ditolak")
+                .CountAsync();
+
+            var jumlahPenulis = await _context.Berita
+                .Include(b => b.SubKategori)
+                .Where(b => b.SubKategori.KategoriId == kategoriId &&
+                            (b.Status == "Ditinjau" || b.Status == "Terbit" || b.Status == "Ditolak"))
+                .Select(b => b.PenulisId)
+                .Distinct()
+                .CountAsync();
+
+
+            var jumlahArtikel = jumlahMenunggu + jumlahDitolak + jumlahTerbit;
+
+            // Kirim ke ViewBag
             ViewBag.JumlahArtikel = jumlahArtikel;
             ViewBag.Menunggu = jumlahMenunggu;
             ViewBag.Terbit = jumlahTerbit;
             ViewBag.Ditolak = jumlahDitolak;
+            ViewBag.JumlahPenulis = jumlahPenulis;
 
             return View();
         }
+
 
         public async Task<IActionResult> Profil()
         {
