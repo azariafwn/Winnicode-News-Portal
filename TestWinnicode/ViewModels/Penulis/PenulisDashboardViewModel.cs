@@ -7,6 +7,6 @@
         public int JumlahArtikelDraft { get; set; }
         public int JumlahArtikelDitolak { get; set; }
         public int JumlahArtikelMenunggu { get; set; }
-        public int CakupanKategori { get; set; }
+        public int CakupanSubKategori { get; set; }
     }
 }

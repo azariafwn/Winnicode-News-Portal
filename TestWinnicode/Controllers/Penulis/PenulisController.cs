@@ -19,27 +19,47 @@ namespace TestWinnicode.Controllers.Penulis
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var username = User.Identity.Name;
-            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
 
             if (user == null) return RedirectToAction("Login", "Account");
 
-            var penulis = _context.Penulis.FirstOrDefault(p => p.UserId == user.Id);
+            var penulis = await _context.Penulis
+                .Include(p => p.KategoriFokus)
+                .FirstOrDefaultAsync(p => p.UserId == user.Id);
+
+            if (penulis == null) return NotFound();
+
+            var artikel = await _context.Berita
+                .Where(b => b.PenulisId == penulis.Id)
+                .ToListAsync();
+
+            var total = artikel.Count;
+            var draft = artikel.Count(b => b.Status == "Draft");
+            var ditolak = artikel.Count(b => b.Status == "Ditolak");
+            var menunggu = artikel.Count(b => b.Status == "Ditinjau");
+            var cakupanSubkategori = await _context.Berita
+                .Where(b => b.PenulisId == penulis.Id)
+                .Select(b => b.SubKategoriId)
+                .Distinct()
+                .CountAsync();
 
             var model = new PenulisDashboardViewModel
             {
                 NamaLengkap = user.NamaLengkap,
-                TotalArtikel = penulis?.TotalArtikel ?? 0,
-                JumlahArtikelDraft = penulis?.JumlahArtikelDraft ?? 0,
-                JumlahArtikelDitolak = penulis?.JumlahArtikelDitolak ?? 0,
-                JumlahArtikelMenunggu = penulis?.JumlahArtikelMenunggu ?? 0,
-                CakupanKategori = penulis?.KategoriFokusId != null ? 1 : 0 // bisa dimodifikasi jika ingin hitung lebih kompleks
+                TotalArtikel = total,
+                JumlahArtikelDraft = draft,
+                JumlahArtikelDitolak = ditolak,
+                JumlahArtikelMenunggu = menunggu,
+                CakupanSubKategori = cakupanSubkategori
             };
 
             return View(model);
         }
+
+
         // Ambil semua kategori saat render halaman
         [HttpGet]
         public async Task<IActionResult> TulisArtikel()
@@ -120,37 +140,6 @@ namespace TestWinnicode.Controllers.Penulis
         }
 
 
-        public IActionResult Profil()
-        {
-            var username = User.Identity.Name;
-            var user = _context.Users.FirstOrDefault(u => u.Username == username);
-            if (user == null) return RedirectToAction("Login", "Account");
-
-            var penulis = _context.Penulis.FirstOrDefault(p => p.UserId == user.Id);
-            var kategori = penulis?.KategoriFokusId != null
-                ? _context.Kategori.FirstOrDefault(k => k.Id == penulis.KategoriFokusId)?.Nama
-                : "-";
-
-            var model = new PenulisProfilViewModel
-            {
-                NamaLengkap = user.NamaLengkap,
-                Email = user.Email,
-                Gender = user.Gender,
-                TanggalLahir = user.TanggalLahir,
-                NomorTelepon = user.NomorTelepon,
-                Alamat = user.Alamat,
-                TanggalBergabung = user.TanggalBergabung,
-                Deskripsi = penulis?.Deskripsi ?? "-",
-                TotalArtikel = penulis?.TotalArtikel ?? 0,
-                TotalDibaca = penulis?.TotalDibaca ?? 0,
-                KategoriFokus = kategori,
-                JumlahArtikelDraft = penulis?.JumlahArtikelDraft ?? 0,
-                JumlahArtikelDitolak = penulis?.JumlahArtikelDitolak ?? 0,
-                JumlahArtikelMenunggu = penulis?.JumlahArtikelMenunggu ?? 0
-            };
-
-            return View(model);
-        }
         public async Task<IActionResult> ArtikelSaya()
         {
             // Ambil username dari sesi login
