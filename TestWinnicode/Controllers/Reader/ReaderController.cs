@@ -185,7 +185,7 @@ namespace TestWinnicode.Controllers.Reader
                 }
             }
 
-            var komentarList = _context.Komentar
+            var komentarList = await _context.Komentar
                 .Include(k => k.User)
                 .Where(k => k.BeritaId == id)
                 .OrderByDescending(k => k.Tanggal)
@@ -195,7 +195,7 @@ namespace TestWinnicode.Controllers.Reader
                     IsiKomentar = k.Isi,
                     Tanggal = k.Tanggal
                 })
-                .ToList();
+                .ToListAsync();
 
             var trending = _context.Berita
                 .Include(b => b.SubKategori).ThenInclude(sk => sk.Kategori)
@@ -214,10 +214,13 @@ namespace TestWinnicode.Controllers.Reader
                 BeritaDetail = berita,
                 TrendingList = trending,
                 TerbaruList = terbaru,
+
                 KomentarList = komentarList,
                 JumlahKomentar = komentarList.Count,
+                
                 JumlahLike = likeCount,
-                JumlahDislike = dislikeCount
+                JumlahDislike = dislikeCount,
+                UserLikeStatus = userLikeStatus
             };
 
             return View("Berita", viewModel);
