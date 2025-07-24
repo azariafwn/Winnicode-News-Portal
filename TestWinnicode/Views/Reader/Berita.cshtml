@@ -30,8 +30,13 @@
 
                 </div>
                 <div class="icon-actions d-flex align-items-center me-5">
-                    <a href="#" class="me-3" title="Suka"><img src="~/images/like-icon.png" alt="Like" class="icon-img"></a>
-                    <a href="#" class="me-3" title="Tidak Suka"><img src="~/images/dislike-icon.png" alt="Dislike" class="icon-img"></a>
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:void(0);" onclick="likeDislike(@Model.BeritaDetail.Id, true)" class="me-3" title="Suka">
+                        <img src="~/images/like-icon.png" alt="Like" class="icon-img">
+                    </a>
+                    <a href="javascript:void(0);" onclick="likeDislike(@Model.BeritaDetail.Id, false)" class="me-3" title="Tidak Suka">
+                        <img src="~/images/dislike-icon.png" alt="Dislike" class="icon-img">
+                    </a>
                     <a href="#komentarSection" class="me-3" title="Komentar"><img src="~/images/comment-icon.png" alt="Comment" class="icon-img"></a>
                     <a href="#" class="me-3" title="Bagikan"><img src="~/images/share-icon.png" alt="Share" class="icon-img"></a>
                     <a href="#" title="Simpan"><img src="~/images/bookmark-icon.png" alt="Bookmark" class="icon-img"></a>
@@ -48,23 +53,47 @@
 
 
             <!-- === Baris Ikon Tambahan Setelah Konten Berita === -->
-            <div class="icon-actions-bottom d-flex justify-content-between align-items-center mt-4 ms-1 me-5" style="max-width: 90%;">
-                <a href="#" title="Suka">
-                    <img src="~/images/like-icon.png" alt="Like" class="icon-img-lg">
-                </a>
-                <a href="#" title="Tidak Suka">
-                    <img src="~/images/dislike-icon.png" alt="Dislike" class="icon-img-lg">
-                </a>
-                <a href="#komentarSection" title="Komentar">
-                    <img src="~/images/comment-icon.png" alt="Comment" class="icon-img-lg">
-                </a>
-                <a href="#" title="Bagikan">
-                    <img src="~/images/share-icon.png" alt="Share" class="icon-img-lg">
-                </a>
-                <a href="#" title="Simpan">
-                    <img src="~/images/bookmark-icon.png" alt="Bookmark" class="icon-img-lg">
-                </a>
+            <!-- === Baris Ikon Tambahan Setelah Konten Berita === -->
+            @Html.AntiForgeryToken()
+            <div class="icon-actions-bottom d-flex justify-content-between align-items-center mt-4 ms-1 me-5 flex-wrap" style="max-width: 90%;">
+                <!-- Like -->
+                <div class="icon-button text-center me-3">
+                    <a href="javascript:void(0);" onclick="likeDislike(@Model.BeritaDetail.Id, true)" title="Suka">
+                        <img src="~/images/like-icon.png" alt="Like" class="icon-img">
+                    </a>
+                    <div class="count-text" id="likeCount">(@Model.JumlahLike)</div>
+                </div>
+
+                <!-- Dislike -->
+                <div class="icon-button text-center me-3">
+                    <a href="javascript:void(0);" onclick="likeDislike(@Model.BeritaDetail.Id, false)" title="Tidak Suka">
+                        <img src="~/images/dislike-icon.png" alt="Dislike" class="icon-img">
+                    </a>
+                    <div class="count-text" id="dislikeCount">(@Model.JumlahDislike)</div>
+                </div>
+
+                <!-- Comment -->
+                <div class="icon-button text-center me-3">
+                    <a href="#komentarSection" title="Komentar">
+                        <img src="~/images/comment-icon.png" alt="Comment" class="icon-img-lg">
+                    </a>
+                </div>
+
+                <!-- Share -->
+                <div class="icon-button text-center me-3">
+                    <a href="#" title="Bagikan">
+                        <img src="~/images/share-icon.png" alt="Share" class="icon-img-lg">
+                    </a>
+                </div>
+
+                <!-- Bookmark -->
+                <div class="icon-button text-center me-3">
+                    <a href="#" title="Simpan">
+                        <img src="~/images/bookmark-icon.png" alt="Bookmark" class="icon-img-lg">
+                    </a>
+                </div>
             </div>
+
 
             <!-- === Comment Section === -->
             <div id="komentarSection" class="comment-section mt-5">

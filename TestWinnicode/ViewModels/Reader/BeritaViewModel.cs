@@ -10,5 +10,8 @@ namespace TestWinnicode.ViewModels.Reader
         public List<Berita> TerbaruList { get; set; }
         public List<KomentarViewModel> KomentarList { get; set; }
 
+        public int JumlahLike { get; set; }
+        public int JumlahDislike { get; set; }
+
     }
 }

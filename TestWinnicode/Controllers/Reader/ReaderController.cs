@@ -157,7 +157,7 @@ namespace TestWinnicode.Controllers.Reader
 
             return View(viewModel);
         }
-        public IActionResult Berita(int id)
+        public async Task<IActionResult> Berita(int id)
         {
             var berita = _context.Berita
                 .Include(b => b.SubKategori).ThenInclude(sk => sk.Kategori)
@@ -168,6 +168,9 @@ namespace TestWinnicode.Controllers.Reader
             {
                 return NotFound();
             }
+            var likeCount = await _context.LikeDislikeBerita.CountAsync(ld => ld.BeritaId == id && ld.IsLike);
+            var dislikeCount = await _context.LikeDislikeBerita.CountAsync(ld => ld.BeritaId == id && !ld.IsLike);
+
 
             var komentarList = _context.Komentar
                 .Include(k => k.User)
@@ -198,7 +201,9 @@ namespace TestWinnicode.Controllers.Reader
                 BeritaDetail = berita,
                 TrendingList = trending,
                 TerbaruList = terbaru,
-                KomentarList = komentarList
+                KomentarList = komentarList,
+                JumlahLike = likeCount,
+                JumlahDislike = dislikeCount
             };
 
             return View("Berita", viewModel);
@@ -335,6 +340,51 @@ namespace TestWinnicode.Controllers.Reader
 
             return View("SearchResult", hasil);
         }
+
+        [HttpPost]
+        [Authorize] // hanya user login yang boleh[HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LikeDislike([FromBody] LikeDislikeRequest request)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+            if (user == null) return Unauthorized();
+
+            var existing = await _context.LikeDislikeBerita
+                .FirstOrDefaultAsync(ld => ld.BeritaId == request.BeritaId && ld.UserId == user.Id);
+
+            if (existing != null)
+            {
+                existing.IsLike = request.IsLike;
+            }
+            else
+            {
+                _context.LikeDislikeBerita.Add(new LikeDislikeBerita
+                {
+                    BeritaId = request.BeritaId,
+                    UserId = user.Id,
+                    IsLike = request.IsLike
+                });
+            }
+
+            await _context.SaveChangesAsync();
+
+            var likeCount = await _context.LikeDislikeBerita.CountAsync(ld => ld.BeritaId == request.BeritaId && ld.IsLike);
+            var dislikeCount = await _context.LikeDislikeBerita.CountAsync(ld => ld.BeritaId == request.BeritaId && !ld.IsLike);
+
+            return Json(new
+            {
+                success = true,
+                newLikeCount = likeCount,
+                newDislikeCount = dislikeCount
+            });
+        }
+
+        public class LikeDislikeRequest
+        {
+            public int BeritaId { get; set; }
+            public bool IsLike { get; set; }
+        }
+
 
     }
 }

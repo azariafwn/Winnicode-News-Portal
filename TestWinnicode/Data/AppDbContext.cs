@@ -18,12 +18,23 @@ namespace TestWinnicode.Data
         public DbSet<Penulis> Penulis { get; set; }
         public DbSet<Editor> Editor { get; set; }
         public DbSet<Komentar> Komentar { get; set; }
+        public DbSet<LikeDislikeBerita> LikeDislikeBerita { get; set; }
 
 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<LikeDislikeBerita>()
+                .HasOne(ld => ld.User)
+                .WithMany()
+                .HasForeignKey(ld => ld.UserId);
+
+            modelBuilder.Entity<LikeDislikeBerita>()
+                .HasOne(ld => ld.Berita)
+                .WithMany()
+                .HasForeignKey(ld => ld.BeritaId);
+
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Username)
