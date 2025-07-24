@@ -17,6 +17,7 @@ namespace TestWinnicode.Data
         public DbSet<Berita> Berita { get; set; }
         public DbSet<Penulis> Penulis { get; set; }
         public DbSet<Editor> Editor { get; set; }
+        public DbSet<Komentar> Komentar { get; set; }
 
 
 

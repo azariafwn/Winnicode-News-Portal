@@ -72,26 +72,29 @@
 
                 <!-- Form Komentar -->
                 <form action="/Reader/KirimKomentar" method="post" class="mb-2">
+                    <input type="hidden" name="beritaId" value="@Model.BeritaDetail.Id" />
                     <div class="mb-3">
-                        <textarea class="form-control" name="komentar" rows="3" placeholder="Tulis komentar Anda..."></textarea>
+                        <textarea class="form-control" name="komentar" rows="3" placeholder="Tulis komentar Anda..." required></textarea>
                     </div>
                     <button type="submit" class="light-blue-tag">Kirim Komentar</button>
                 </form>
 
+
                 <!-- Daftar Komentar -->
                 <div class="comment-list">
-                    <!-- Contoh Komentar -->
-                    <div class="comment mb-3 p-3 border rounded">
-                        <strong>John Doe</strong>
-                        <small class="text-muted d-block mb-2">12 Mei 2025, 11:00 WIB</small>
-                        <p>Keren banget artikelnya! Banyak insight baru 👏</p>
-                    </div>
+                    @foreach (var komentar in Model.KomentarList)
+                    {
+                        <div class="comment mb-3 p-3 border rounded">
+                            <strong>@komentar.NamaUser</strong>
+                            <small class="text-muted d-block mb-2">@komentar.Tanggal.ToString("dd MMMM yyyy, HH:mm") WIB</small>
+                            <p>@komentar.IsiKomentar</p>
+                        </div>
+                    }
 
-                    <div class="comment mb-3 p-3 border rounded">
-                        <strong>Jane Smith</strong>
-                        <small class="text-muted d-block mb-2">12 Mei 2025, 11:15 WIB</small>
-                        <p>Menurut saya kurang objektif. Tapi tetap menarik dibaca!</p>
-                    </div>
+                    @if (!Model.KomentarList.Any())
+                    {
+                        <p class="text-muted">Belum ada komentar.</p>
+                    }
                 </div>
             </div>
 

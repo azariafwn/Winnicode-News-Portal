@@ -8,5 +8,7 @@ namespace TestWinnicode.ViewModels.Reader
         public Berita BeritaDetail { get; set; }
         public List<Berita> TrendingList { get; set; }
         public List<Berita> TerbaruList { get; set; }
+        public List<KomentarViewModel> KomentarList { get; set; }
+
     }
 }

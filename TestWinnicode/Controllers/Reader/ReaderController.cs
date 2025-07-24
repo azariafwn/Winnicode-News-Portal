@@ -160,16 +160,26 @@ namespace TestWinnicode.Controllers.Reader
         public IActionResult Berita(int id)
         {
             var berita = _context.Berita
-                .Include(b => b.SubKategori)
-                .ThenInclude(sk => sk.Kategori)
-                .Include(b => b.Penulis)
-                .ThenInclude(p => p.User)
+                .Include(b => b.SubKategori).ThenInclude(sk => sk.Kategori)
+                .Include(b => b.Penulis).ThenInclude(p => p.User)
                 .FirstOrDefault(b => b.Id == id);
 
             if (berita == null)
             {
                 return NotFound();
             }
+
+            var komentarList = _context.Komentar
+                .Include(k => k.User)
+                .Where(k => k.BeritaId == id)
+                .OrderByDescending(k => k.Tanggal)
+                .Select(k => new KomentarViewModel
+                {
+                    NamaUser = k.User.NamaLengkap,
+                    IsiKomentar = k.Isi,
+                    Tanggal = k.Tanggal
+                })
+                .ToList();
 
             var trending = _context.Berita
                 .Include(b => b.SubKategori).ThenInclude(sk => sk.Kategori)
@@ -187,11 +197,36 @@ namespace TestWinnicode.Controllers.Reader
             {
                 BeritaDetail = berita,
                 TrendingList = trending,
-                TerbaruList = terbaru
+                TerbaruList = terbaru,
+                KomentarList = komentarList
             };
 
             return View("Berita", viewModel);
         }
+        [HttpPost]
+        public IActionResult KirimKomentar(int beritaId, string komentar)
+        {
+            if (string.IsNullOrWhiteSpace(komentar)) return RedirectToAction("Berita", new { id = beritaId });
+
+            var username = User.Identity?.Name;
+            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+
+            if (user == null) return RedirectToAction("Login", "Account");
+
+            var newKomentar = new Komentar
+            {
+                BeritaId = beritaId,
+                UserId = user.Id,
+                Isi = komentar,
+                Tanggal = DateTime.Now
+            };
+
+            _context.Komentar.Add(newKomentar);
+            _context.SaveChanges();
+
+            return RedirectToAction("Berita", new { id = beritaId });
+        }
+
 
         [HttpGet]
         public IActionResult ProfilUser(bool edit = false)
