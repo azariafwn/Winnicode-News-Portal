@@ -19,6 +19,16 @@
     @await Html.PartialAsync("_FooterReader")
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Definisikan path gambar sebagai variabel global JavaScript.
+        // Razor akan memproses @Url.Content menjadi path yang benar SEBELUM dikirim ke browser.
+        const likeIconDefault = '@Url.Content("~/images/like-icon.png")';
+        const likeIconFilled = '@Url.Content("~/images/like-icon-active.png")';
+        const dislikeIconDefault = '@Url.Content("~/images/dislike-icon.png")';
+        const dislikeIconFilled = '@Url.Content("~/images/dislike-icon-active.png")';
+    </script>
+
     <script src="/js/reader.js"></script>
     <script src="/js/toggleSearch.js"></script>
 </body>

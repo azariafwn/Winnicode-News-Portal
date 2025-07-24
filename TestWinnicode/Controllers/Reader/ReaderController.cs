@@ -170,7 +170,20 @@ namespace TestWinnicode.Controllers.Reader
             }
             var likeCount = await _context.LikeDislikeBerita.CountAsync(ld => ld.BeritaId == id && ld.IsLike);
             var dislikeCount = await _context.LikeDislikeBerita.CountAsync(ld => ld.BeritaId == id && !ld.IsLike);
-
+            bool? userLikeStatus = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+                if (user != null)
+                {
+                    var userLikeDislike = await _context.LikeDislikeBerita
+                        .FirstOrDefaultAsync(ld => ld.BeritaId == id && ld.UserId == user.Id);
+                    if (userLikeDislike != null)
+                    {
+                        userLikeStatus = userLikeDislike.IsLike;
+                    }
+                }
+            }
 
             var komentarList = _context.Komentar
                 .Include(k => k.User)
@@ -202,6 +215,7 @@ namespace TestWinnicode.Controllers.Reader
                 TrendingList = trending,
                 TerbaruList = terbaru,
                 KomentarList = komentarList,
+                JumlahKomentar = komentarList.Count,
                 JumlahLike = likeCount,
                 JumlahDislike = dislikeCount
             };
@@ -342,28 +356,44 @@ namespace TestWinnicode.Controllers.Reader
         }
 
         [HttpPost]
-        [Authorize] // hanya user login yang boleh[HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LikeDislike([FromBody] LikeDislikeRequest request)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
-            if (user == null) return Unauthorized();
+            if (user == null) return Unauthorized(new { success = false, message = "User tidak ditemukan." });
 
             var existing = await _context.LikeDislikeBerita
                 .FirstOrDefaultAsync(ld => ld.BeritaId == request.BeritaId && ld.UserId == user.Id);
 
+            bool? newUserStatus = null; // Status baru: true=like, false=dislike, null=netral
+
             if (existing != null)
             {
-                existing.IsLike = request.IsLike;
+                // Jika user mengklik tombol yang sama lagi (misal, klik like saat sudah like)
+                if (existing.IsLike == request.IsLike)
+                {
+                    _context.LikeDislikeBerita.Remove(existing); // Hapus record (batal like/dislike)
+                    newUserStatus = null; // Status menjadi netral
+                }
+                else // Jika user beralih (dari like ke dislike atau sebaliknya)
+                {
+                    existing.IsLike = request.IsLike;
+                    existing.Timestamp = DateTime.Now;
+                    _context.LikeDislikeBerita.Update(existing);
+                    newUserStatus = existing.IsLike; // Status sesuai aksi baru
+                }
             }
-            else
+            else // Jika belum ada record sebelumnya
             {
                 _context.LikeDislikeBerita.Add(new LikeDislikeBerita
                 {
                     BeritaId = request.BeritaId,
                     UserId = user.Id,
-                    IsLike = request.IsLike
+                    IsLike = request.IsLike,
+                    Timestamp = DateTime.Now
                 });
+                newUserStatus = request.IsLike; // Status sesuai aksi baru
             }
 
             await _context.SaveChangesAsync();
@@ -375,9 +405,11 @@ namespace TestWinnicode.Controllers.Reader
             {
                 success = true,
                 newLikeCount = likeCount,
-                newDislikeCount = dislikeCount
+                newDislikeCount = dislikeCount,
+                newUserStatus = newUserStatus // Kirim status baru ke client
             });
         }
+
 
         public class LikeDislikeRequest
         {
