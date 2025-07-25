@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_ReaderLayout.cshtml";
     ViewBag.Title = "Berita - NewsPortal";
 
-    // --- Definisikan path gambar untuk kemudahan ---
+    // --- Definisi path gambar ---
     var likeIcon = Model.UserLikeStatus == true ? "~/images/like-icon-active.png" : "~/images/like-icon.png";
     var dislikeIcon = Model.UserLikeStatus == false ? "~/images/dislike-icon-active.png" : "~/images/dislike-icon.png";
 }
@@ -102,14 +102,23 @@
             <div id="komentarSection" class="comment-section mt-5">
                 <h5 class="mb-4">Komentar</h5>
 
-                <!-- Form Komentar -->
-                <form action="/Reader/KirimKomentar" method="post" class="mb-2">
-                    <input type="hidden" name="beritaId" value="@Model.BeritaDetail.Id" />
-                    <div class="mb-3">
-                        <textarea class="form-control" name="komentar" rows="3" placeholder="Tulis komentar Anda..." required></textarea>
+                <!-- Form Komentar hanya jika sudah login -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form action="/Reader/KirimKomentar" method="post" class="mb-2">
+                        <input type="hidden" name="beritaId" value="@Model.BeritaDetail.Id" />
+                        <div class="mb-3">
+                            <textarea class="form-control" name="komentar" rows="3" placeholder="Tulis komentar Anda..." required></textarea>
+                        </div>
+                        <button type="submit" class="light-blue-tag">Kirim Komentar</button>
+                    </form>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        Silakan <a href="/Account/Login?ReturnUrl=@Context.Request.Path" class="alert-link">login</a> untuk mengirim komentar.
                     </div>
-                    <button type="submit" class="light-blue-tag">Kirim Komentar</button>
-                </form>
+                }
 
 
                 <!-- Daftar Komentar -->

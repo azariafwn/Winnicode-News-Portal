@@ -22,10 +22,17 @@
                 <a href="javascript:void(0);" onclick="toggleMobileSearch()" class="d-md-none">
                     <img src="/images/search-icon.png" alt="Search" width="24" height="24">
                 </a>
-                <!-- Profile Icon -->
-                <a href="/Reader/ProfilUser">
-                    <img src="/images/profile-icon.png" alt="Profile" class="rounded-circle" style="width: 30px; height: 30px;">
-                </a>
+                <!-- Profile Icon atau login -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="/Reader/ProfilUser">
+                        <img src="/images/profile-icon.png" alt="Profile" class="rounded-circle" style="width: 30px; height: 30px;">
+                    </a>
+                }
+                else
+                {
+                    <a href="/Account/Login" class="btn btn-primary btn-sm">Login</a>
+                }
             </div>
 
         </div>

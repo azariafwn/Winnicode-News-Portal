@@ -55,14 +55,14 @@ namespace TestWinnicode.Controllers
                 case UserRole.Editor:
                     return RedirectToAction("Index", "Editor");
                 default:
-                    return RedirectToAction("Login");
+                    return RedirectToAction("Index", "Reader");
             }
         }
 
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync("CookieAuth");
-            return RedirectToAction("Login");
+            return RedirectToAction("Index", "Reader");
         }
 
         [HttpGet]
@@ -71,7 +71,6 @@ namespace TestWinnicode.Controllers
             return View();
         }
 
-        // Tambahkan action untuk register
         [HttpPost]
         public async Task<IActionResult> Register(string username, string password, string role, string namaLengkap, string email, string gender, DateTime? tanggalLahir, string nomorTelepon, string alamat)
         {
@@ -136,6 +135,10 @@ namespace TestWinnicode.Controllers
             return RedirectToAction("Login");
         }
 
+        public IActionResult AccessDenied()
+        {
+            return RedirectToAction("Login");
+        }
 
         private string HashPassword(string password)
         {

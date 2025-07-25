@@ -9,7 +9,6 @@ using TestWinnicode.Models.Reader;
 
 namespace TestWinnicode.Controllers.Reader
 {
-    [Authorize(Roles = "Reader")]
     public class ReaderController : Controller
     {
         private readonly AppDbContext _context;
@@ -225,7 +224,9 @@ namespace TestWinnicode.Controllers.Reader
 
             return View("Berita", viewModel);
         }
+
         [HttpPost]
+        [Authorize(Roles = "Reader")]
         public IActionResult KirimKomentar(int beritaId, string komentar)
         {
             if (string.IsNullOrWhiteSpace(komentar)) return RedirectToAction("Berita", new { id = beritaId });
@@ -251,6 +252,7 @@ namespace TestWinnicode.Controllers.Reader
 
 
         [HttpGet]
+        [Authorize(Roles = "Reader")]
         public IActionResult ProfilUser(bool edit = false)
         {
             if (User.Identity == null || string.IsNullOrEmpty(User.Identity.Name))
@@ -280,6 +282,7 @@ namespace TestWinnicode.Controllers.Reader
         }
 
         [HttpPost]
+        [Authorize(Roles = "Reader")]
         public IActionResult ProfilUser(string NamaLengkap, string Email, string Gender, DateTime? TanggalLahir, string NomorTelepon, string Alamat)
         {
             var username = User.Identity.Name;
@@ -359,7 +362,7 @@ namespace TestWinnicode.Controllers.Reader
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Reader")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LikeDislike([FromBody] LikeDislikeRequest request)
         {

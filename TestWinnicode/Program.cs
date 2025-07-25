@@ -24,6 +24,7 @@ namespace TestWinnicode
             .AddCookie("CookieAuth", options =>
             {
                 options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/Login";
             });
 
             builder.Services.AddControllersWithViews();
@@ -60,7 +61,7 @@ namespace TestWinnicode
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Account}/{action=Login}/{id?}");
+                pattern: "{controller=Reader}/{action=Index}/{id?}");
 
 
 
