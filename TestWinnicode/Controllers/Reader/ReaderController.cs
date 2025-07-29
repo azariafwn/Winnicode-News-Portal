@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿// [FILE]: Controllers/Reader/ReaderController.cs
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TestWinnicode.ViewModels;
 using TestWinnicode.ViewModels.Penulis;
@@ -20,9 +22,8 @@ namespace TestWinnicode.Controllers.Reader
         {
             ViewBag.Username = User.Identity.Name;
 
-            // Ambil 4 kategori (acak atau sesuai ID)
             var kategoriList = _context.Kategori
-                .OrderBy(k => Guid.NewGuid()) // acak
+                .OrderBy(k => Guid.NewGuid())
                 .Take(4)
                 .ToList();
 
@@ -33,7 +34,8 @@ namespace TestWinnicode.Controllers.Reader
                 var beritaPerKategori = _context.Berita
                     .Include(b => b.SubKategori)
                     .ThenInclude(sk => sk.Kategori)
-                    .Where(b => b.SubKategori.KategoriId == kategori.Id)
+                    // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                    .Where(b => b.Status == "Terbit" && b.SubKategori.KategoriId == kategori.Id)
                     .OrderByDescending(b => b.Tanggal_Publish)
                     .Take(6)
                     .ToList();
@@ -48,12 +50,15 @@ namespace TestWinnicode.Controllers.Reader
                 Headline = _context.Berita
                     .Include(b => b.SubKategori)
                     .ThenInclude(sk => sk.Kategori)
-                    .FirstOrDefault(b => b.IsHeadline),
+                    // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                    .Where(b => b.Status == "Terbit" && b.IsHeadline)
+                    .FirstOrDefault(),
 
                 SubHeadlineList = _context.Berita
                     .Include(b => b.SubKategori)
                     .ThenInclude(sk => sk.Kategori)
-                    .Where(b => b.IsSubHeadline)
+                    // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                    .Where(b => b.Status == "Terbit" && b.IsSubHeadline)
                     .OrderByDescending(b => b.Tanggal_Publish)
                     .Take(6)
                     .ToList(),
@@ -61,6 +66,8 @@ namespace TestWinnicode.Controllers.Reader
                 TrendingList = _context.Berita
                     .Include(b => b.SubKategori)
                     .ThenInclude(sk => sk.Kategori)
+                    // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                    .Where(b => b.Status == "Terbit")
                     .OrderByDescending(b => b.Jumlah_View)
                     .Take(10)
                     .ToList(),
@@ -68,11 +75,13 @@ namespace TestWinnicode.Controllers.Reader
                 TerbaruList = _context.Berita
                     .Include(b => b.SubKategori)
                     .ThenInclude(sk => sk.Kategori)
+                    // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                    .Where(b => b.Status == "Terbit")
                     .OrderByDescending(b => b.Tanggal_Publish)
                     .Take(12)
                     .ToList(),
 
-                 PenulisList = _context.Penulis
+                PenulisList = _context.Penulis
                     .Include(p => p.User)
                     .Include(p => p.KategoriFokus)
                     .Take(7)
@@ -83,7 +92,6 @@ namespace TestWinnicode.Controllers.Reader
         }
         public IActionResult Kategori(string nama)
         {
-            // Ambil kategori berdasarkan nama (case-insensitive)
             var kategori = _context.Kategori
                 .FirstOrDefault(k => k.Nama.ToLower() == nama.ToLower());
 
@@ -99,13 +107,15 @@ namespace TestWinnicode.Controllers.Reader
 
             var beritaList = _context.Berita
                 .Include(b => b.SubKategori)
-                .Where(b => b.SubKategori.KategoriId == kategori.Id)
+                // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                .Where(b => b.Status == "Terbit" && b.SubKategori.KategoriId == kategori.Id)
                 .OrderByDescending(b => b.Tanggal_Publish)
                 .Take(24)
                 .ToList();
 
             var trendingList = _context.Berita
-                .Where(b => b.SubKategori.KategoriId == kategori.Id)
+                // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                .Where(b => b.Status == "Terbit" && b.SubKategori.KategoriId == kategori.Id)
                 .OrderByDescending(b => b.Jumlah_View)
                 .Take(10)
                 .ToList();
@@ -113,7 +123,8 @@ namespace TestWinnicode.Controllers.Reader
             var terbaruList = _context.Berita
                 .Include(b => b.SubKategori)
                 .ThenInclude(sk => sk.Kategori)
-                .Where(b => b.SubKategori.KategoriId == kategori.Id)
+                // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                .Where(b => b.Status == "Terbit" && b.SubKategori.KategoriId == kategori.Id)
                 .OrderByDescending(b => b.Tanggal_Publish)
                 .Take(10)
                 .ToList();
@@ -121,21 +132,23 @@ namespace TestWinnicode.Controllers.Reader
             var headline = _context.Berita
                 .Include(b => b.SubKategori)
                 .ThenInclude(sk => sk.Kategori)
-                .FirstOrDefault(b => b.SubKategori.KategoriId == kategori.Id && b.IsHeadline);
+                // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                .FirstOrDefault(b => b.Status == "Terbit" && b.SubKategori.KategoriId == kategori.Id && b.IsHeadline);
 
             var subHeadlines = _context.Berita
                 .Include(b => b.SubKategori)
                 .ThenInclude(sk => sk.Kategori)
-                .Where(b => b.SubKategori.KategoriId == kategori.Id && b.IsSubHeadline)
+                // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                .Where(b => b.Status == "Terbit" && b.SubKategori.KategoriId == kategori.Id && b.IsSubHeadline)
                 .Take(3)
                 .ToList();
 
-            // berita per subkategori untuk di halaman kategori
             var beritaPerSubKategori = subKategoriList.ToDictionary(
                 sub => sub.Nama,
                 sub => _context.Berita
                     .Include(b => b.SubKategori)
-                    .Where(b => b.SubKategoriId == sub.Id)
+                    // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                    .Where(b => b.Status == "Terbit" && b.SubKategoriId == sub.Id)
                     .OrderByDescending(b => b.Tanggal_Publish)
                     .Take(6)
                     .ToList()
@@ -163,7 +176,8 @@ namespace TestWinnicode.Controllers.Reader
                 .Include(b => b.Penulis).ThenInclude(p => p.User)
                 .FirstOrDefault(b => b.Id == id);
 
-            if (berita == null)
+            // [PERUBAHAN] Tolak akses jika berita tidak ditemukan atau statusnya bukan 'Terbit'
+            if (berita == null || berita.Status != "Terbit")
             {
                 return NotFound();
             }
@@ -198,12 +212,15 @@ namespace TestWinnicode.Controllers.Reader
 
             var trending = _context.Berita
                 .Include(b => b.SubKategori).ThenInclude(sk => sk.Kategori)
+                // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                .Where(b => b.Status == "Terbit")
                 .OrderByDescending(b => b.Jumlah_View)
                 .Take(8)
                 .ToList();
 
             var terbaru = _context.Berita
                 .Include(b => b.SubKategori).ThenInclude(sk => sk.Kategori)
+                .Where(b => b.Status == "Terbit")
                 .OrderByDescending(b => b.Tanggal_Publish)
                 .Take(6)
                 .ToList();
@@ -213,10 +230,8 @@ namespace TestWinnicode.Controllers.Reader
                 BeritaDetail = berita,
                 TrendingList = trending,
                 TerbaruList = terbaru,
-
                 KomentarList = komentarList,
                 JumlahKomentar = komentarList.Count,
-                
                 JumlahLike = likeCount,
                 JumlahDislike = dislikeCount,
                 UserLikeStatus = userLikeStatus
@@ -268,7 +283,6 @@ namespace TestWinnicode.Controllers.Reader
                 return RedirectToAction("Login", "Account");
             }
 
-            // Cek dan isi default untuk menghindari DBNull
             user.NamaLengkap ??= "Pengguna";
             user.Email ??= "user@example.com";
             user.Gender ??= "-";
@@ -319,13 +333,15 @@ namespace TestWinnicode.Controllers.Reader
             var beritaTerbaru = _context.Berita
                 .Include(b => b.SubKategori)
                 .ThenInclude(sk => sk.Kategori)
-                .Where(b => b.PenulisId == id)
+                // [PERUBAHAN] Hanya ambil berita yang sudah Terbit
+                .Where(b => b.Status == "Terbit" && b.PenulisId == id)
                 .OrderByDescending(b => b.Tanggal_Publish)
                 .Take(6)
                 .ToList();
 
             var totalView = _context.Berita
-                .Where(b => b.PenulisId == id)
+                // [PERUBAHAN] Hanya hitung view dari berita yang sudah Terbit
+                .Where(b => b.Status == "Terbit" && b.PenulisId == id)
                 .Sum(b => b.Jumlah_View);
 
             var viewModel = new ProfilPenulisViewModel
@@ -348,13 +364,13 @@ namespace TestWinnicode.Controllers.Reader
             var hasil = _context.Berita
                 .Include(b => b.SubKategori)
                 .ThenInclude(sk => sk.Kategori)
-                .Where(b =>
-                        b.Judul.ToLower().Contains(query.ToLower()) ||
+                // [PERUBAHAN] Tambahkan filter Status == "Terbit" di awal
+                .Where(b => b.Status == "Terbit" &&
+                        (b.Judul.ToLower().Contains(query.ToLower()) ||
                         b.Isi.ToLower().Contains(query.ToLower()) ||
                         b.SubKategori.Nama.ToLower().Contains(query.ToLower()) ||
-                        b.SubKategori.Kategori.Nama.ToLower().Contains(query.ToLower())
+                        b.SubKategori.Kategori.Nama.ToLower().Contains(query.ToLower()))
                 )
-
                 .OrderByDescending(b => b.Tanggal_Publish)
                 .ToList();
 
@@ -362,7 +378,7 @@ namespace TestWinnicode.Controllers.Reader
         }
 
         [HttpPost]
-        [Authorize(Roles = "Reader")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LikeDislike([FromBody] LikeDislikeRequest request)
         {
@@ -372,25 +388,24 @@ namespace TestWinnicode.Controllers.Reader
             var existing = await _context.LikeDislikeBerita
                 .FirstOrDefaultAsync(ld => ld.BeritaId == request.BeritaId && ld.UserId == user.Id);
 
-            bool? newUserStatus = null; // Status baru: true=like, false=dislike, null=netral
+            bool? newUserStatus = null;
 
             if (existing != null)
             {
-                // Jika user mengklik tombol yang sama lagi (misal, klik like saat sudah like)
                 if (existing.IsLike == request.IsLike)
                 {
-                    _context.LikeDislikeBerita.Remove(existing); // Hapus record (batal like/dislike)
-                    newUserStatus = null; // Status menjadi netral
+                    _context.LikeDislikeBerita.Remove(existing);
+                    newUserStatus = null;
                 }
-                else // Jika user beralih (dari like ke dislike atau sebaliknya)
+                else
                 {
                     existing.IsLike = request.IsLike;
                     existing.Timestamp = DateTime.Now;
                     _context.LikeDislikeBerita.Update(existing);
-                    newUserStatus = existing.IsLike; // Status sesuai aksi baru
+                    newUserStatus = existing.IsLike;
                 }
             }
-            else // Jika belum ada record sebelumnya
+            else
             {
                 _context.LikeDislikeBerita.Add(new LikeDislikeBerita
                 {
@@ -399,7 +414,7 @@ namespace TestWinnicode.Controllers.Reader
                     IsLike = request.IsLike,
                     Timestamp = DateTime.Now
                 });
-                newUserStatus = request.IsLike; // Status sesuai aksi baru
+                newUserStatus = request.IsLike;
             }
 
             await _context.SaveChangesAsync();
@@ -412,10 +427,9 @@ namespace TestWinnicode.Controllers.Reader
                 success = true,
                 newLikeCount = likeCount,
                 newDislikeCount = dislikeCount,
-                newUserStatus = newUserStatus // Kirim status baru ke client
+                newUserStatus = newUserStatus
             });
         }
-
 
         public class LikeDislikeRequest
         {
@@ -423,6 +437,67 @@ namespace TestWinnicode.Controllers.Reader
             public bool IsLike { get; set; }
         }
 
+        public async Task<IActionResult> SubKategori(int id)
+        {
+            var subKategori = await _context.SubKategori
+                .Include(sk => sk.Kategori) // Sertakan parent kategori untuk breadcrumb
+                .FirstOrDefaultAsync(sk => sk.Id == id);
 
+            if (subKategori == null)
+            {
+                return NotFound();
+            }
+
+            var beritasubkategori = await _context.Berita
+                .Include(b => b.SubKategori)
+                .ThenInclude(sk => sk.Kategori)
+                .Where(b => b.SubKategoriId == id && b.Status == "Terbit")
+                .OrderByDescending(b => b.Tanggal_Publish)
+                .Take(20) // Ambil 20 berita terbaru
+                .ToListAsync();
+
+            var trendingList = await _context.Berita
+                .Include(b => b.SubKategori)
+                .ThenInclude(sk => sk.Kategori)
+                .Where(b => b.Status == "Terbit")
+                .OrderByDescending(b => b.Jumlah_View)
+                .Take(10) // Ambil 10 berita trending
+                .ToListAsync();
+
+            var terbarulist = await _context.Berita
+                .Include(b => b.SubKategori).ThenInclude(sk => sk.Kategori)
+                .Where(b => b.Status == "Terbit")
+                .OrderByDescending(b => b.Tanggal_Publish)
+                .Take(6)
+                .ToListAsync();
+
+            var viewModel = new SubKategoriViewModel
+            {
+                SubKategoriDetail = subKategori,
+                BeritaSubKategori = beritasubkategori,
+                TrendingList = trendingList,
+                TerbaruList = terbarulist
+            };
+
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> Trending()
+        {
+            var trendingList = await _context.Berita
+                .Include(b => b.SubKategori)
+                .ThenInclude(sk => sk.Kategori)
+                .Where(b => b.Status == "Terbit")
+                .OrderByDescending(b => b.Jumlah_View)
+                .Take(50) // Ambil 50 berita terpopuler
+                .ToListAsync();
+
+            var viewModel = new TrendingViewModel
+            {
+                TrendingList = trendingList
+            };
+
+            return View(viewModel);
+        }
     }
 }

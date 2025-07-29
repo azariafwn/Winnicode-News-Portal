@@ -31,7 +31,10 @@
     </div>
 
     <!-- Gambar Berita -->
-    <img src="~/images/dummy-news-image.png" alt="Gambar Berita" class="news-image mb-4 mx-3" style="max-height: 450px;" />
+    <img src="@(string.IsNullOrEmpty(Model.Gambar) ? "/images/dummy-news-image.png" : $"/uploads/{Model.Gambar}")"
+                 alt="@Model.Judul"
+         class="news-image mb-4 mx-3" style="max-height: 750px; max-width: 750px;"
+                 onerror="this.onerror=null;this.src='/images/dummy-news-image.png';">
 
     <!-- Isi Berita -->
     <div class="news-content mx-3" style="line-height: 1.8; font-size: 1.1rem;">

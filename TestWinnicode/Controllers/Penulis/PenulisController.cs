@@ -1,11 +1,12 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 using TestWinnicode.Data;
 using TestWinnicode.Models.Reader;
-using TestWinnicode.ViewModels.Reader;
 using TestWinnicode.ViewModels.Penulis;
+using TestWinnicode.ViewModels.Reader;
 
 namespace TestWinnicode.Controllers.Penulis
 {
@@ -13,10 +14,13 @@ namespace TestWinnicode.Controllers.Penulis
     public class PenulisController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public PenulisController(AppDbContext context)
+        public PenulisController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            // [PERUBAHAN] Inisialisasi IWebHostEnvironment
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Index()
@@ -59,6 +63,24 @@ namespace TestWinnicode.Controllers.Penulis
             return View(model);
         }
 
+        // Fungsi helper baru untuk nama file
+        private string GenerateUniqueFileName(int penulisId, string originalFileName)
+        {
+            // 1. Dapatkan timestamp
+            string timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
+
+            // 2. Bersihkan nama file asli
+            string safeFileName = Path.GetFileNameWithoutExtension(originalFileName);
+            safeFileName = Regex.Replace(safeFileName.ToLower(), @"[^a-z0-9-]", "-"); // Ganti spasi/simbol dengan strip
+            safeFileName = Regex.Replace(safeFileName, @"-+", "-"); // Hapus strip ganda
+
+            // 3. Dapatkan ekstensi file
+            string extension = Path.GetExtension(originalFileName);
+
+            // 4. Gabungkan semuanya
+            return $"penulis_{penulisId}-{timestamp}-{safeFileName}{extension}";
+        }
+
 
         // Ambil semua kategori saat render halaman
         [HttpGet]
@@ -76,27 +98,25 @@ namespace TestWinnicode.Controllers.Penulis
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
             var penulis = await _context.Penulis.FirstOrDefaultAsync(p => p.UserId == user.Id);
 
-            if (!ModelState.IsValid || penulis == null)
+            if (penulis == null)
             {
                 ViewBag.KategoriList = await _context.Kategori.ToListAsync();
                 return View(model);
             }
 
             // Simpan gambar
-            string gambarPath = null;
+            string uniqueFileName = null;
             if (model.Gambar != null)
             {
-                string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-                Directory.CreateDirectory(folder);
-                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.Gambar.FileName);
-                string filePath = Path.Combine(folder, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                // Buat folder jika belum ada
+                Directory.CreateDirectory(uploadsFolder);
+                uniqueFileName = GenerateUniqueFileName(penulis.Id, model.Gambar.FileName);
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    await model.Gambar.CopyToAsync(stream);
+                    await model.Gambar.CopyToAsync(fileStream);
                 }
-
-                gambarPath = "/uploads/" + fileName;
             }
 
             // Tentukan status
@@ -109,13 +129,14 @@ namespace TestWinnicode.Controllers.Penulis
                 PenulisId = penulis.Id,
                 SubKategoriId = model.SubKategoriId,
                 Tag = model.Tag,
-                Gambar = gambarPath,
+                Gambar = uniqueFileName,
                 Isi = model.IsiArtikel,
                 Tanggal_Publish = DateTime.Now,
                 Status = status,
                 Jumlah_View = 0,
                 IsHeadline = false,
-                IsSubHeadline = false
+                IsSubHeadline = false,
+                KomentarEditor = ""
             };
 
             _context.Berita.Add(berita);
@@ -131,6 +152,16 @@ namespace TestWinnicode.Controllers.Penulis
             if (artikel == null)
             {
                 return NotFound();
+            }
+
+            // Hapus juga file gambar dari server jika ada
+            if (!string.IsNullOrEmpty(artikel.Gambar))
+            {
+                string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", artikel.Gambar);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
             }
 
             _context.Berita.Remove(artikel);
@@ -289,7 +320,8 @@ namespace TestWinnicode.Controllers.Penulis
                 Judul = artikel.Judul,
                 Isi = artikel.Isi,
                 Status = artikel.Status,
-                KomentarEditor = artikel.KomentarEditor
+                KomentarEditor = artikel.KomentarEditor,
+                GambarLama = artikel.Gambar
             };
 
             return View(viewModel);
@@ -304,6 +336,29 @@ namespace TestWinnicode.Controllers.Penulis
             var artikel = await _context.Berita.FindAsync(model.Id);
             if (artikel == null)
                 return NotFound();
+
+            if (model.GambarBaru != null)
+            {
+                // Hapus gambar lama jika ada
+                if (!string.IsNullOrEmpty(artikel.Gambar))
+                {
+                    string oldFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", artikel.Gambar);
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+                        System.IO.File.Delete(oldFilePath);
+                    }
+                }
+
+                // Simpan gambar baru
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.GambarBaru.FileName;
+                string newFilePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(newFilePath, FileMode.Create))
+                {
+                    await model.GambarBaru.CopyToAsync(fileStream);
+                }
+                artikel.Gambar = uniqueFileName;
+            }
 
             artikel.Judul = model.Judul;
             artikel.Isi = model.Isi;

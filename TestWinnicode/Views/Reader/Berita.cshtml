@@ -3,27 +3,22 @@
 @{
     Layout = "~/Views/Shared/_ReaderLayout.cshtml";
     ViewBag.Title = "Berita - NewsPortal";
-
-    // --- Definisi path gambar ---
+    // --- Definisikan path gambar untuk kemudahan ---
     var likeIcon = Model.UserLikeStatus == true ? "~/images/like-icon-active.png" : "~/images/like-icon.png";
     var dislikeIcon = Model.UserLikeStatus == false ? "~/images/dislike-icon-active.png" : "~/images/dislike-icon.png";
 }
 
 <div class="container">
     <div class="row">
-        <!-- Navigasi Lokasi -->
         <div class="mb-2">
             <a href="/Reader/Index" class="text-decoration-none text-muted">winnicode.com</a> /
             <a href="/Reader/Kategori?nama=@Model.BeritaDetail.SubKategori.Kategori.Nama" class="text-decoration-none text-muted">@Model.BeritaDetail.SubKategori.Kategori.Nama</a> /
-            <a href="/Reader/Kategori?sub=@Model.BeritaDetail.SubKategori.Nama" class="text-decoration-none text-muted">@Model.BeritaDetail.SubKategori.Nama</a>
+            <a href="@Url.Action("SubKategori", "Reader", new { id = Model.BeritaDetail.SubKategoriId })" class="text-decoration-none text-muted">@Model.BeritaDetail.SubKategori.Nama</a>
         </div>
 
-        <!-- === Kolom Konten Berita === -->
         <div class="col-lg-8">
-            <!-- Judul Berita -->
             <h1 class="news-title">@Model.BeritaDetail.Judul</h1>
 
-            <!-- Informasi Penulis + Icon -->
             <div class="author-info d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between mb-3">
                 <div class="d-flex align-items-center me-md-auto mb-2 mb-md-0">
                     <img src="~/images/profile-icon.png" alt="Foto Profil" class="author-profile-img me-3">
@@ -42,23 +37,25 @@
                         <img id="dislikeIconTop" src="@Url.Content(dislikeIcon)" alt="Dislike" class="icon-img">
                     </a>
                     <a href="#komentarSection" class="me-3" title="Komentar"><img src="~/images/comment-icon.png" alt="Comment" class="icon-img"></a>
-                    <a href="#" class="me-3" title="Bagikan"><img src="~/images/share-icon.png" alt="Share" class="icon-img"></a>
+
+                    <a href="javascript:void(0);" onclick="shareArticle('@Model.BeritaDetail.Judul.Replace("'", "\\'")', '@Url.Action("Berita", "Reader", new { id = Model.BeritaDetail.Id }, Context.Request.Scheme)')" class="me-3" title="Bagikan"><img src="~/images/share-icon.png" alt="Share" class="icon-img"></a>
+
                     <a href="#" title="Simpan"><img src="~/images/bookmark-icon.png" alt="Bookmark" class="icon-img"></a>
                 </div>
             </div>
 
-            <!-- Gambar Berita -->
-            <img src="~/images/dummy-news-image.png" alt="Gambar Berita" class="news-image mb-4">
+            <img src="@(string.IsNullOrEmpty(Model.BeritaDetail.Gambar) ? "/images/dummy-news-image.png" : $"/uploads/{Model.BeritaDetail.Gambar}")"
+                 alt="@Model.BeritaDetail.Judul"
+                 class="news-image mb-4 mx-3"
+                 onerror="this.onerror=null;this.src='/images/dummy-news-image.png';">
 
-            <!-- Isi Berita -->
             <div class="news-content">
-                <p>@Model.BeritaDetail.Isi</p>
+                @* Menggunakan @Html.Raw untuk merender HTML jika ada, jika tidak, gunakan <p> untuk keamanan *@
+                @Html.Raw(Model.BeritaDetail.Isi)
             </div>
 
-            <!-- === Baris Ikon Tambahan Setelah Konten Berita === -->
             @Html.AntiForgeryToken()
             <div class="icon-actions-bottom d-flex justify-content-between align-items-center mt-4 ms-1 me-5 flex-wrap" style="max-width: 90%;">
-                <!-- Like -->
                 <div class="icon-button text-center me-3">
                     <a href="javascript:void(0);" onclick="likeDislike(@Model.BeritaDetail.Id, true)" title="Suka">
                         <img id="likeIconBottom" src="@Url.Content(likeIcon)" alt="Like" class="icon-img">
@@ -66,7 +63,6 @@
                     <div class="count-text" id="likeCount">(@Model.JumlahLike)</div>
                 </div>
 
-                <!-- Dislike -->
                 <div class="icon-button text-center me-3">
                     <a href="javascript:void(0);" onclick="likeDislike(@Model.BeritaDetail.Id, false)" title="Tidak Suka">
                         <img id="dislikeIconBottom" src="@Url.Content(dislikeIcon)" alt="Dislike" class="icon-img">
@@ -74,7 +70,6 @@
                     <div class="count-text" id="dislikeCount">(@Model.JumlahDislike)</div>
                 </div>
 
-                <!-- Comment -->
                 <div class="icon-button text-center me-3">
                     <a href="#komentarSection" title="Komentar">
                         <img src="~/images/comment-icon.png" alt="Comment" class="icon-img-lg">
@@ -82,14 +77,12 @@
                     <div class="count-text" id="commentCount">(@Model.JumlahKomentar)</div>
                 </div>
 
-                <!-- Share -->
                 <div class="icon-button text-center me-3">
-                    <a href="#" title="Bagikan">
+                    <a href="javascript:void(0);" onclick="shareArticle('@Model.BeritaDetail.Judul.Replace("'", "\\'")', '@Url.Action("Berita", "Reader", new { id = Model.BeritaDetail.Id }, Context.Request.Scheme)')" title="Bagikan">
                         <img src="~/images/share-icon.png" alt="Share" class="icon-img-lg">
                     </a>
                 </div>
 
-                <!-- Bookmark -->
                 <div class="icon-button text-center me-3">
                     <a href="#" title="Simpan">
                         <img src="~/images/bookmark-icon.png" alt="Bookmark" class="icon-img-lg">
@@ -98,11 +91,9 @@
             </div>
 
 
-            <!-- === Comment Section === -->
             <div id="komentarSection" class="comment-section mt-5">
                 <h5 class="mb-4">Komentar</h5>
 
-                <!-- Form Komentar hanya jika sudah login -->
                 @if (User.Identity.IsAuthenticated)
                 {
                     <form action="/Reader/KirimKomentar" method="post" class="mb-2">
@@ -121,7 +112,6 @@
                 }
 
 
-                <!-- Daftar Komentar -->
                 <div class="comment-list">
                     @foreach (var komentar in Model.KomentarList)
                     {
@@ -141,9 +131,7 @@
 
         </div>
 
-        <!-- === Kolom Sidebar (Trending dan Terbaru) === -->
         <div class="col-lg-4">
-            <!-- Trending Section -->
             <div class="trending-section mt-3">
                 <h5 class="pink-tag">TRENDING</h5>
                 <ul class="list-group trending-list">
@@ -165,7 +153,6 @@
                 <a href="/Reader/Trending" class="trending-link">Trending Lainnya >></a>
             </div>
 
-            <!-- Terbaru Section -->
             <div class="terbaru-section mt-4">
                 <h5 class="blue-tag">TERBARU</h5>
                 <div class="terbaru-list">
@@ -173,7 +160,10 @@
                     {
                         <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
                             <div class="terbaru-item d-flex mb-3">
-                                <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
+                                <img src="@(string.IsNullOrEmpty(b.Gambar) ? "/images/dummy-news-image.png" : $"/uploads/{b.Gambar}")"
+                                     class="terbaru-image me-3"
+                                     alt="@b.Judul"
+                                     onerror="this.onerror=null;this.src='/images/dummy-news-image.png';">
                                 <div>
                                     <h6 class="terbaru-title">@b.Judul</h6>
                                     <span class="terbaru-category">Kategori: @b.SubKategori?.Kategori?.Nama</span><br>

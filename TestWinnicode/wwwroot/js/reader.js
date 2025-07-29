@@ -59,3 +59,45 @@
             console.error('Error:', error);
         });
 }
+
+async function shareArticle(title, url) {
+    // Gunakan Web Share API jika didukung browser
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: title,
+                text: `Baca artikel menarik ini di Winnicode: ${title}`,
+                url: url,
+            });
+            console.log('Artikel berhasil dibagikan');
+        } catch (err) {
+            console.error('Gagal berbagi:', err);
+        }
+    } else {
+        // Fallback: Salin ke clipboard jika Web Share API tidak didukung
+        try {
+            await navigator.clipboard.writeText(url);
+            // Tampilkan notifikasi toast
+            showShareToast('Link artikel telah disalin ke clipboard!');
+        } catch (err) {
+            console.error('Gagal menyalin link:', err);
+            showShareToast('Gagal menyalin link.', true);
+        }
+    }
+}
+
+function showShareToast(message, isError = false) {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.className = 'share-toast';
+    if (isError) {
+        toast.style.backgroundColor = '#dc3545'; // Merah untuk error
+    }
+
+    document.body.appendChild(toast);
+
+    // Hapus toast setelah 3 detik
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}

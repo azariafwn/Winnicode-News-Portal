@@ -16,6 +16,9 @@ namespace TestWinnicode.ViewModels.Penulis
         public string Status { get; set; }
 
         public string? KomentarEditor { get; set; }
+
+        public string? GambarLama { get; set; }
+        public IFormFile? GambarBaru { get; set; }
     }
 }
 

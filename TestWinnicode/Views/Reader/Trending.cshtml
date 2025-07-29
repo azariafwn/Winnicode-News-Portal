@@ -1,0 +1,37 @@
+﻿@using TestWinnicode.ViewModels.Reader
+@model TrendingViewModel
+@{
+    Layout = "~/Views/Shared/_ReaderLayout.cshtml";
+    ViewBag.Title = "Berita Trending - Winnicode";
+}
+
+<div class="container my-4">
+    <div class="trending-section">
+        <h5 class="pink-tag">TRENDING</h5>
+
+        <div class="row">
+            @for (int i = 0; i < Model.TrendingList.Count; i++)
+            {
+                var b = Model.TrendingList[i];
+
+                <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="trending-item d-flex align-items-center h-100">
+                        <div class="ranking">@((i + 1).ToString("D2"))</div>
+
+                        <a href="@Url.Action("Berita", "Reader", new { id = b.Id })" class="d-flex align-items-center text-decoration-none w-100">
+                            <img src="@(string.IsNullOrEmpty(b.Gambar) ? "/images/dummy-news-image.png" : $"/uploads/{b.Gambar}")"
+                                 class="trending-image"
+                                 alt="@b.Judul"
+                                 onerror="this.onerror=null;this.src='/images/dummy-news-image.png';">
+
+                            <div class="trending-details">
+                                <h6 class="trending-title">@b.Judul</h6>
+                                <span class="trending-meta">Kategori: @b.SubKategori?.Kategori?.Nama | Dibaca @b.Jumlah_View kali</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

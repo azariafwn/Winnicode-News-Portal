@@ -1,0 +1,79 @@
+﻿@using TestWinnicode.ViewModels.Reader
+@model SubKategoriViewModel
+@{
+    Layout = "~/Views/Shared/_ReaderLayout.cshtml";
+    ViewBag.Title = Model.SubKategoriDetail.Nama;
+}
+
+<div class="container">    
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="terbaru-section">
+                <h5 class="pink-tag">@Model.SubKategoriDetail.Nama.ToUpper()</h5>
+                <div class="row">
+                    @foreach (var b in Model.BeritaSubKategori)
+                    {
+                        <div class="col-md-6 mb-4">
+                            <a href="@Url.Action("Berita", "Reader", new { id = b.Id })" class="text-decoration-none text-dark">
+                                <div class="terbaru-item text-start h-100">
+                                    <img src="@(string.IsNullOrEmpty(b.Gambar) ? "/images/dummy-news-image.png" : $"/uploads/{b.Gambar}")"
+                                         class="category-card-image rounded mb-2" alt="@b.Judul"
+                                         onerror="this.onerror=null;this.src='/images/dummy-news-image.png';">
+                                    <h6 class="terbaru-title">@b.Judul</h6>
+                                    <span class="terbaru-category d-block">@b.SubKategori?.Kategori?.Nama</span>
+                                    <span class="terbaru-date d-block">
+                                        @b.Tanggal_Publish.ToString("dd MMM yyyy, HH:mm")
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="trending-section mt-4">
+                <h5 class="pink-tag">TRENDING</h5>
+                <ul class="list-group trending-list">
+                    @for (int i = 0; i < Model.TrendingList.Count; i++)
+                    {
+                        var b = Model.TrendingList[i];
+                        <li class="list-group-item trending-item">
+                            <div class="ranking">@((i + 1).ToString("D2"))</div>
+                            <div class="trending-details">
+                                <a href="@Url.Action("Berita", "Reader", new { id = b.Id })">
+                                    <h6 class="trending-title">@b.Judul</h6>
+                                    <span class="trending-meta">Kategori: @b.SubKategori?.Kategori?.Nama | Dibaca @b.Jumlah_View kali</span>
+                                </a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <a href="/Reader/Trending" class="trending-link">Trending Lainnya >></a>
+            </div>
+
+            <div class="terbaru-section mt-4">
+                <h5 class="blue-tag">TERBARU</h5>
+                <div class="terbaru-list">
+                    @foreach (var b in Model.TerbaruList)
+                    {
+                        <a href="@Url.Action("Berita", "Reader", new { id = b.Id })" class="text-decoration-none text-dark">
+                            <div class="terbaru-item d-flex mb-3">
+                                <img src="@(string.IsNullOrEmpty(b.Gambar) ? "/images/dummy-news-image.png" : $"/uploads/{b.Gambar}")"
+                                     class="terbaru-image me-3"
+                                     alt="@b.Judul"
+                                     onerror="this.onerror=null;this.src='/images/dummy-news-image.png';">
+                                <div>
+                                    <h6 class="terbaru-title">@b.Judul</h6>
+                                    <span class="terbaru-category">Kategori: @b.SubKategori?.Kategori?.Nama</span><br>
+                                    <span class="terbaru-date">@b.Tanggal_Publish.ToString("dd MMM yyyy, HH:mm")</span>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

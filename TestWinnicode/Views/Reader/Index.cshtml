@@ -18,7 +18,9 @@
                 {
                     <a href="/Reader/Berita/@Model.Headline.Id" class="headline-link">
                         <div class="headline-image">
-                            <img src="/images/dummy-news-image.png" alt="Headline">
+                            <img src="@(string.IsNullOrEmpty(Model.Headline.Gambar) ? "/images/dummy-news-image.png" : $"/uploads/{Model.Headline.Gambar}")"
+                                 alt="@Model.Headline.Judul"
+                                 onerror="this.onerror=null;this.src='/images/dummy-news-image.png';">
                             <div class="headline-title">@Model.Headline.Judul</div>
                         </div>
                     </a>
@@ -30,7 +32,11 @@
                     {
                         <div class="col-6 col-md-4">
                             <a href="/Reader/Berita/@b.Id" class="text-decoration-none text-dark">
-                                <img src="/images/dummy-news-image.png" class="sub-headline-img mb-2" alt="Sub Headline">
+                                <img src="@(string.IsNullOrEmpty(b.Gambar) ? "/images/dummy-news-image.png" : $"/uploads/{b.Gambar}")"
+                                     class="sub-headline-img mb-2"
+                                     alt="@b.Judul"
+                                     onerror="this.onerror=null;this.src='/images/dummy-news-image.png';">
+
                                 <h6 class="sub-headline-title">@b.Judul</h6>
                             </a>
                         </div>
@@ -78,7 +84,10 @@
                     {
                         <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
                             <div class="terbaru-item d-flex mb-3">
-                                <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
+                                <img src="@(string.IsNullOrEmpty(b.Gambar) ? "/images/dummy-news-image.png" : $"/uploads/{b.Gambar}")"
+                                     class="terbaru-image me-3"
+                                     alt="@b.Judul"
+                                     onerror="this.onerror=null;this.src='/images/dummy-news-image.png';">
                                 <div>
                                     <h6 class="terbaru-title">@b.Judul</h6>
                                     <span class="terbaru-category">Kategori: @b.SubKategori?.Kategori?.Nama</span><br>
@@ -95,7 +104,10 @@
                     {
                         <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
                             <div class="terbaru-item d-flex mb-3">
-                                <img src="/images/dummy-news-image.png" class="terbaru-image me-3" alt="Berita Terbaru">
+                                <img src="@(string.IsNullOrEmpty(b.Gambar) ? "/images/dummy-news-image.png" : $"/uploads/{b.Gambar}")"
+                                     class="terbaru-image me-3"
+                                     alt="@b.Judul"
+                                     onerror="this.onerror=null;this.src='/images/dummy-news-image.png';">
                                 <div>
                                     <h6 class="terbaru-title">@b.Judul</h6>
                                     <span class="terbaru-category">Kategori: @b.SubKategori?.Kategori?.Nama</span><br>
@@ -124,7 +136,8 @@
                                 <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                                     <a href="/reader/Berita/@b.Id" class="text-decoration-none text-dark">
                                         <div class="sub-headline-item text-start">
-                                            <img src="/images/dummy-news-image.png" class="img-fluid rounded mb-2" alt="Berita Sub Kategori">
+                                            <img src="@(string.IsNullOrEmpty(b.Gambar) ? "/images/dummy-news-image.png" : $"/uploads/{b.Gambar}")"
+                                                    class="img-fluid rounded mb-2" alt="@b.Judul">
                                             <h6 class="sub-headline-title">@b.Judul</h6>
                                         </div>
                                     </a>
