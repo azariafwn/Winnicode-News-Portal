@@ -499,5 +499,20 @@ namespace TestWinnicode.Controllers.Reader
 
             return View(viewModel);
         }
+
+        public IActionResult AboutUS()
+        {
+            return View();
+        }
+
+        public IActionResult KebijakanPrivasi()
+        {
+            return View();
+        }
+
+        public IActionResult KetentuanPenggunaan()
+        {
+            return View();
+        }
     }
 }
