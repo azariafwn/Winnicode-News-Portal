@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TestWinnicode.Data;
-using TestWinnicode.Models;
-using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using TestWinnicode.Data;
+using TestWinnicode.Models;
+using TestWinnicode.ViewModels;
 
 namespace TestWinnicode.Controllers
 {
@@ -148,6 +150,42 @@ namespace TestWinnicode.Controllers
                 var hash = sha256.ComputeHash(bytes);
                 return Convert.ToBase64String(hash);
             }
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Jika validasi gagal, kembalikan ke halaman profil dengan error
+                TempData["PasswordError"] = ModelState.Values.SelectMany(v => v.Errors).First().ErrorMessage;
+                return LocalRedirect(returnUrl);
+            }
+
+            var username = User.Identity.Name;
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Verifikasi password lama
+            if (user.PasswordHash != HashPassword(model.OldPassword))
+            {
+                TempData["PasswordError"] = "Password lama yang Anda masukkan salah.";
+                return LocalRedirect(returnUrl);
+            }
+
+            // Update dengan password baru
+            user.PasswordHash = HashPassword(model.NewPassword);
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            TempData["PasswordSuccess"] = "Password Anda telah berhasil diubah.";
+            return LocalRedirect(returnUrl);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@using TestWinnicode.ViewModels.Editor
+@using TestWinnicode.ViewModels
 @model EditorProfilViewModel
 @{
     Layout = "~/Views/Shared/_LayoutEditor.cshtml";
@@ -6,12 +7,20 @@
     bool isEdit = Context.Request.Query["edit"] == "true";
 }
 
+@if (TempData["PasswordSuccess"] != null)
+{
+    <div class="alert alert-success">@TempData["PasswordSuccess"]</div>
+}
+@if (TempData["PasswordError"] != null)
+{
+    <div class="alert alert-danger">@TempData["PasswordError"]</div>
+}
+
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card shadow-lg border-0 rounded-4 p-4 bg-white text-center">
-                <form method="post">
-                    <!-- FOTO + NAMA + EMAIL -->
+                <form method="post" asp-action="Profil">
                     <div class="d-flex flex-column align-items-center mb-4">
                         <div class="d-flex align-items-center justify-content-center">
                             <img src="~/images/profile-icon.png" alt="Foto Profil" class="rounded-circle me-4" width="100" height="100">
@@ -30,7 +39,6 @@
                         </div>
                     </div>
 
-                    <!-- DESKRIPSI -->
                     <div class="mb-4 ms-4 text-start">
                         <h5 class="fw-semibold text-secondary">Tentang Editor</h5>
                         @if (isEdit)
@@ -43,9 +51,7 @@
                         }
                     </div>
 
-                    <!-- GRID 3 KOLOM -->
                     <div class="row text-center">
-                        <!-- KIRI -->
                         <div class="col-md-6 mb-3">
                             @if (isEdit)
                             {
@@ -58,17 +64,14 @@
                                             <option value="Lainnya" selected="@("Lainnya" == Model.Gender)">Lainnya</option>
                                         </select>
                                     </div>
-
                                     <div class="mb-2">
                                         <label class="label-blue mb-1" for="TanggalLahir">Tanggal Lahir</label>
                                         <input type="date" name="TanggalLahir" class="form-control text-center" value="@Model.TanggalLahir?.ToString("yyyy-MM-dd")" />
                                     </div>
-
                                     <div class="mb-2">
                                         <label class="label-blue mb-1" for="NomorTelepon">No. Telepon</label>
                                         <input type="text" name="NomorTelepon" class="form-control text-center" value="@Model.NomorTelepon" />
                                     </div>
-
                                     <div class="mb-2">
                                         <label class="label-blue mb-1" for="Alamat">Alamat</label>
                                         <textarea name="Alamat" class="form-control text-center">@Model.Alamat</textarea>
@@ -90,7 +93,6 @@
                             }
                         </div>
 
-                        <!-- TENGAH -->
                         <div class="col-md-6 mb-3">
                             <div class="border rounded-3 p-3 h-100">
                                 <p class="label-blue mb-1">Bergabung Sejak</p>
@@ -105,22 +107,56 @@
                         </div>
                     </div>
 
-                    <!-- TOMBOL EDIT -->
-                    @if (isEdit)
-                    {
-                        <div class="text-center mt-4">
+                    <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+                        @if (isEdit)
+                        {
                             <button type="submit" class="blue-tag me-2">Simpan</button>
                             <a href="/Editor/Profil" class="red-tag">Batal</a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="text-center mt-4">
+                        }
+                        else
+                        {
                             <a href="/Editor/Profil?edit=true" class="blue-tag">Edit Profil</a>
-                        </div>
-                    }
+                            <button type="button" class="blue-tag" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                Ganti Password
+                            </button>
+                        }
+                    </div>
                 </form>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">Ganti Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-controller="Account" asp-action="ChangePassword" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="mb-3 text-start">
+                        <label for="OldPassword" class="form-label">Password Lama</label>
+                        <input type="password" name="OldPassword" class="form-control" required />
+                    </div>
+                    <div class="mb-3 text-start">
+                        <label for="NewPassword" class="form-label">Password Baru</label>
+                        <input type="password" name="NewPassword" class="form-control" required />
+                    </div>
+                    <div class="mb-3 text-start">
+                        <label for="ConfirmNewPassword" class="form-label">Konfirmasi Password Baru</label>
+                        <input type="password" name="ConfirmNewPassword" class="form-control" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="red-tag" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="blue-tag">Simpan Perubahan</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
