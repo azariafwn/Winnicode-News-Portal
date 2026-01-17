@@ -12,6 +12,7 @@ Proyek ini mencakup seluruh siklus pengembangan *full-stack*, mulai dari peranca
 Bagian ini menunjukkan proses transformasi dari tahap perancangan visual hingga menjadi produk aplikasi yang fungsional.
 
 ### 1. High-Fidelity Design (Figma)
+* **Figma Design:** [UI/UX Prototype on Figma](https://www.figma.com/design/O17bOqi3vvGu2OS1ET74MD/WINNICODE?node-id=0-1&t=Nf3tESZzl9gHnIUu-1)
 ![Figma Design Overview](img/ui-ux-figma.png)
 *Seluruh antarmuka dirancang dengan teliti menggunakan Figma untuk memastikan pengalaman pengguna yang intuitif di berbagai halaman kritis (Beranda, Kategori, Artikel, dan Profil).*
 
