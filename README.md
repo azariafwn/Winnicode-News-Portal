@@ -5,16 +5,6 @@
 Aplikasi web Portal Berita ini merupakan hasil dari program magang di **PT. Winnicode Garuda Teknologi** dan dibangun sepenuhnya menggunakan ekosistem **ASP.NET Core MVC**.
 Proyek ini mencakup seluruh siklus pengembangan *full-stack*, mulai dari perancangan skema database, pengembangan backend dan frontend, hingga proses deployment ke platform cloud Microsoft Azure.
 
-### 🌐 Live Demo
-
-Aplikasi ini telah berhasil di-deploy ke **Microsoft Azure** dan dapat diakses secara publik. Silakan kunjungi link di bawah untuk melihat dan mencoba aplikasi secara langsung.
-
-**[➡️ Kunjungi Website Live: winnicode-webbapp.azurewebsites.net](https://winnicode-webbapp.azurewebsites.net/)**
-
-*Catatan: Mungkin memerlukan beberapa saat untuk proses loading awal jika aplikasi sedang dalam mode 'sleep' (cold start) di platform Azure.*
-
----
-
 ## ✨ Fitur Utama
 
 * **Sistem Multi-Peran (Multi-Role System)**: Aplikasi ini mengimplementasikan sistem otorisasi berbasis peran dengan tiga level akses yang berbeda:
