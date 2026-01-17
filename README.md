@@ -5,6 +5,30 @@
 Aplikasi web Portal Berita ini merupakan hasil dari program magang di **PT. Winnicode Garuda Teknologi** dan dibangun sepenuhnya menggunakan ekosistem **ASP.NET Core MVC**.
 Proyek ini mencakup seluruh siklus pengembangan *full-stack*, mulai dari perancangan skema database, pengembangan backend dan frontend, hingga proses deployment ke platform cloud Microsoft Azure.
 
+---
+
+## 📸 User Interface & Design
+
+Bagian ini menunjukkan proses transformasi dari tahap perancangan visual hingga menjadi produk aplikasi yang fungsional.
+
+### 1. High-Fidelity Design (Figma)
+![Figma Design Overview](img/ui-ux-figma.png)
+*Seluruh antarmuka dirancang dengan teliti menggunakan Figma untuk memastikan pengalaman pengguna yang intuitif di berbagai halaman kritis (Beranda, Kategori, Artikel, dan Profil).*
+
+### 2. Main Interface & Reading Experience
+| Reader Homepage | News Reading Page |
+| :--- | :--- |
+| ![Homepage](img/homepage.png) | ![Article Detail](img/article-detail.png) |
+| *Antarmuka utama yang menampilkan Headline, berita Trending, serta navigasi kategori yang responsif.* | *Halaman detail berita dengan tipografi yang bersih untuk kenyamanan membaca, dilengkapi informasi penulis.* |
+
+### 3. Dynamic Filtering & User Management
+| Category Filtering | User Profile Page |
+| :--- | :--- |
+| ![Category](img/category.png) | ![Profile Page](img/profile.png) |
+| *Implementasi sistem filter berita berbasis kategori untuk memudahkan pencarian konten spesifik.* | *Manajemen profil yang menampilkan informasi akun dan Role pengguna (misal: Reader).* |
+
+---
+
 ## ✨ Fitur Utama
 
 * **Sistem Multi-Peran (Multi-Role System)**: Aplikasi ini mengimplementasikan sistem otorisasi berbasis peran dengan tiga level akses yang berbeda:
