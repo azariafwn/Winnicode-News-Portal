@@ -13,20 +13,40 @@ Bagian ini menunjukkan proses transformasi dari tahap perancangan visual hingga 
 
 ### 1. High-Fidelity Design (Figma)
 * **Figma Design:** [UI/UX Prototype on Figma](https://www.figma.com/design/O17bOqi3vvGu2OS1ET74MD/WINNICODE?node-id=0-1&t=Nf3tESZzl9gHnIUu-1)
-![Figma Design Overview](img/ui-ux-figma.png)
+![Figma Design Overview](img/reader/ui-ux-figma.png)
 *Seluruh antarmuka dirancang dengan teliti menggunakan Figma untuk memastikan pengalaman pengguna yang intuitif di berbagai halaman kritis (Beranda, Kategori, Artikel, dan Profil).*
 
 ### 2. Main Interface & Reading Experience
 | Reader Homepage | News Reading Page |
 | :--- | :--- |
-| ![Homepage](img/homepage.png) | ![Article Detail](img/article-detail.png) |
-| *Antarmuka utama yang menampilkan Headline, berita Trending, serta navigasi kategori yang responsif.* | *Halaman detail berita dengan tipografi yang bersih untuk kenyamanan membaca, dilengkapi informasi penulis.* |
+| ![Homepage](img/reader/homepage-reader.png) | ![Article Detail](img/reader/article-detail.png) |
+| *Antarmuka utama yang menampilkan Headline, berita Trending, serta navigasi kategori yang responsif.* | *Halaman detail berita dengan tipografi yang bersih untuk kenyamanan membaca, dilengkapi informasi penulis serta fitur untuk like, dislike, comment, share, dan bookmark.* |
 
 ### 3. Dynamic Filtering & User Management
 | Category Filtering | User Profile Page |
 | :--- | :--- |
-| ![Category](img/category.png) | ![Profile Page](img/profile.png) |
+| ![Category](img/reader/category.png) | ![Profile Page](img/reader/profile-reader.png) |
 | *Implementasi sistem filter berita berbasis kategori untuk memudahkan pencarian konten spesifik.* | *Manajemen profil yang menampilkan informasi akun dan Role pengguna (misal: Reader).* |
+
+### 4. Back-office: Writer & Editor Dashboards
+Bagian ini merupakan inti dari pengelolaan konten, di mana sistem **Role-Based Access Control (RBAC)** diimplementasikan untuk memisahkan wewenang antara Penulis dan Editor.
+
+| Writer Dashboard | Editor Dashboard |
+| :--- | :--- |
+| ![Writer Dashboard](img/writer/dashboard-writer.png) | ![Editor Dashboard](img/editor/dashboard-editor.png) |
+| *Dashboard untuk Penulis yang menampilkan statistik performa artikel, status publikasi, dan sistem notifikasi real-time.* | *Dashboard Editor untuk memantau trafik konten harian, memvalidasi artikel masuk, dan mengelola cakupan kategori berita.* |
+
+#### 📝 Content Lifecycle & Management
+Sistem ini memungkinkan pelacakan siklus hidup artikel secara mendetail, mulai dari tahap *draft* hingga *published*.
+
+![Writer Article Table](img/writer/article-table.png)
+*Fitur manajemen artikel untuk Penulis yang dilengkapi dengan indikator status (Draft, Ditinjau, Terbit, Ditolak) dan aksi CRUD (View, Edit, Delete) yang terintegrasi dengan database.*
+
+**Key CMS Functionalities:**
+* **Real-time Statistics**: Menampilkan jumlah artikel terpublikasi dan status peninjauan secara dinamis melalui integrasi backend.
+* **Status Tracking System**: Memungkinkan penulis untuk mengetahui posisi artikel mereka dalam antrean moderasi (Draft -> Diajukan -> Ditinjau -> Terbit/Ditolak).
+* **Content Moderation**: Panel Editor didesain untuk efisiensi validasi konten guna menjaga kualitas berita sebelum dipublikasikan ke publik.
+* **Centralized Notifications**: Sistem pemberitahuan untuk memberi tahu pengguna mengenai perubahan status artikel atau tugas baru yang perlu diselesaikan.
 
 ---
 
